@@ -19,8 +19,14 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         return json_decode($data);    
     }
 
-    public function getFlowGroupCat(){
-        $data = EloquentCategoryRepository::getAllCategory();
-        log::info($data);
+    public static function getFlowGroupCat(){
+        $allCat = EloquentCategoryRepository::getAllCategory();
+        $flowGroupCat = array() ;
+        foreach($allCat as $cat){
+            $data = Flow::where('flow_CatId', '=', $cat['cat_Id'])->get();
+            $data = json_decode($data,true);
+            $flowGroupCat = array_add($flowGroupCat, $cat['cat_Id'],$data);
+        }
+        return $flowGroupCat ;
     }
 }
