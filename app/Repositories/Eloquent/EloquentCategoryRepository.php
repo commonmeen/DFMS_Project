@@ -15,10 +15,10 @@ class EloquentCategoryRepository extends AbstractRepository implements CategoryR
         return Category::class;
     }
 
-    public function getAllCategory()
+    public static function getAllCategory()
     {
         $data = CategoryModel::all();
-        $arrayOfData = json_decode($data);
+        $arrayOfData = json_decode($data,true);
         return $arrayOfData;
     }
 }
