@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::any('listflow', 'ListFlowController@listFlow');
+Route::any('manager_listflow', 'ListFlowController@listFlow');
