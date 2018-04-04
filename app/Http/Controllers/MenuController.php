@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Repositories\Eloquent\EloquentUserRepository as UserRepo;
+
 class MenuController extends Controller
 {
-    protected $userRepo;
-
-    public static function getMenu()
+    public function getMenu($id)
     {
-        $data = $this->$userRepo->checkRole($user_id);
-        return $data;
+        $data = UserRepo::getUser($id);
+        if($data->user_Role == "manager"){
+            return view('manager_menu');
+        }else
+            return view('user_menu');
     }
 }
