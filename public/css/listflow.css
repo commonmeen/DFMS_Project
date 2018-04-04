@@ -1,0 +1,20 @@
+.crad_detial{
+    overflow-y: scroll;
+    height: 300px;
+    width: 100%;
+
+}
+.card-header{
+    background-color: #CBCBCB;
+    text-align: center;
+}
+.button-position{
+    text-align: right;
+}
+.user-pic{
+    width: 5%;
+}
+.content{
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
