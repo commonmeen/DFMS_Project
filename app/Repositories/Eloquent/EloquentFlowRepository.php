@@ -31,4 +31,21 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         }
         return $flowGroupCat;
     }
+
+    public static function addFlow($name,$author,$desc,$catId,$deadline,$noStep){
+        $prev = Flow::orderBy('created_at','desc')->take(1)->get();
+        $newId = 'F'.str_pad(substr($prev[0]->flow_Id,1)+1, 5, '0', STR_PAD_LEFT);
+        $flow = new Flow ;
+        $flow->flow_Id = $newId ;
+        $flow->flow_Name = $name ;
+        $flow->flow_Author = $author ;
+        $flow->flow_Description = $desc ;
+        $flow->flow_CatId = $catId ;
+        $flow->flow_Deadline = $deadline ;
+        $flow->numberOfStep = $noStep ;
+        $flow->time_AVG = 0 ;
+        $flow->template_Id = [];
+        $flow->save();   
+        return $newId;
+    }
 }
