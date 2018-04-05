@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::any('listflow', 'ListFlowController@listFlow');
+
+Route::get('/', 'MenuController@getMenu');
