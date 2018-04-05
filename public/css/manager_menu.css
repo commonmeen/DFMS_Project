@@ -1,0 +1,16 @@
+.profilePic{
+    width: 30%;
+    text-align: center;
+}
+.center{
+    text-align: center;
+}
+.content{
+    margin-top: 3%;
+}
+.cardDetail{
+    align-items: center;
+}   
+.currentStep{
+    text-align: right;
+}
