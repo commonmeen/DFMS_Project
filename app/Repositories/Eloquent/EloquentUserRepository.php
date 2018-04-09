@@ -18,4 +18,11 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
         $user = User::where('user_Id', '=', $userId)->first();
         return json_decode($user) ;
     }
+
+    public static function listUser()
+    {
+        $user = User::all();
+        return json_decode($user,true);
+        
+    }
 }
