@@ -35,4 +35,10 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
         $user = User::where('user_Surname', 'like', $word.'%')->get();
         return json_decode($user,true);
     }
+
+    public static function listUserByPosition($position)
+    {
+        $user = User::where('user_Position',$position)->get();
+        return json_decode($user,true);
+    }
 }
