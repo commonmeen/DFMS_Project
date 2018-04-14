@@ -53,4 +53,10 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->save();   
         return $newId;
     }
+
+    public static function addFlowTemplate($id,$template){
+        $flow = Flow::where('flow_Id',$id)->first();
+        $flow->template_Id = $template ;
+        $flow->save();
+    }
 }
