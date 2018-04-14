@@ -20,6 +20,11 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         return json_decode($data);
     }
 
+    public static function getFlowById($id){
+        $flow = Flow::where('flow_Id',$id)->first();
+        return json_decode($flow,true);
+    }
+
     public static function getFlowGroupCat()
     {
         $allCat = EloquentCategoryRepository::getAllCategory();
@@ -47,5 +52,11 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->template_Id = [];
         $flow->save();   
         return $newId;
+    }
+
+    public static function addFlowTemplate($id,$template){
+        $flow = Flow::where('flow_Id',$id)->first();
+        $flow->template_Id = $template ;
+        $flow->save();
     }
 }
