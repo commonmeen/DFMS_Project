@@ -6,11 +6,20 @@
     text-align: center;
 }
 .content{
-    margin-top: 3%;
+    margin-top: 2%;
 }
 .cardDetail{
     align-items: center;
 }   
 .currentStep{
     text-align: right;
+}
+.menuTemplate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tempImg{
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
 }

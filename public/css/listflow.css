@@ -9,7 +9,7 @@
     text-align: center;
 }
 .button-position{
-    text-align: right;
+    float: right;
 }
 .user-pic{
     width: 5%;
@@ -20,4 +20,7 @@
 }
 .profilePic{
     width: 100%;
+}
+.btn{
+    margin-bottom: 2%;
 }
