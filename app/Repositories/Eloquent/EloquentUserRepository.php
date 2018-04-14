@@ -25,4 +25,14 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
         return json_decode($user,true);
         
     }
+
+    public static function searchByName($word){
+        $user = User::where('user_Name', 'like', $word.'%')->get();
+        return json_decode($user,true);
+    }
+
+    public static function searchBySurName($word){
+        $user = User::where('user_Surname', 'like', $word.'%')->get();
+        return json_decode($user,true);
+    }
 }
