@@ -13,6 +13,6 @@ class AddFlowController extends Controller
         $newFlowId = Flow::addFlow($input['name'],$input['author'],$input['desc'],$input['catId'],$input['deadline'],$input['numberOfStep']);
         $thisFlow = Flow::getFlowById($newFlowId);
         $allTemplate = Template::listTemplate();
-        return view('AddFlowTemplate',['Flow'=>$thisFlow,'template'=>$allTemplate]);
+        return view('ListTemplate',['Flow'=>$thisFlow,'template'=>$allTemplate]);
     }
 }
