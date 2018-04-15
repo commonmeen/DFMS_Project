@@ -4,7 +4,7 @@
         <div class="row content">
             <div class="col-5"><h4>Flow list</h4></div>
             <div class="col-7 button-position">
-                <button type="button" class="btn btn-primary ">Create</button>
+                <a role="button" class="btn btn-primary " href="addFlow">Create</a>
             </div>
         </div>
         <div class="row">
