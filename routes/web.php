@@ -11,6 +11,12 @@
 |
 */
 
-Route::any('listflow', 'ListFlowController@listFlow');
+Route::any('ListFlow', 'ListFlowController@listFlow');
 
 Route::get('/', 'MenuController@getMenu');
+
+Route::any('AddFlow', 'ListCatController@getAllCategory');
+
+Route::any('ListTemplate','AddFlowController@addFlow');
+
+Route::any('AddFlowTemplate','AddFlowTemplateController@addFlowTemplate');
