@@ -13,6 +13,7 @@ class AddFlowTemplateController extends Controller
         Flow::addFlowTemplate($input['flow_Id'],$input['template_Id']);
         $next = 1 ;
         $allUser = User::listUser();
-        return view('AddStep',['step'=>$next,'userList'=>$allUser]) ;
+        $position = User::getPosition();
+        return view('AddStep',['step'=>$next,'userList'=>$allUser, 'userPosition'=>$position]) ;
     }
 }
