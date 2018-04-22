@@ -9,11 +9,29 @@
 @section('content')
     
     <div class="container content">
-    <div class="row ">
-        <div class="col-sm-4  center">
-            <img src="../pic/user.png" class="profilePic">
+    <div class="row">
+        <div class="col-lg-5 card mb-4">
+            <img src="../pic/user.png" class="profilePic" >
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-ls-4 col-4">Name</div>
+                    <div class="col-ls-8 col-8">{{$data->user_Name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-ls-4 col-4">Surname</div>
+                    <div class="col-ls-8 col-8">{{$data->user_Surname}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-ls-4 col-4">Position</div>
+                    <div class="col-ls-8 col-8">{{$data->user_Position}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-ls-4 col-4">Email</div>
+                    <div class="col-ls-8 col-8">{{$data->user_Email}}</div>
+                </div>                  
+            </div>
         </div>
-            <div class="col-sm-8">
+            <div class="col-lg-7">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="process-tab" data-toggle="tab" href="#process" role="tab" aria-controls="process" aria-selected="true">Process status</a>
@@ -52,7 +70,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>

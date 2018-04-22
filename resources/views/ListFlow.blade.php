@@ -3,8 +3,8 @@
     <div class="container content">
         <div class="row content">
             <div class="col-5"><h4>Flow list</h4></div>
-            <div class="col-7 button-position">
-                <a role="button" class="btn btn-primary " href="addFlow">Create</a>
+            <div class="col-7 ">
+                <a role="button" class="btn btn-primary float-right" href="AddFlow">Create</a>
             </div>
         </div>
         <div class="row">

@@ -27,12 +27,14 @@
             <li class="nav-item">
               <a class="nav-link" href="/">Home</a>
             </li>
+            @if(Session::get('UserLogin')->user_Role=="manager")
             <li class="nav-item">
               <a class="nav-link" href="ListFlow">Flow</a>
-            </li>
+            </li>            
             <li class="nav-item">
               <a class="nav-link" href="ListTemplate">Template</a>
             </li>
+            @endif
             <li class="nav-item">
               <a class="nav-link" href="ListDocument">Document</a>
             </li>
@@ -42,9 +44,11 @@
             <li class="nav-item">
               <a class="nav-link" href="ListVerify">Verify and allow</a>
             </li>
+            @if(Session::get('UserLogin')->user_Role=="manager")
             <li class="nav-item">
               <a class="nav-link" href="Statistic">Statistic</a>
             </li>
+            @endif
           </ul>
           <img src="pic/user.png" class="user-pic"> @yield('user')
           <div class="nav-item dropdown">
