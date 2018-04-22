@@ -8,6 +8,6 @@ class ListFlowController extends Controller
 {
     public function listFlow(){
         $data = Flow::getFlowGroupCat();
-        return view('listflow',['allFlow'=>$data]);
+        return view('ListFlow',['allFlow'=>$data]);
     }
 }

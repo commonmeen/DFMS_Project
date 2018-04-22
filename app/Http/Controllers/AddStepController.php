@@ -12,7 +12,7 @@ class AddStepController extends Controller
         step::addStep($input['title'],$input['type'],$input['flow_id'],$input['validator'],$input['deadline']);
         $flow = $input['flow'];
         if($input['next']==$flow['numberOfStep']){
-            return view('listFlow') ;
+            return view('ListFlow') ;
         } else {
             $next = $input['next']+1 ;
             $allUser = User::listUser();
