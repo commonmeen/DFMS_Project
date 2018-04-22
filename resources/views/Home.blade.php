@@ -1,7 +1,4 @@
-@extends('layout.navbar')
-@section('head')
-    <link type="text/css" href="../css/manager_menu.css" rel="stylesheet">
-@endsection 
+@extends('layout.Navbar')
 @section('user')
     {{$data->user_Name}}
     {{$data->user_Surname}}

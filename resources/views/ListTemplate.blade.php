@@ -1,7 +1,4 @@
-@extends('layout.navbar')
-@section('head')
-    <link type="text/css" href="../css/AddFlow.css" rel="stylesheet">
-@endsection
+@extends('layout.Navbar')
 @section('content')
     <div class="container content">
         <form action="AddFlowTemplate">

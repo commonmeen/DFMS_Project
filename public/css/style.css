@@ -1,3 +1,61 @@
+/* Menu */
+
+.profilePic{
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.center{
+    text-align: center;
+}
+.content{
+    margin-top: 2%;
+}
+.cardDetail{
+    align-items: center;
+}   
+.currentStep{
+    text-align: right;
+}
+.menuTemplate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tempImg{
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+/* ListFlow */
+
+.crad_detial{
+    overflow-y: scroll;
+    height: 300px;
+    width: 100%;
+
+}
+.card-header{
+    background-color: #CBCBCB;
+    text-align: center;
+}
+.button-position{
+    float: right;
+}
+.user-pic{
+    width: 5%;
+}
+.content{
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+.btn{
+    margin-bottom: 2%;
+}
+
+
+/* AddFlow */
 .top-menu{
     font-size: 1.75rem;
     margin-bottom: .5rem;
