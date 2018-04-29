@@ -8,7 +8,7 @@ use App\Repositories\Eloquent\EloquentUserRepository as User ;
 
 class AddFlowTemplateController extends Controller
 {
-    public function addFlowTemlate(Request $request){
+    public function addFlowTemplate(Request $request){
         $input = $request->all();
         Flow::addFlowTemplate($input['flow_Id'],$input['template_Id']);
         $next = 1 ;
