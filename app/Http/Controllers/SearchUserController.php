@@ -11,7 +11,9 @@ class SearchUserController extends Controller
         $input = $request->all();
         $name = user::searchByName($input['search']);
         $surname = user::searchBySurname($input['search']);
-        return ['name'=>$name,'surname'=>$surname] ;
+        $all = array_collapse([$name,$surname]);
+        $all = array_unique($all,0);
+        return ['searchAll'=>$all] ;
     }
 
 }
