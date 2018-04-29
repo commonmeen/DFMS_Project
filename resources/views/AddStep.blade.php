@@ -1,11 +1,22 @@
 @extends('layout.navbar')
-@section('head')
-    <link type="text/css" href="../css/AddFlow.css" rel="stylesheet">
-@endsection
 @section('script')
 <script type="text/javascript">
-    function search(){
-        window.alert("mm");
+    function find(){
+        var formData = {
+            search : document.getElementById("search").value
+        };
+        $.ajax({
+            type     : "GET",
+            url      : "SearchUser",
+            data     : formData,
+            cache    : false,
+            success  : function(response){
+                document.getElementById('u').innerHTML = "" ;
+                for(var i=0; i<response.searchAll.length ; i++){
+                    document.getElementById('u').innerHTML += "<tr><td><div class='ckbox'><input type='checkbox' name='validator[]' value='"+response.searchAll[i].user_Id+"' id='"+response.searchAll[i].user_Id+"'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+"</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+"</td><td id='user_Email'>"+response.searchAll[i].user_Email+"</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                }
+            }
+        });
     }
 </script>
 @endsection
@@ -50,7 +61,7 @@
         </div>
 
 
-        <form action="">
+        <form action="AddStep">
             <div class="row">
                 <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12">
@@ -59,7 +70,7 @@
                                 <label class="">Name</label>
                             </div>
                             <div class="col-lg-9">
-                                <input type="text" name="name" class="form-control" placeholder="Example">
+                                <input type="text" name="title" class="form-control" placeholder="Example">
                             </div>
                         </div>
                                         
@@ -67,7 +78,6 @@
                             <div class="col-lg-3 justify-content-center align-self-center">
                                 <label class="">Type of Verify</label>
                             </div>
-                            <form>
                                 <label class="col-lg-3 radio-inline">
                                     <input type="radio" name="type" value="allow"> Allow
                                 </label>
@@ -76,8 +86,7 @@
                                 </label>
                                 <label class="col-lg-3 radio-inline">
                                     <input type="radio" name="type" value="otp"> OTP
-                                </label>
-                            </form>              
+                                </label>                                     
                         </div>
                     
                         <div class="row mb-3">
@@ -91,7 +100,7 @@
                       
                         <div class="row">
                             <div class="col-lg-6 mb-3">
-                                <input class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup=search() placeholder="Search" aria-label="Search">
+                                <input class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
                             </div>
                             <div class="col-lg-2 mb-3">
                                 <label for="selectPosition">Position</label>
@@ -110,9 +119,9 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            {{-- <div class="ckbox">
+                                            <div class="ckbox">
                                                 <input type="checkbox" id="checkboxAll">
-                                            </div> --}}
+                                            </div>
                                         </th>
                                         <th>Name</th>
                                         <th>Surname</th>
@@ -121,32 +130,20 @@
                                     </tr>
                                 </thead>
 
-                                @foreach($userList as $user)
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="ckbox">
-                                                    <input type="checkbox" id="checkbox">
-                                                </div>
-                                            </td>
-                                            <td>{{$user['user_Name']}}</td>
-                                            <td>{{$user['user_Surname']}}</td>
-                                            <td>{{$user['user_Email']}}</td>
-                                            <td>{{$user['user_Position']}}</td>
-                                        </tr>
-                                    </tbody>
-                                @endforeach
+                                {{-- @foreach($userList as $user) --}}
+                                <tbody id="u">
+                                </tbody>
+                                {{-- @endforeach --}}
                             </table>   
                         </div>
                     </div>
 
                 <div class="col-lg-2"></div>
             </div><br>
-
             <div class="row">
                 <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12 text-center">
-                        <button type="submit" value="submit" class="btn btn-success m-2">Next</button>
+                        <input type="submit" value="Next" class="btn btn-success m-2">
                     </div>
                 <div class="col-lg-2"></div>
             </div>
