@@ -19,4 +19,10 @@ Route::any('AddFlow', 'ListCatController@getAllCategory');
 
 Route::any('ListTemplate','AddFlowController@addFlow');
 
+Route::any('AddStep', 'AddStepController@addStep');
+
+Route::any('NameValidate','AddFlowController@validateName');
+
+Route::any('SearchUser','SearchUserController@searchUser');
+
 Route::any('AddFlowTemplate','AddFlowTemplateController@addFlowTemplate');
