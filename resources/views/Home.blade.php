@@ -20,7 +20,12 @@
                 </div>
                 <div class="row">
                     <div class="col-ls-4 col-4">Position</div>
-                    <div class="col-ls-8 col-8">{{$data->user_Position}}</div>
+                    @foreach($data->user_Position as $position)
+                        <div class="col-ls-8 col-8">{{$position}}</div>
+                        @if(array_last($data->user_Position)!=$position)
+                            <div class="col-ls-4 col-4"></div>
+                        @endif
+                    @endforeach
                 </div>
                 <div class="row">
                     <div class="col-ls-4 col-4">Email</div>
