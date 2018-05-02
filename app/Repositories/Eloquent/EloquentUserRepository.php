@@ -3,8 +3,9 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\User;
+use App\Models\Position;
 use App\Repositories\Contracts\UserRepository;
-
+use App\Repositories\Eloquent\EloquentPositionRepository as PositionRepo;
 use Kurt\Repoist\Repositories\Eloquent\AbstractRepository;
 
 class EloquentUserRepository extends AbstractRepository implements UserRepository
@@ -15,8 +16,18 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
     }
 
     public static function getUser($userId){
-        $user = User::where('user_Id', '=', $userId)->first();
-        return json_decode($user) ;
+        $userProfile = User::where('user_Id', '=', $userId)->first();
+        $allPosition = PositionRepo::getAllPosition();
+        $userPosition = array();
+        foreach($userProfile['user_Position'] as $user_position){
+            foreach($allPosition as $position){
+                if($user_position == $position->position_Id){
+                    array_push($userPosition,$position->position_Name);
+                }
+            }
+        }
+        $userProfile['user_Position'] = $userPosition ;
+        return  json_decode($userProfile);
     }
 
     public static function listUser()
