@@ -21,8 +21,13 @@ Route::any('ListTemplate','AddFlowController@addFlow');
 
 Route::any('AddStep', 'AddStepController@addStep');
 
-Route::any('NameValidate','AddFlowController@validateName');
-
 Route::any('SearchUser','SearchUserController@searchUser');
 
 Route::any('AddFlowTemplate','AddFlowTemplateController@addFlowTemplate');
+
+// Validate data
+Route::any('NameValidate','AddFlowController@validateName');
+
+Route::any('DeadlineValidate','AddFlowController@validateDeadline');
+
+Route::any('NumStepValidate','AddFlowController@validateNumberOfStep');
