@@ -2,11 +2,9 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Category;
 use App\Repositories\Contracts\CategoryRepository;
-
 use Kurt\Repoist\Repositories\Eloquent\AbstractRepository;
-use App\Models\Category as CategoryModel;
+use App\Models\Category ;
 
 class EloquentCategoryRepository extends AbstractRepository implements CategoryRepository
 {
@@ -17,7 +15,7 @@ class EloquentCategoryRepository extends AbstractRepository implements CategoryR
 
     public static function getAllCategory()
     {
-        $data = CategoryModel::all();
+        $data = Category::all();
         $arrayOfData = json_decode($data,true);
         return $arrayOfData;
     }
