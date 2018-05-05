@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\Eloquent\EloquentCategoryRepository as Category ;
+use App\Repositories\Eloquent\EloquentCategoryRepository as catRepo ;
 
 class AddCatController extends Controller
 {
-    public static function AddCat(Request $request)
+    public static function addCat(Request $request)
     {
-        Category::addCat($request->input('name'));
-        return ;
+        $input = $request->all();
+        catRepo::addCat($input['cat_Name']);
+        $data = catRepo::getAllCategory();
+        return ['listCat'=>$data];
     }
 }
