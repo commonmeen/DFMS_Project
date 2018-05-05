@@ -24,23 +24,17 @@
         return isValid ;
     }
     function nameValidate(){
-        var formData = {
-            name : document.getElementById("name").value
-        };
+        var formData = {name : document.getElementById("name").value};
         var isNotErr = show(formData,"NameValidate","name");
         return isNotErr ;
     }
     function deadlineValidate(){
-        var formData = {
-            deadline : document.getElementById("deadline").value
-        };
+        var formData = {deadline : document.getElementById("deadline").value};
         var isNotErr = show(formData,"DeadlineValidate","deadline");
         return isNotErr ;
     }
     function numStepValidate(){
-        var formData = {
-            numberOfStep : document.getElementById("numberOfStep").value
-        };
+        var formData = {numberOfStep : document.getElementById("numberOfStep").value};
         var isNotErr = show(formData,"NumStepValidate","numberOfStep");
         return isNotErr ;
     }
@@ -50,6 +44,25 @@
         var numStep = numStepValidate();
         if(name&&deadline&&numStep){
             document.getElementById('flow').submit();
+        }
+    }
+    function addCat(){
+        if(document.getElementById("category-name").value == ""){
+            document.getElementById("category-name").style.borderColor = "red" ;
+            document.getElementById("category-name").placeholder = "Please enter category name." ;
+        }
+        else {
+            var cat_Name = {cat_Name : document.getElementById("category-name").value};
+            $.ajax({
+                type     : "GET",
+                url      : "AddCategory",
+                data     : cat_Name,
+                cache    : false,
+                success  : function(response){
+                    document.getElementById("listCat").innerHTML += "<option value='"+response.listCat[response.listCat.length-1].cat_Id+"' selected>"+response.listCat[response.listCat.length-1].cat_Name+"</option>" ;
+                }
+            });
+            document.getElementById("cancelCat").click() ;
         }
     }
 </script>
@@ -147,14 +160,15 @@
                         </div>
                     </div>
                     <div class="col-lg-7 col-sm-9 col-9 mb-3">
-                        <select class="form-control" name="catId" id="exampleFormControlSelect1">
+                        <select class="form-control" name="catId" id="listCat">
                             @foreach($listCat as $cat)
                                 @if($cat['cat_Name']=="อื่นๆ")
-                                <option value="{{$cat['cat_Id']}}" selected>{{$cat['cat_Name']}}</option>
+                                @php $otherId = $cat['cat_Id'] @endphp
                                 @else
                                 <option value="{{$cat['cat_Id']}}">{{$cat['cat_Name']}}</option>
                                 @endif
                             @endforeach
+                            <option value="{{$otherId}}" selected>อื่นๆ</option>
                         </select>
                     </div>
                     <div class="col-lg-2 col-sm-3 col-3">
@@ -167,15 +181,15 @@
                                         <h5 class="modal-title" id="addCategoryModalLongTitle">Please enter name of category.</h5>
                                     </div>
                                 <div class="modal-body">
-                                    {{-- <form> --}}
+                                    <form id="addCat">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="category-name">
+                                            <input type="text" class="form-control" id="category-name" required>
                                         </div>
-                                    {{-- </form> --}}
+                                    </form>
                                 </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
-                                        <input type="submit" class="btn btn-primary" value="Save">
+                                        <button type="button" id="cancelCat" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                                        <button type="button" onclick="addCat()" id="saveCat" class="btn btn-primary">save</button>
                                     </div>
                                 </div>
                             </div>
