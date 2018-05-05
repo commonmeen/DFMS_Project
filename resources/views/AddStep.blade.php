@@ -18,6 +18,35 @@
             }
         });
     }
+
+    function hiddenn(h) {
+        if(h==0){
+            document.getElementById("selectPosition").style.display = '';
+            document.getElementById("selectRoll").style.display = 'none';
+            document.getElementById("search").style.display = 'none';
+            document.getElementById("position").style.display = 'none';
+            document.getElementById("listValidator").style.display = 'none';
+        }if(h==1){
+            document.getElementById("selectPosition").style.display = 'none';
+            document.getElementById("selectRoll").style.display = '';
+            document.getElementById("search").style.display = 'none';
+            document.getElementById("position").style.display = 'none';
+            document.getElementById("listValidator").style.display = 'none';
+        }if(h==2){
+            document.getElementById("selectPosition").style.display = 'none';
+            document.getElementById("selectRoll").style.display = 'none';
+            document.getElementById("search").style.display = '';
+            document.getElementById("position").style.display = '';
+            document.getElementById("listValidator").style.display = '';
+        }if(h==3){
+            document.getElementById("selectPosition").style.display = 'none';
+            document.getElementById("selectRoll").style.display = 'none';
+            document.getElementById("search").style.display = 'none';
+            document.getElementById("position").style.display = 'none';
+            document.getElementById("listValidator").style.display = 'none';
+        }
+    }
+
 </script>
 @endsection
 
@@ -45,7 +74,7 @@
         <div class="d-sm-none">
             <div class="row">
                 <div class="col">
-                    <span class="top-menu">Create Flow</span> 
+                    <span class="top-menu text-center">Create Flow</span> 
                     <div class="dropbown d-inline ml-5">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -76,7 +105,7 @@
                                         
                         <div class="row mb-3">
                             <div class="col-lg-3 justify-content-center align-self-center">
-                                <label class="">Type of Verify</label>
+                                <label class="">Verify By</label>
                             </div>
                                 <label class="col-lg-3 radio-inline">
                                     <input type="radio" name="type" value="allow"> Allow
@@ -97,15 +126,13 @@
                                 <input type="number"  name="deadline" class="form-control" placeholder="1 Hour(s)"></input>  
                             </div>
                         </div> 
-                      
-                        <div class="row">
-                            <div class="col-lg-6 mb-3">
-                                <input class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
+
+                        <div class="row mb-3">
+                            <div class="col-lg-3 justify-content-center align-self-center"> Validator Select By</div>
+                            <div class="col-lg-2 justify-content-center align-self-center">
+                                <input type="radio" name="selectBy" value="position" onclick="hiddenn('0')" >  Position
                             </div>
-                            <div class="col-lg-2 mb-3">
-                                <label for="selectPosition">Position</label>
-                            </div>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-lg-7">
                                 <select class="form-control" id="selectPosition" >
                                     @foreach($userPosition as $p)
                                         <option>{{$p[0]}}</option>
@@ -114,14 +141,45 @@
                             </div>  
                         </div>
 
-                        <div class=" table-responsive">
+                        <div class="row mb-3">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-2 justify-content-center align-self-center">
+                                <input type="radio" name="selectBy" value="role" onclick="hiddenn('1')" >  Role
+                            </div>
+                            <div class="col-lg-7">
+                                <select class="form-control" id="selectRoll" >
+                                    {{-- @foreach($userRoll as $r)
+                                        <option>{{$r[0]}}</option>
+                                    @endforeach --}}
+                                </select>
+                            </div>           
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-2 justify-content-center align-self-center">
+                                <input type="radio" name="selectBy" value="search" onclick="hiddenn('2')" >  Search
+                            </div>
+                            <div class="col-lg-4">
+                                <input class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
+                            </div>
+                            <div class="col-lg-3">
+                                <select class="form-control" id="position" >
+                                    @foreach($userPosition as $p)
+                                        <option>{{$p[0]}}</option>
+                                    @endforeach
+                                </select>
+                            </div>  
+                        </div>
+
+                        <div class=" table-responsive" id="listValidator">
                             <table class="table table-list-search " >
                                 <thead>
                                     <tr>
                                         <th>
-                                            <div class="ckbox">
+                                            {{-- <div class="ckbox">
                                                 <input type="checkbox" id="checkboxAll">
-                                            </div>
+                                            </div> --}}
                                         </th>
                                         <th>Name</th>
                                         <th>Surname</th>
@@ -129,11 +187,8 @@
                                         <th>Position</th>
                                     </tr>
                                 </thead>
-
-                                {{-- @foreach($userList as $user) --}}
                                 <tbody id="u">
                                 </tbody>
-                                {{-- @endforeach --}}
                             </table>   
                         </div>
                     </div>
