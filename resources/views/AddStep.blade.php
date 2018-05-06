@@ -13,37 +13,33 @@
             success  : function(response){
                 document.getElementById('u').innerHTML = "" ;
                 for(var i=0; i<response.searchAll.length ; i++){
-                    document.getElementById('u').innerHTML += "<tr><td><div class='ckbox'><input type='checkbox' name='validator[]' value='"+response.searchAll[i].user_Id+"' id='"+response.searchAll[i].user_Id+"'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+"</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+"</td><td id='user_Email'>"+response.searchAll[i].user_Email+"</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                    document.getElementById('u').innerHTML += "<tr><td><div class='ckbox'>"+
+                    "<input type='checkbox' name='validator[]'"+
+                    "value='"+response.searchAll[i].user_Id+
+                    "' id='"+response.searchAll[i].user_Id+
+                    "'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
+                    "</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+
+                    "</td><td id='user_Email'>"+response.searchAll[i].user_Email+
+                    "</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
                 }
             }
         });
     }
 
     function hiddenn(h) {
+        document.getElementById("selectPosition").style.display = 'none';
+        document.getElementById("selectRoll").style.display = 'none';
+        document.getElementById("search").style.display = 'none';
+        document.getElementById("position").style.display = 'none';
+        document.getElementById("listValidator").style.display = 'none';
         if(h==0){
             document.getElementById("selectPosition").style.display = '';
-            document.getElementById("selectRoll").style.display = 'none';
-            document.getElementById("search").style.display = 'none';
-            document.getElementById("position").style.display = 'none';
-            document.getElementById("listValidator").style.display = 'none';
-        }if(h==1){
-            document.getElementById("selectPosition").style.display = 'none';
+        }else if(h==1){
             document.getElementById("selectRoll").style.display = '';
-            document.getElementById("search").style.display = 'none';
-            document.getElementById("position").style.display = 'none';
-            document.getElementById("listValidator").style.display = 'none';
-        }if(h==2){
-            document.getElementById("selectPosition").style.display = 'none';
-            document.getElementById("selectRoll").style.display = 'none';
+        }else if(h==2){
             document.getElementById("search").style.display = '';
             document.getElementById("position").style.display = '';
             document.getElementById("listValidator").style.display = '';
-        }if(h==3){
-            document.getElementById("selectPosition").style.display = 'none';
-            document.getElementById("selectRoll").style.display = 'none';
-            document.getElementById("search").style.display = 'none';
-            document.getElementById("position").style.display = 'none';
-            document.getElementById("listValidator").style.display = 'none';
         }
     }
 
@@ -133,7 +129,7 @@
                                 <input type="radio" name="selectBy" value="position" onclick="hiddenn('0')" >  Position
                             </div>
                             <div class="col-lg-7">
-                                <select class="form-control" id="selectPosition" >
+                                <select class="form-control" id="selectPosition" style="display:none">
                                     @foreach($userPosition as $p)
                                         <option>{{$p[0]}}</option>
                                     @endforeach
@@ -144,10 +140,10 @@
                         <div class="row mb-3">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-2 justify-content-center align-self-center">
-                                <input type="radio" name="selectBy" value="role" onclick="hiddenn('1')" >  Role
+                                <input type="radio" name="selectBy" value="role" onclick="hiddenn('1')">  Role
                             </div>
                             <div class="col-lg-7">
-                                <select class="form-control" id="selectRoll" >
+                                <select class="form-control" id="selectRoll" style="display:none">
                                     {{-- @foreach($userRoll as $r)
                                         <option>{{$r[0]}}</option>
                                     @endforeach --}}
@@ -161,10 +157,10 @@
                                 <input type="radio" name="selectBy" value="search" onclick="hiddenn('2')" >  Search
                             </div>
                             <div class="col-lg-4">
-                                <input class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
+                                <input style="display:none" class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
                             </div>
                             <div class="col-lg-3">
-                                <select class="form-control" id="position" >
+                                <select class="form-control" id="position" style="display:none">
                                     @foreach($userPosition as $p)
                                         <option>{{$p[0]}}</option>
                                     @endforeach
@@ -172,7 +168,7 @@
                             </div>  
                         </div>
 
-                        <div class=" table-responsive" id="listValidator">
+                        <div class=" table-responsive" id="listValidator" style="display:none">
                             <table class="table table-list-search " >
                                 <thead>
                                     <tr>
