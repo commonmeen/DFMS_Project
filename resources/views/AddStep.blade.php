@@ -195,6 +195,7 @@
 
                 <div class="col-lg-2"></div>
             </div><br>
+            <input type="hidden" name="step" value={{$step}}>
             <div class="row">
                 <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12 text-center">
