@@ -28,14 +28,11 @@
 
     function hiddenn(h) {
         document.getElementById("selectPosition").style.display = 'none';
-        document.getElementById("selectRoll").style.display = 'none';
         document.getElementById("search").style.display = 'none';
         document.getElementById("position").style.display = 'none';
         document.getElementById("listValidator").style.display = 'none';
         if(h==0){
             document.getElementById("selectPosition").style.display = '';
-        }else if(h==1){
-            document.getElementById("selectRoll").style.display = '';
         }else if(h==2){
             document.getElementById("search").style.display = '';
             document.getElementById("position").style.display = '';
@@ -43,6 +40,28 @@
         }
     }
 
+    function searchPosition(){
+        var p_Id = document.getElementById("position").value ;
+        $.ajax({
+            type     : "GET",
+            url      : "SearchPosition",
+            data     : { position_Id : p_Id },
+            cache    : false,
+            success  : function(response){
+                document.getElementById('userTable').innerHTML = "" ;
+                for(var i=0; i<response.searchAll.length ; i++){
+                    document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
+                    "<input type='checkbox' name='validator[]'"+
+                    "value='"+response.searchAll[i].user_Id+
+                    "' id='"+response.searchAll[i].user_Id+
+                    "'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
+                    "</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+
+                    "</td><td id='user_Email'>"+response.searchAll[i].user_Email+
+                    "</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                }
+            }
+        });
+    }
 </script>
 @endsection
 
@@ -131,24 +150,10 @@
                             <div class="col-lg-7">
                                 <select class="form-control" id="selectPosition" style="display:none">
                                     @foreach($userPosition as $p)
-                                        <option>{{$p[0]}}</option>
+                                        <option>{{$p->position_Name}}</option>
                                     @endforeach
                                 </select>
                             </div>  
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-lg-3"></div>
-                            <div class="col-lg-2 justify-content-center align-self-center">
-                                <input type="radio" name="selectBy" value="role" onclick="hiddenn('1')">  Role
-                            </div>
-                            <div class="col-lg-7">
-                                <select class="form-control" id="selectRoll" style="display:none">
-                                    {{-- @foreach($userRoll as $r)
-                                        <option>{{$r[0]}}</option>
-                                    @endforeach --}}
-                                </select>
-                            </div>           
                         </div>
 
                         <div class="row mb-3">
@@ -160,9 +165,10 @@
                                 <input style="display:none" class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
                             </div>
                             <div class="col-lg-3">
-                                <select class="form-control" id="position" style="display:none">
+                                <select class="form-control" id="position" style="display:none" onchange="searchPosition()">
+                                    <option id="defaultNull" disabled selected>Position :</option>
                                     @foreach($userPosition as $p)
-                                        <option>{{$p[0]}}</option>
+                                        <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
                                     @endforeach
                                 </select>
                             </div>  
@@ -183,12 +189,11 @@
                                         <th>Position</th>
                                     </tr>
                                 </thead>
-                                <tbody id="u">
+                                <tbody id="userTable">
                                 </tbody>
                             </table>   
                         </div>
                     </div>
-
                 <div class="col-lg-2"></div>
             </div><br>
             <input type="hidden" name="step" value={{$step}}>
@@ -200,5 +205,4 @@
                 <div class="col-lg-2"></div>
             </div>
         </form>
-
 @endsection
