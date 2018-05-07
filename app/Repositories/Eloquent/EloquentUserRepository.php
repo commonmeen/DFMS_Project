@@ -17,17 +17,8 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
 
     public static function getUser($userId){
         $userProfile = User::where('user_Id', '=', $userId)->first();
-        $allPosition = PositionRepo::getAllPosition();
-        $userPosition = array();
-        foreach($userProfile['user_Position'] as $user_position){
-            foreach($allPosition as $position){
-                if($user_position == $position->position_Id){
-                    array_push($userPosition,$position->position_Name);
-                }
-            }
-        }
-        $userProfile['user_Position'] = $userPosition ;
-        return  json_decode($userProfile);
+        $userProfile = EloquentUserRepository::getPosition($userProfile);
+        return  $userProfile;
     }
 
     public static function listUser()
@@ -38,24 +29,49 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
     }
 
     public static function searchByName($word){
-        $user = User::where('user_Name', 'like', $word.'%')->get();
-        return json_decode($user,true);
+        $users = User::where('user_Name', 'like', $word.'%')->get();
+        foreach($users as $user){
+            $user = EloquentUserRepository::getPosition($user);
+        }
+        return json_decode($users,true);
     }
 
     public static function searchBySurName($word){
-        $user = User::where('user_Surname', 'like', $word.'%')->get();
-        return json_decode($user,true);
+        $users = User::where('user_Surname', 'like', $word.'%')->get();
+        foreach($users as $user){
+            $user = EloquentUserRepository::getPosition($user);
+        }
+        return json_decode($users,true);
     }
 
     public static function listUserByPosition($position)
     {
-        $user = User::where('user_Position',$position)->get();
-        return json_decode($user,true);
+        $users = User::all();
+        $userThisPosition = array();
+        $users = json_decode($users,true);
+        foreach($users as $user){   
+            foreach($user['user_Position'] as $user_Position){
+                if($user_Position == $position){
+                    $user = EloquentUserRepository::getPosition($user);
+                    array_push($userThisPosition,$user);
+                }
+            }             
+        }
+        return $userThisPosition;
     }
 
-    public static function getPosition()
+    public static function getPosition($user)
     {
-        $user = User::distinct('user_Position')->get();
-        return json_decode($user,true);
+        $allPosition = PositionRepo::getAllPosition();
+        $userPosition = array();
+        foreach($user['user_Position'] as $user_Position){
+            foreach($allPosition as $position){
+                if($user_Position == $position->position_Id){
+                    array_push($userPosition,$position->position_Name);
+                }
+            }
+        }
+        $user['user_Position'] = $userPosition ;
+        return $user ;
     }
 }
