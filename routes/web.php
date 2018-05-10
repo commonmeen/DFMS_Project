@@ -29,7 +29,7 @@ Route::any('AddCategory','AddCatController@addCat');
 
 Route::any('SearchPosition','SearchUserController@searchPosition');
 
-Route::any('FlowDetail','FlowDetailController@detail');
+Route::any('FlowDetail','FlowDetailController@detail')->name('FlowDetail');
 
 Route::any('LockFlow','LockFlowController@lockFlow');
 
