@@ -70,7 +70,7 @@
                         <div class="card-content">
                             <div class="card-state-icon"></div>
                             <label for="{{$t['template_Id']}}">
-                                <img src="pic/user.png" alt="{{$t['template_Name']}}" class="card-img-top tempImg">
+                                <img src="pic/contract.png" alt="{{$t['template_Name']}}" class="card-img-top tempImg">
                                 <div class="card-body ">
                                     <p class="text-center font-weight-bold ">{{$t['template_Name']}}</p>
                                 </div>
