@@ -78,8 +78,8 @@
         </div>
         <div class="row">
             <div class="col">
-                <button class="btn btn-primary" href="#" role="button">Detail flow</button>
-                <button class="btn btn-outline-primary" href="" role="button" disabled>Select template</button>
+                <a class="btn btn-outline-secondary" href="#" role="button">Detail flow</a>
+                <a class="btn btn-outline-secondary" href="" role="button" disabled>Select template</a>
             </div>
         </div>
     </div>

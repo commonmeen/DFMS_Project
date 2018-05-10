@@ -191,3 +191,10 @@ h1 {
   border-top: 52px solid #47cf73;
 }
 
+/* Validate */
+
+.verifyText{
+  font-size: 10pt;
+  color: red;
+}
+
