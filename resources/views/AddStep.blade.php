@@ -11,9 +11,9 @@
             data     : formData,
             cache    : false,
             success  : function(response){
-                document.getElementById('u').innerHTML = "" ;
+                document.getElementById('userTable').innerHTML = "" ;
                 for(var i=0; i<response.searchAll.length ; i++){
-                    document.getElementById('u').innerHTML += "<tr><td><div class='ckbox'>"+
+                    document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
                     "<input type='checkbox' name='validator[]'"+
                     "value='"+response.searchAll[i].user_Id+
                     "' id='"+response.searchAll[i].user_Id+
@@ -148,9 +148,9 @@
                                 <input type="radio" name="selectBy" value="position" onclick="hiddenn('0')" >  Position
                             </div>
                             <div class="col-lg-7">
-                                <select class="form-control" id="selectPosition" style="display:none">
+                                <select class="form-control" name="position" id="selectPosition" style="display:none">
                                     @foreach($userPosition as $p)
-                                        <option>{{$p->position_Name}}</option>
+                                        <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
                                     @endforeach
                                 </select>
                             </div>  
