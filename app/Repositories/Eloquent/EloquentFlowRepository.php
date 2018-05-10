@@ -61,4 +61,10 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->template_Id = $template ;
         $flow->save();
     }
+
+    public static function lockFlow($id,$status){
+        $flow = Flow::where('flow_Id',$id)->first();
+        $flow->status = $status ;
+        $flow->save();
+    }
 }
