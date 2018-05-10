@@ -29,10 +29,10 @@
             </li>
             @if(Session::get('UserLogin')->user_Role=="manager")
             <li class="nav-item">
-              <a class="nav-link" href="ListFlow">Flow</a>
+              <a class="nav-link" href="ListFlow">Flow Template</a>
             </li>            
             <li class="nav-item">
-              <a class="nav-link" href="ListTemplate">Template</a>
+              <a class="nav-link" href="ListTemplate">Document Template</a>
             </li>
             @endif
             <li class="nav-item">
@@ -42,13 +42,13 @@
               <a class="nav-link" href="ListProcess">Process</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="ListVerify">Verify and allow</a>
+              <a class="nav-link" href="ListVerify">Verify</a>
             </li>
-            @if(Session::get('UserLogin')->user_Role=="manager")
+            {{-- @if(Session::get('UserLogin')->user_Role=="manager")
             <li class="nav-item">
               <a class="nav-link" href="Statistic">Statistic</a>
             </li>
-            @endif
+            @endif --}}
           </ul>
           <img src="pic/user.png" class="user-pic"> @yield('user')
           <div class="nav-item dropdown">
