@@ -34,4 +34,9 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         $data = Step::where('step_Id',$id)->first();
         return json_decode($data);
     }
+
+    public static function getStepByFlow($flowId){
+        $data = Step::where('flow_Id',$flowId)->get();
+        return json_decode($data);
+    }
 }
