@@ -25,6 +25,9 @@ Route::any('SearchUser','SearchUserController@searchUser');
 
 Route::any('AddFlowTemplate','AddFlowTemplateController@addFlowTemplate');
 
+Route::any('AddCategory','AddCatController@addCat');
+
+Route::any('SearchPosition','SearchUserController@searchPosition');
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
 
