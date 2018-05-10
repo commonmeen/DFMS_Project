@@ -1,4 +1,18 @@
 @extends('layout.Navbar') 
+<script type="text/javascript">
+    function changeStatus(id,status){
+        var data = {flow_id:id,newStatus:status};
+        $.ajax({
+            type     : "GET",
+            url      : "LockFlow",
+            data     : data,
+            cache    : false,
+            success  : function(response){
+                window.location.reload();
+            }
+        });
+    }
+</script>
 @section('content')   
     <div class="container content">
         <div class="row">
@@ -9,13 +23,21 @@
                 <a role="button" class="btn btn-primary float-right" href="">Edit</a>
             </div>
             <div class="col-lg-3 text-center">
-                <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Lock</button>
-                <!-- Modal -->
+                @if($flow['status']=="on")
+                    <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Lock</button>
+                @elseif($flow['status']=="off")
+                    <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Unlock</button>
+                @endif
+            <!-- Modal -->
                 <div class="modal fade" id="lockFlowModalCenter" tabindex="-1" role="dialog" aria-labelledby="lockFlowModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <br><br><br>Do you want to Lock {{$flow['flow_Name']}}?<br><br>
+                                @if($flow['status']=="on")
+                                <br><br><br>Do you want to lock {{$flow['flow_Name']}}?<br><br>
+                                @elseif($flow['status']=="off")
+                                <br><br><br>{{$flow['flow_Name']}} is locked.<br>Do you want to unlock {{$flow['flow_Name']}}?<br><br>
+                                @endif
                                 <div class="row mb-3">
                                     <div class="col-lg-3 form-group mb-0">
                                         <label class="col-form-labelr align-self-center">password</label>
@@ -27,7 +49,11 @@
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                    <a type="button" class="btn btn-secondary" href="">Yes</a>
+                                    @if($flow['status']=="on")
+                                        <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$flow['flow_Id']}}','off')" data-dismiss="modal">Yes</button>
+                                    @elseif($flow['status']=="off") 
+                                        <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$flow['flow_Id']}}','on')" data-dismiss="modal">Yes</button>
+                                    @endif   
                                 </div>
                             </div>
                         </div>
