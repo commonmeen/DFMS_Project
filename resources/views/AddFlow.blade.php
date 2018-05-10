@@ -102,6 +102,9 @@
         </div>
     </div>
     <form id="flow" action="ListTemplate">
+        @if($flow!=null)
+            <input type="text" name="flow" value="{{$flow['flow_Id']}}" hidden>
+        @endif
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8 col-xs-12">
@@ -112,7 +115,7 @@
                         </div>
                     </div>
                     <div class="col-lg-9 mb-3">
-                        <input type="text" name="name" id="name" onkeyup="nameValidate()" class="form-control" placeholder="Example: การลา">
+                    <input type="text" name="name" id="name" onkeyup="nameValidate()" class="form-control" placeholder="Example: การลา" value="{{$flow['flow_Name']}}">
                     </div>
                 </div>
                 <div class="row">
@@ -130,7 +133,7 @@
                         </div>
                     </div>
                     <div class="col-lg-9 mb-3">
-                        <textarea  name="desc" class="form-control" placeholder="Emample: ใช้สำหรับลางาน"></textarea>
+                        <textarea value="{{$flow['flow_Description']}}" name="desc" class="form-control" placeholder="Emample: ใช้สำหรับลางาน">{{$flow['flow_Description']}}</textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -140,7 +143,7 @@
                         </div>
                     </div>
                     <div class="col-lg-7 mb-3">
-                        <input type="number" id="deadline" name="deadline" class="form-control" onkeyup="deadlineValidate()" placeholder="Example: 1"></input>
+                        <input type="number" value="{{$flow['flow_Deadline']}}" id="deadline" name="deadline" class="form-control" onkeyup="deadlineValidate()" placeholder="Example: 1"></input>
                     </div>
                     <div class="col-lg-2">
                         Day(s)
@@ -160,6 +163,7 @@
                         </div>
                     </div>
                     <div class="col-lg-7 col-sm-9 col-9 mb-3">
+                        @if($flow['flow_CatId']==null)
                         <select class="form-control" name="catId" id="listCat">
                             @foreach($listCat as $cat)
                                 @if($cat['cat_Name']=="อื่นๆ")
@@ -170,6 +174,17 @@
                             @endforeach
                             <option value="{{$otherId}}" selected>อื่นๆ</option>
                         </select>
+                        @else
+                        <select class="form-control" name="catId" id="listCat">
+                                @foreach($listCat as $cat)
+                                    @if($cat['cat_Id']==$flow['flow_CatId'])
+                                    <option value="{{$cat['cat_Id']}}" selected>{{$cat['cat_Name']}}</option>
+                                    @else
+                                    <option value="{{$cat['cat_Id']}}">{{$cat['cat_Name']}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        @endif
                     </div>
                     <div class="col-lg-2 col-sm-3 col-3">
                         <button class="btn btn-primary float-right" type="button" data-toggle="modal" data-target="#addCategory">Create</button>
@@ -204,7 +219,11 @@
                         </div>
                     </div>
                     <div class="col-lg-7 mb-3">
+                        @if($flow['numberOfStep']==null)
                         <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3"></input>
+                        @else
+                        <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}" disabled></input>
+                        @endif
                     </div>
                     <div class="col-lg-2">
                         Step(s)
