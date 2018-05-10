@@ -33,7 +33,7 @@
         document.getElementById("listValidator").style.display = 'none';
         if(h==0){
             document.getElementById("selectPosition").style.display = '';
-        }else if(h==2){
+        }else if(h==1){
             document.getElementById("search").style.display = '';
             document.getElementById("position").style.display = '';
             document.getElementById("listValidator").style.display = '';
@@ -85,56 +85,61 @@
         }
         return isValid ;
     }
+
     function titleValidate(){
         var formData = {title : document.getElementById("title").value};
         var isNotErr = show(formData,"AddStepTitleValidate","title");
         return isNotErr ;
     }
+
     function deadlineValidate(){
         var formData = {deadline : document.getElementById("deadline").value};
         var isNotErr = show(formData,"AddStepDeadlineValidate","deadline");
         return isNotErr ;
     }
-     function verifyValidate(){
-         if(document.getElementsByName("type").value == null){
-             document.getElementById("errverify").innerHTML = "Verify type is require" ;
-             isNotErr = false;
+
+    function verifyValidate(){
+         var isNotErr = false ;
+         var radio = document.getElementsByName("type")
+         for (var i = 0, length = radio.length; i < length; i++){
+            if (radio[i].checked){
+                isNotErr = true ;
+                document.getElementById("errverify").innerHTML = "" ;
+                break;
+            }
          }
-         else{
-             document.getElementById("errverify").innerHTML = "" ;
-            isNotErr = true;
-         }        
+         if(!isNotErr){
+            document.getElementById("errverify").innerHTML = "Verify type is require" ;
+         }       
          return isNotErr ;
      }
+
     function validatorValidate(){
-        if($('input[name=type]:checked').length > 0){
-            document.getElementById("errvalidator").innerHTML = "Valitor is require" ;
-            isNotErr = false;
-        }
-        else{
-            document.getElementById("errvalidator").innerHTML = "" ;
-            isNotErr = true;
-        }        
-        return isNotErr ;
-    }
+         var isNotErr = false ;
+         var radio = document.getElementsByName("selectBy")
+         for (var i = 0, length = radio.length; i < length; i++){
+            if (radio[i].checked){
+                isNotErr = true ;
+                hiddenn(i);
+                document.getElementById("errvalidator").innerHTML = "" ;
+                break;
+            }
+         }
+         if(!isNotErr){
+            document.getElementById("errvalidator").innerHTML = "Validator type is require" ;
+         }       
+         return isNotErr ;
+     }
+
     function validateAndSubmit(){
         var title = titleValidate();
         var verify = verifyValidate();
         var deadline = deadlineValidate();
-        if(title&&deadline&&verify){
+        var validator = validatorValidate()
+        if(title&&deadline&&verify&&validator){
             document.getElementById('step').submit();
         }
     }
-    $(function () {
-        $("#step").validate({
-            rules: {
-                type: "required"
-            },
-            messages: {
-                type: "You must select an account type"
-            }
-        });
-    });
 
 </script>
 @endsection
@@ -212,13 +217,13 @@
                                 <label class="">Verify By</label>
                             </div>
                                 <label class="col-lg-3 radio-inline">
-                                    <input type="radio" name="type" value="allow" id="allow" > Allow
+                                    <input type="radio" name="type" value="allow" id="allow" onclick="verifyValidate()"> Allow
                                 </label>
                                 <label class="col-lg-3 radio-inline">
-                                    <input type="radio" name="type" value="password" id="password" > Password
+                                    <input type="radio" name="type" value="password" id="password" onclick="verifyValidate()"> Password
                                 </label>
                                 <label class="col-lg-3 radio-inline">
-                                    <input type="radio" name="type" value="otp" id="OTP" > OTP
+                                    <input type="radio" name="type" value="otp" id="OTP" onclick="verifyValidate()"> OTP
                                 </label>                                     
                         </div>
                         <div class="row">
@@ -253,10 +258,28 @@
                         <div class="row mb-3">
                             <div class="col-lg-3 justify-content-center align-self-center"> Validator Select By</div>
                             <div class="col-lg-2 justify-content-center align-self-center">
-                                <input type="radio" name="selectBy" value="position" onclick="hiddenn('0')" >  Position
+                                <input type="radio" name="selectBy" value="position" onclick="validatorValidate()">  Position
                             </div>
                             <div class="col-lg-7">
                                 <select class="form-control" name="position" id="selectPosition" style="display:none">
+                                    @foreach($userPosition as $p)
+                                        <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>  
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-2 justify-content-center align-self-center">
+                                <input type="radio" name="selectBy" value="search" onclick="validatorValidate()">  Search
+                            </div>
+                            <div class="col-lg-4">
+                                <input style="display:none" class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
+                            </div>
+                            <div class="col-lg-3">
+                                <select class="form-control" id="position" style="display:none" onchange="searchPosition()">
+                                    <option id="defaultNull" disabled selected>Position :</option>
                                     @foreach($userPosition as $p)
                                         <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
                                     @endforeach
@@ -271,25 +294,6 @@
                                 <p id="errvalidator" class="verifyText"></p>
                             </div>
                         </div> 
-
-                        <div class="row mb-3">
-                            <div class="col-lg-3"></div>
-                            <div class="col-lg-2 justify-content-center align-self-center">
-                                <input type="radio" name="selectBy" value="search" onclick="hiddenn('2')" >  Search
-                            </div>
-                            <div class="col-lg-4">
-                                <input style="display:none" class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
-                            </div>
-                            <div class="col-lg-3">
-                                <select class="form-control" id="position" style="display:none" onchange="searchPosition()">
-                                    <option id="defaultNull" disabled selected>Position :</option>
-                                    @foreach($userPosition as $p)
-                                        <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>  
-                        </div>
-
                         <div class=" table-responsive" id="listValidator" style="display:none">
                             <table class="table table-list-search " >
                                 <thead>
