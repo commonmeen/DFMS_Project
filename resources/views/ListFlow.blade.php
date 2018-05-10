@@ -15,7 +15,7 @@
                     <div class="card-body">        
                         @foreach($flow as $flowdata)
                             <ul>
-                                <li>{{$flowdata['flow_Name']}}</li>
+                                <li><a href="FlowDetail?id={{$flowdata['flow_Id']}}">{{$flowdata['flow_Name']}}</a></li>
                             </ul>
                         @endforeach
                     </div>
