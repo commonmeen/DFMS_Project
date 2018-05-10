@@ -20,7 +20,7 @@
                 <h3>Flow : {{$flow['flow_Name']}}</h3>
             </div>
             <div class="col-lg-3">
-                <a role="button" class="btn btn-primary float-right" href="">Edit</a>
+            <a role="button" class="btn btn-primary float-right" href="AddFlow?flow_Id={{$flow['flow_Id']}}">Edit</a>
             </div>
             <div class="col-lg-3 text-center">
                 @if($flow['status']=="on")
