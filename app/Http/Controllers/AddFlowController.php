@@ -5,18 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session ;
 use Validator ;
-use App\Repositories\Eloquent\EloquentFlowRepository as Flow ;
-use App\Repositories\Eloquent\EloquentTemplateRepository as Template;
+use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo ;
+use App\Repositories\Eloquent\EloquentTemplateRepository as templateRepo;
 
 class AddFlowController extends Controller
 {
     public function addFlow(Request $request){
         $input = $request->all();
-        $user = Session::get('UserLogin');
-        $newFlowId = Flow::addFlow($input['name'],$user->user_Id,$input['desc'],$input['catId'],$input['deadline'],$input['numberOfStep']);
-        $thisFlow = Flow::getFlowById($newFlowId);
-        Session::put('FlowCreate',$thisFlow);
-        $allTemplate = Template::listTemplate();
+        if($request->has('flow')){
+            $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['deadline']);
+            $thisFlow = flowRepo::getFlowById($input['flow']);
+            $thisFlow['numberOfStep'] = 0 ;
+        } else {
+            $user = Session::get('UserLogin');
+            $newFlowId = flowRepo::addFlow($input['name'],$user->user_Id,$input['desc'],$input['catId'],$input['deadline'],$input['numberOfStep']);
+            $thisFlow = flowRepo::getFlowById($newFlowId);
+            Session::put('FlowCreate',$thisFlow);
+        }
+        $allTemplate = templateRepo::listTemplate();
         return view('ListTemplate',['Flow'=>$thisFlow,'template'=>$allTemplate]);
     }
 
