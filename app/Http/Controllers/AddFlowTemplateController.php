@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session ;
 use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo ;
 use App\Repositories\Eloquent\EloquentUserRepository as userRepo ;
 use App\Repositories\Eloquent\EloquentPositionRepository as positionRepo ;
@@ -11,8 +12,9 @@ class AddFlowTemplateController extends Controller
 {
     public function addFlowTemplate(Request $request){
         $input = $request->all();
+        $flow = Session::get('FlowCreate');
         if ($request->has('template_Id')){
-            flowRepo::addFlowTemplate($input['flow_Id'],$input['template_Id']);
+            flowRepo::addFlowTemplate($flow["flow_Id"],$input['template_Id']);
         }
         $next = 1 ;
         $allUser = userRepo::listUser();
