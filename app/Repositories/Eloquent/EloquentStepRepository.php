@@ -14,13 +14,14 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         return Step::class;
     }
 
-    public static function addStep($title,$type,$flow_Id,$validator,$deadline){
+    public static function addStep($title,$typeVerify,$typeValidator,$flow_Id,$validator,$deadline){
         $prev = Step::orderBy('created_at','desc')->take(1)->get();
         $newId = 'S'.str_pad(substr($prev[0]->step_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $step = new Step ;
         $step->step_Id = $newId ;
         $step->step_Title = $title ;
-        $step->typeOfValidate = $type ;
+        $step->typeOfValify = $typeVerify ;
+        $step->typeOfValidator = $typeValidator;
         $step->flow_Id = $flow_Id ;
         $step->validator = $validator ;
         $step->deadline = $deadline ;
