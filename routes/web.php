@@ -28,6 +28,11 @@ Route::any('AddFlowTemplate','AddFlowTemplateController@addFlowTemplate');
 Route::any('AddCategory','AddCatController@addCat');
 
 Route::any('SearchPosition','SearchUserController@searchPosition');
+
+Route::any('FlowDetail','FlowDetailController@detail');
+
+Route::any('LockFlow','LockFlowController@lockFlow');
+
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
 
