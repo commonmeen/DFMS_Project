@@ -2,7 +2,9 @@
 @section('content')
     <div class="container content">
         <form action="AddFlowTemplate">
-
+            @if($Flow['numberOfStep']==0)
+                <input type="text" name="flow_Id" value="{{$Flow['flow_Id']}}" hidden>
+            @endif
         {{-- Large Screen --}}
     <div class="d-none d-sm-block">
         <div class="row">
@@ -55,10 +57,16 @@
     </div>        
             
     
-        <div class="row">
+            <div class="row">
                 @foreach($template as $t )
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 content">
-                    <input class="c-card" type="checkbox" id="{{$t['template_Id']}}" value="{{$t['template_Id']}}" name="template_Id[]" >
+                    @foreach($Flow['template_Id'] as $flowTem)
+                    @if($t['template_Id']==$flowTem)
+                    <input class="c-card" type="checkbox" id="{{$t['template_Id']}}" value="{{$t['template_Id']}}" name="template_Id[]" checked>
+                    @else
+                    <input class="c-card" type="checkbox" id="{{$t['template_Id']}}" value="{{$t['template_Id']}}" name="template_Id[]">
+                    @endif
+                    @endforeach
                         <div class="card-content">
                             <div class="card-state-icon"></div>
                             <label for="{{$t['template_Id']}}">
@@ -71,7 +79,6 @@
                     </div>
                 @endforeach
             </div>
-            <input type="text" value={{$Flow['flow_Id']}} hidden name="flow_Id">
         </form>
     </div>
 
