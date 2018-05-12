@@ -1,4 +1,8 @@
 @extends('layout.Navbar')
+@section('user')
+    {{Session::get('UserLogin')->user_Name}}
+    {{Session::get('UserLogin')->user_Surname}}
+@endsection
 @section('content')
     <div class="container content">
         <form action="AddFlowTemplate">

@@ -1,4 +1,8 @@
 @extends('layout.Navbar') 
+@section('user')
+    {{Session::get('UserLogin')->user_Name}}
+    {{Session::get('UserLogin')->user_Surname}}
+@endsection
 <script type="text/javascript">
     function changeStatus(id,status){
         var data = {flow_id:id,newStatus:status};

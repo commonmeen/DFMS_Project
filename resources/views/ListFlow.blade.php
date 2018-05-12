@@ -1,4 +1,8 @@
 @extends('layout.Navbar') 
+@section('user')
+    {{Session::get('UserLogin')->user_Name}}
+    {{Session::get('UserLogin')->user_Surname}}
+@endsection
 @section('content')   
     <div class="container content">
         <div class="row content">
@@ -11,14 +15,15 @@
             @foreach($allFlow as $category =>$flow)
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                 <h5 class="card-header">{{$category}}</h5>
-                <div class="card crad_detial">
-                    <div class="card-body">        
+                <div class="card crad_detial mb-3">       
                         @foreach($flow as $flowdata)
-                            <ul>
-                                <li><a href="FlowDetail?id={{$flowdata['flow_Id']}}">{{$flowdata['flow_Name']}}</a></li>
-                            </ul>
+                            <div class="list-group">
+                                
+                                <a href="FlowDetail?id={{$flowdata['flow_Id']}}" class="list-group-item list-group-item-action">{{$flowdata['flow_Name']}}</a></li>
+                                
+                            </div>
                         @endforeach
-                    </div>
+                    
                 </div>
             </div>
             @endforeach

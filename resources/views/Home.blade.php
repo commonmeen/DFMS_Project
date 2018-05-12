@@ -1,7 +1,7 @@
 @extends('layout.Navbar')
 @section('user')
-    {{$data->user_Name}}
-    {{$data->user_Surname}}
+    {{Session::get('UserLogin')->user_Name}}
+    {{Session::get('UserLogin')->user_Surname}}
 @endsection
 @section('content')
     
