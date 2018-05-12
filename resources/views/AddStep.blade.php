@@ -1,4 +1,4 @@
-@extends('layout.navbar')
+@extends('layout.Navbar')
 @section('user')
     {{Session::get('UserLogin')->user_Name}}
     {{Session::get('UserLogin')->user_Surname}}

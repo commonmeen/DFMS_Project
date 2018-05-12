@@ -20,7 +20,7 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         $step = new Step ;
         $step->step_Id = $newId ;
         $step->step_Title = $title ;
-        $step->typeOfValify = $typeVerify ;
+        $step->typeOfVerify = $typeVerify ;
         $step->typeOfValidator = $typeValidator;
         $step->flow_Id = $flow_Id ;
         $step->validator = $validator ;
