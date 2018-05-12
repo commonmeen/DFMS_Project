@@ -16,14 +16,17 @@
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                 <h5 class="card-header">{{$category}}</h5>
                 <div class="card crad_detial mb-3">       
-                        @foreach($flow as $flowdata)
-                            <div class="list-group">
-                                
-                                <a href="FlowDetail?id={{$flowdata['flow_Id']}}" class="list-group-item list-group-item-action">{{$flowdata['flow_Name']}}</a></li>
-                                
-                            </div>
-                        @endforeach
-                    
+                    @foreach($flow as $flowdata)
+                        <div class="list-group">
+                            <a href="FlowDetail?id={{$flowdata['flow_Id']}}" class="list-group-item list-group-item-action">
+                                @if($flowdata['status'] == "on")
+                                    {{$flowdata['flow_Name']}}
+                                @else
+                                <img src="pic/lock.png" alt="lock" class="icon-lock">{{$flowdata['flow_Name']}}
+                                @endif
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             @endforeach
