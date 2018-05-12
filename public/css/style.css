@@ -37,8 +37,9 @@
 
 }
 .card-header{
-    background-color: #CBCBCB;
+    background-color: #007bff ;
     text-align: center;
+    color: white;
 }
 .button-position{
     float: right;
