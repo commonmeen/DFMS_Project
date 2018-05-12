@@ -5,6 +5,7 @@
         var formData = {
             search : document.getElementById("search").value
         };
+        document.getElementById("defaultNull").selected = true  ;
         $.ajax({
             type     : "GET",
             url      : "SearchUser",
@@ -240,10 +241,10 @@
                                 <label class="">Deadline</label>
                             </div>
                             <div class="col-lg-7">
-                                <input type="number"  id="deadline" name="deadline" class="form-control" placeholder="1 Hour(s)" onkeyup="deadlineValidate()"> 
+                                <input type="number"  id="deadline" name="deadline" class="form-control" placeholder="6" onkeyup="deadlineValidate()"> 
                             </div>
                             <div class="col-lg-2">
-                                Day(s) 
+                                Hour(s)
                             </div>
                         </div>
                         <div class="row">
@@ -272,14 +273,14 @@
                         <div class="row mb-3">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-2 justify-content-center align-self-center">
-                                <input type="radio" name="selectBy" value="search" onclick="validatorValidate()">  Search
+                                <input type="radio" name="selectBy" value="search" onclick="validatorValidate()">  Person
                             </div>
                             <div class="col-lg-4">
                                 <input style="display:none" class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
                             </div>
                             <div class="col-lg-3">
                                 <select class="form-control" id="position" style="display:none" onchange="searchPosition()">
-                                    <option id="defaultNull" disabled selected>Position :</option>
+                                    <option id="defaultNull" disabled selected value="notSelect">Position :</option>
                                     @foreach($userPosition as $p)
                                         <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
                                     @endforeach
