@@ -98,9 +98,14 @@
                         <div class="col-lg-3">
                             <label class="col-form-labelr align-self-center">Template : </label>
                         </div>
-                        <div class="col-lg-9 mb-3">
-                            ... 
-                        </div>
+                        @foreach($flow['template_Id'] as $template_Name)
+                            <div class="col-lg-9 mb-3">
+                                {{array_search($template_Name, $flow['template_Id'])+1}}. {{$template_Name}}
+                            </div>
+                            @if(array_last($flow['template_Id'])!=$template_Name)
+                            <div class="col-lg-3"></div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-lg-3"></div>
@@ -119,9 +124,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($step as $s)
+                                @foreach ($step as $s)                          
                                     <tr>
-                                        <td>{{$s->step_Id}}</td>
+                                        <td style="text-align:center">{{array_search($s, $step)+1}}</td>
                                         <td>{{$s->step_Title}}</td>
                                         <td>{{$s->typeOfVerify}}</td>
                                         <td>{{$s->typeOfValidator}}</td>
