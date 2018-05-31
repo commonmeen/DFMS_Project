@@ -30,4 +30,9 @@ class EloquentCategoryRepository extends AbstractRepository implements CategoryR
         $category->cat_Name = $name;
         $category->save();
     }
+
+    public static function getCatById($id){
+        $data = Category::where('cat_Id',$id)->first();
+        return json_decode($data);
+    }
 }
