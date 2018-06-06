@@ -16,8 +16,9 @@
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                 <h5 class="card-header">{{$category}}</h5>
                 <div class="card crad_detial mb-3">       
-                    @foreach($flow as $flowdata)
-                        <div class="list-group">
+                    <div class="list-group">
+                        @foreach($flow as $flowdata)
+                            @if($flowdata['status'] == "on" || $flowdata['status'] == "off")
                             <a href="FlowDetail?id={{$flowdata['flow_Id']}}" class="list-group-item list-group-item-action">
                                 @if($flowdata['status'] == "on")
                                     {{$flowdata['flow_Name']}}
@@ -25,8 +26,9 @@
                                 <img src="pic/lock.png" alt="lock" class="icon-lock">{{$flowdata['flow_Name']}}
                                 @endif
                             </a>
-                        </div>
-                    @endforeach
+                            @endif    
+                        @endforeach
+                    </div>
                 </div>
             </div>
             @endforeach
