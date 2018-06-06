@@ -78,4 +78,27 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->save(); 
         return $flow;
     }
+
+    public static function newFlowVersion($oldFlowId){
+        $prev = Flow::orderBy('created_at','desc')->take(1)->get();
+        $newId = 'F'.str_pad(substr($prev[0]->flow_Id,1)+1, 5, '0', STR_PAD_LEFT);
+        $newFlow = new Flow ;
+        $newFlow->flow_Id = $newId ;
+        $newFlow->save();
+        $oldFlow = Flow::where('flow_Id',$oldFlowId)->first();
+        $oldFlow->status = $newId ;
+        $oldFlow->save();
+        $newFlow->flow_Name = $oldFlow->flow_Name;
+        $newFlow->flow_Author = $oldFlow->flow_Author ;
+        $newFlow->flow_Description = $oldFlow->flow_Description ;
+        $newFlow->flow_CatId = $oldFlow->flow_CatId ;
+        $newFlow->flow_Deadline = $oldFlow->flow_Deadline ;
+        $newFlow->numberOfStep = $oldFlow->numberOfStep ;
+        $newFlow->time_AVG = $oldFlow->time_AVG ;
+        $newFlow->numberOfUse = $oldFlow->numberOfUse ;
+        $newFlow->template_Id = $oldFlow->template_Id ;
+        $newFlow->status = "on";
+        $newFlow->save();
+        return $newFlow->flow_Id ;
+    }
 }
