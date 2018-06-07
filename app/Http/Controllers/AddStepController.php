@@ -28,7 +28,7 @@ class AddStepController extends Controller
             $next = $input['step']+1 ;
             $allUser = userRepo::listUser();
             $position = positionRepo::getAllPosition();
-            return view('AddStep',['step'=>$next,'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow]) ;
+            return view('AddStep',['step'=>$next,'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>null]) ;
         }
     }
 
