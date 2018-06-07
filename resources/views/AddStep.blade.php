@@ -68,6 +68,29 @@
         });
     }
 
+    function showSelectVal(users){
+        users = JSON.parse(users);
+        $.ajax({
+            type     : "GET",
+            url      : "GetSelectValidator",
+            data     : { userIds : users },
+            cache    : false,
+            success  : function(response){
+                document.getElementById('userTable').innerHTML = "" ;
+                for(var i=0; i<response.searchAll.length ; i++){
+                    document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
+                    "<input type='checkbox' name='validator[]'"+
+                    "value='"+response.searchAll[i].user_Id+
+                    "' id='"+response.searchAll[i].user_Id+
+                    "' checked></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
+                    "</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+
+                    "</td><td id='user_Email'>"+response.searchAll[i].user_Email+
+                    "</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                }
+            }
+        });
+    }
+
     function show(userData,validateUrl,about) {
         var isValid = false;
         document.getElementById("err"+about).innerHTML = "" ;
@@ -151,11 +174,12 @@
 
 @section('content')
     <div class="container content">
-    {{-- Large Screen --}}
+        @if($step!=null)
+        {{-- Large Screen --}}
         <div class="d-none d-sm-block">
             <div class="row">
                 <div class="col">
-                <h3>Create Flow  {{$step}}</h3>
+                <h3>Create Flow  : "{{$flow['flow_Name']}}"</h3>
                 </div>
             </div>
             <div class="row">
@@ -177,7 +201,7 @@
         <div class="d-sm-none">
             <div class="row">
                 <div class="col">
-                    <span class="top-menu text-center">Create Flow</span> 
+                    <span class="top-menu text-center">Create Flow : "{{$flow['flow_Name']}}"</span> 
                     <div class="dropbown d-inline ml-5">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -195,7 +219,24 @@
                 </div>
             </div>
         </div>
-
+        @else
+            <div class="d-none d-sm-block">
+                <div class="row">
+                    <div class="col">
+                    <h3>Edit Flow  : "{{$flow['flow_Name']}}"</h3>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col">
+                        <h5>Step  : {{$stepData['step_Title']}}</h5>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        @endif
 
         <form action="AddStep" id="step">
             <div class="row">
@@ -206,7 +247,7 @@
                                 <label class="">Name</label>
                             </div>
                             <div class="col-lg-9">
-                                <input type="text" id="title" name="title" class="form-control" placeholder="Example" onkeyup="titleValidate()">
+                                <input type="text" id="title" name="title" class="form-control" value="{{$stepData['step_Title']}}" placeholder="Example" onkeyup="titleValidate()">
                             </div>
                         </div>
                         <div class="row">
@@ -221,15 +262,28 @@
                             <div class="col-lg-3 justify-content-center align-self-center">
                                 <label class="">Verify By</label>
                             </div>
-                                <label class="col-lg-3 radio-inline">
-                                    <input type="radio" name="type" value="allow" id="allow" onclick="verifyValidate()"> Allow
-                                </label>
-                                <label class="col-lg-3 radio-inline">
-                                    <input type="radio" name="type" value="password" id="password" onclick="verifyValidate()"> Password
-                                </label>
-                                <label class="col-lg-3 radio-inline">
-                                    <input type="radio" name="type" value="otp" id="OTP" onclick="verifyValidate()"> OTP
-                                </label>                                     
+                            
+                            <label class="col-lg-3 radio-inline">
+                                @if($stepData['typeOfVerify']!="allow")
+                                    <input type="radio" name="type" value="allow" id="allow"> Allow
+                                @else
+                                    <input type="radio" name="type" value="allow" id="allow" checked> Allow
+                                @endif 
+                            </label>
+                            <label class="col-lg-3 radio-inline">
+                                @if($stepData['typeOfVerify']!="password")
+                                    <input type="radio" name="type" value="password" id="password"> Password
+                                @else
+                                    <input type="radio" name="type" value="password" id="password" checked> Password
+                                @endif 
+                            </label>
+                            <label class="col-lg-3 radio-inline">
+                                @if($stepData['typeOfVerify']!="otp")
+                                    <input type="radio" name="type" value="otp" id="OTP"> OTP
+                                @else
+                                    <input type="radio" name="type" value="otp" id="OTP" checked> OTP
+                                @endif 
+                            </label>                                    
                         </div>
                         <div class="row">
                                 <div class="col-lg-3">
@@ -245,7 +299,7 @@
                                 <label class="">Deadline</label>
                             </div>
                             <div class="col-lg-7">
-                                <input type="number"  id="deadline" name="deadline" class="form-control" placeholder="6" onkeyup="deadlineValidate()"> 
+                                <input type="number" value="{{$stepData['deadline']}}" id="deadline" name="deadline" class="form-control" placeholder="6" onkeyup="deadlineValidate()"> 
                             </div>
                             <div class="col-lg-2">
                                 Hour(s)
@@ -263,12 +317,21 @@
                         <div class="row mb-3">
                             <div class="col-lg-3 justify-content-center align-self-center"> Validator Select By</div>
                             <div class="col-lg-2 justify-content-center align-self-center">
-                                <input type="radio" name="selectBy" value="position" onclick="validatorValidate()">  Position
+                                @if($stepData['typeOfValidator']!="position")
+                                    <input type="radio" name="selectBy" value="position" onclick="validatorValidate()">  Position
+                                @else
+                                    <input type="radio" name="selectBy" value="position" onclick="validatorValidate()" checked>  Position
+                                @endif
                             </div>
                             <div class="col-lg-7">
                                 <select class="form-control" name="position" id="selectPosition" style="display:none">
                                     @foreach($userPosition as $p)
-                                        <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
+                                        @php $val = $stepData['validator'] @endphp
+                                        @if($stepData['typeOfValidator']=="position" && $val[0]==$p->position_Id)
+                                            <option value="{{$p->position_Id}}" selected>{{$p->position_Name}}</option>
+                                        @else
+                                            <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>  
@@ -277,8 +340,12 @@
                         <div class="row mb-3">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-2 justify-content-center align-self-center">
-                                <input type="radio" name="selectBy" value="search" onclick="validatorValidate()">  Person
-                            </div>
+                                @if($stepData['typeOfValidator']!="name")
+                                    <input type="radio" name="selectBy" value="search" onclick="validatorValidate()">  Person
+                                @else
+                                    <input type="radio" name="selectBy" value="search" onclick="validatorValidate()" checked>  Person
+                                @endif
+                                </div>
                             <div class="col-lg-4">
                                 <input style="display:none" class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
                             </div>
@@ -325,9 +392,27 @@
             <div class="row">
                 <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12 text-center">
+                        @if($stepData == null)
                         <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Next</button>
+                        @else
+                        <a class="btn btn-danger m-2" href="FlowDetail?id={{$stepData['flow_Id']}}">Cancel</a>
+                        <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Save</button>
+                        @endif
                     </div>
                 <div class="col-lg-2"></div>
             </div>
         </form>
+    </div>
+    @if($stepData['typeOfValidator']=="name")
+        <script>
+            var val = '<?= json_encode($stepData['validator']) ?>' ;
+            hiddenn(1);
+            showSelectVal(val);
+            console.log(val);
+        </script> 
+    @elseif($stepData['typeOfValidator']=="position")
+        <script>
+            hiddenn(0);
+        </script> 
+    @endif
 @endsection
