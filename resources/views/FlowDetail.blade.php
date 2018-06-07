@@ -114,7 +114,7 @@
                 <div class="col-lg-2"></div>
                 <div class="col-lg-8">
                     <div class=" table-responsive" id="listValidator">
-                        <table class="table table-list-search " >
+                        <table class="table table-list-search table-hover">
                             <thead>
                                 <tr>
                                     <th>Step</th>
@@ -124,12 +124,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($step as $s)                          
-                                    <tr>
+                                @foreach ($step as $s)                        
+                                    <tr onclick="window.location='EditStep?id={{$s['step_Id']}}';">
                                         <td style="text-align:center">{{array_search($s, $step)+1}}</td>
-                                        <td>{{$s->step_Title}}</td>
-                                        <td>{{$s->typeOfVerify}}</td>
-                                        <td>{{$s->typeOfValidator}}</td>
+                                        <td>{{$s['step_Title']}}</td>
+                                        <td>{{$s['typeOfVerify']}}</td>
+                                        <td>{{$s['typeOfValidator']}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
