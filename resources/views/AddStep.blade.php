@@ -159,12 +159,33 @@
          return isNotErr ;
      }
 
+     function validatorCheckValidate(){
+         var isNotErr = false ;
+         if(document.getElementsByName("selectBy")[1].checked){
+            var checkbox = document.getElementsByName("validator[]") ;
+            for (var i = 0, length = checkbox.length; i < length; i++){
+                if (checkbox[i].checked){
+                    isNotErr = true ;
+                    document.getElementById("errvalidator").innerHTML = "" ;
+                    break;
+                }
+            }
+         } else {
+            isNotErr = true ;
+         }
+         if(!isNotErr){
+            document.getElementById("errvalidator").innerHTML = "Plase search and select validator" ;
+         } 
+         return isNotErr ;
+     }
+
     function validateAndSubmit(){
         var title = titleValidate();
         var verify = verifyValidate();
         var deadline = deadlineValidate();
-        var validator = validatorValidate()
-        if(title&&deadline&&verify&&validator){
+        var validator = validatorValidate();
+        var validatorck = validatorCheckValidate();
+        if(title&&deadline&&verify&&validator&&validatorck){
             document.getElementById('step').submit();
         }
     }
@@ -393,10 +414,10 @@
                 <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12 text-center">
                         @if($stepData == null)
-                        <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Next</button>
+                            <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Next</button>
                         @else
-                        <a class="btn btn-danger m-2" href="FlowDetail?id={{$stepData['flow_Id']}}">Cancel</a>
-                        <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Save</button>
+                            <a class="btn btn-danger m-2" href="FlowDetail?id={{$stepData['flow_Id']}}">Cancel</a>
+                            <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Save</button>
                         @endif
                     </div>
                 <div class="col-lg-2"></div>
