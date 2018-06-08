@@ -68,13 +68,14 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->save();
     }
 
-    public static function editFlow($id,$name,$desc,$catId,$deadline)
+    public static function editFlow($id,$name,$desc,$catId,$deadline,$noStep)
     {
         $flow = Flow::where('flow_Id',$id)->first();
         $flow->flow_Name = $name;
         $flow->flow_Description = $desc;
         $flow->flow_CatId = $catId;
         $flow->flow_Deadline = $deadline;
+        $flow->numberOfStep = $noStep ;
         $flow->save(); 
         return $flow;
     }
