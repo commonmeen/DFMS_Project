@@ -19,19 +19,42 @@ class AddStepController extends Controller
             $flow = Session::get('FlowCreate');
             // check type of validator
             if($input['selectBy']=="search"){
-                stepRepo::addStep($input['title'],$input['type'],"name",$flow['flow_Id'],$input['validator'],$input['deadline']);
+                $allStep = stepRepo::getStepByFlow($flow['flow_Id']);
+                $allStepId = array();
+                foreach($allStep as $step){
+                    array_push($allStepId,$step['step_Id']);
+                }
+                if($input['step']<=count($allStep)){
+                    stepRepo::editStep($allStepId[$input['step']-1],$input['title'],$input['type'],"name",$flow['flow_Id'],$input['validator'],$input['deadline']);
+                }else{
+                    stepRepo::addStep($input['title'],$input['type'],"name",$flow['flow_Id'],$input['validator'],$input['deadline']);
+                }
             } else if($input['selectBy']=="position"){
-                stepRepo::addStep($input['title'],$input['type'],"position",$flow['flow_Id'],[$input['position']],$input['deadline']);
+                $allStep = stepRepo::getStepByFlow($flow['flow_Id']);
+                $allStepId = array();
+                foreach($allStep as $step){
+                    array_push($allStepId,$step['step_Id']);
+                }
+                if($input['step']<=count($allStep)){
+                    stepRepo::editStep($allStepId[$input['step']-1],$input['title'],$input['type'],"position",$flow['flow_Id'],[$input['position']],$input['deadline']);
+                }else{
+                    stepRepo::addStep($input['title'],$input['type'],"position",$flow['flow_Id'],[$input['position']],$input['deadline']);
+                }
             }
             // check step number
             if($input['step']==$flow['numberOfStep']){
                 Session::forget('FlowCreate');
                 return    redirect('ListFlow');
             } else {
-                $next = $input['step']+1 ;
+                $allStep = stepRepo::getStepByFlow($flow['flow_Id']);
+                $allStepId = array();
+                foreach($allStep as $step){
+                    array_push($allStepId,$step['step_Id']);
+                }
+                $next = count($allStepId)+1 ;
                 $allUser = userRepo::listUser();
                 $position = positionRepo::getAllPosition();
-                return view('AddStep',['step'=>$next,'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>null]) ;
+                return view('AddStep',['allStep'=>$allStepId, 'step'=>$next, 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>null]) ;
             }
         } else {
             $oldStep = Session::get('stepEdit');  
