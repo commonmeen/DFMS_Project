@@ -25,7 +25,7 @@ class AddFlowTemplateController extends Controller
             $next = 1 ;
             $allUser = userRepo::listUser();
             $position = positionRepo::getAllPosition();
-            return view('AddStep',['step'=>$next,'userList'=>$allUser, 'userPosition'=>$position, 'flow'=>$flow, 'stepData'=>null]) ;
+            return view('AddStep',['allStep'=>array(), 'step'=>$next,'userList'=>$allUser, 'userPosition'=>$position, 'flow'=>$flow, 'stepData'=>null]) ;
         }
     }
 }
