@@ -205,13 +205,19 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-outline-secondary" href="#" role="button" >Detail flow</a>
-                    <a class="btn btn-outline-secondary" href="#" role="button" >Select template</a>
+                    <a class="btn btn-outline-secondary" href="AddFlow?flow_Id={{$flow['flow_Id']}}" role="button" >Detail flow</a>
+                    <a class="btn btn-outline-secondary" href="ListTemplate?flow={{$flow['flow_Id']}}" role="button" >Select template</a>
                     @for($i=1;$i<=$flow['numberOfStep'];$i++)
                         @if($step==$i)
                             <a class="btn btn-secondary" href="#" role="button" >Step {{$i}}</a>
-                        @else
-                            <a class="btn btn-outline-secondary" href="" role="button">Step {{$i}}</a>
+                        @elseif($step>$i)
+                            <a class="btn btn-outline-secondary" href="EditStep?id={{$allStep[$i-1]}}&stepck={{$i}}" role="button">Step {{$i}}</a>
+                        @elseif($step<$i)
+                            @if(count($allStep)>=$i)
+                                <a class="btn btn-outline-secondary" href="EditStep?id={{$allStep[$i-1]}}&stepck={{$i}}" role="button">Step {{$i}}</a>
+                            @else
+                                <a class="btn btn-outline-secondary disabled" href="" role="button">Step {{$i}}</a>
+                            @endif   
                         @endif
                     @endfor
                 </div>
@@ -226,13 +232,15 @@
                     <div class="dropbown d-inline ml-5">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button class="dropdown-item" href="#">Detail flow</button>
-                            <button class="dropdown-item" href="" disabled>Select template</button>
+                            <button class="dropdown-item" href="AddFlow?flow_Id={{$flow['flow_Id']}}">Detail flow</button>
+                            <button class="dropdown-item" href="ListTemplate?flow={{$flow['flow_Id']}}">Select template</button>
                             @for($i=1;$i<=$flow['numberOfStep'];$i++)
                             @if($step==$i)
                                 <button class="dropdown-item" href="#"  >Step {{$i}}</button>
-                            @else
+                            @elseif($step>$i)
                                 <button class="dropdown-item" href="" >Step {{$i}}</button>
+                            @elseif($step<$i)
+                                <button class="dropdown-item" href="" disabled>Step {{$i}}</button>
                             @endif
                         @endfor
                         </div>
@@ -413,8 +421,10 @@
             <div class="row">
                 <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12 text-center">
-                        @if($stepData == null)
+                        @if(Session::has('FlowCreate') && $step!=$flow['numberOfStep'])
                             <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Next</button>
+                        @elseif(Session::has('FlowCreate') && $step==$flow['numberOfStep'])    
+                            <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Finish</button>
                         @else
                             <a class="btn btn-danger m-2" href="FlowDetail?id={{$stepData['flow_Id']}}">Cancel</a>
                             <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Save</button>
