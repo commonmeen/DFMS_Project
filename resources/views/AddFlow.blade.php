@@ -77,13 +77,17 @@
     <div class="d-none d-sm-block">
         <div class="row">
             <div class="col">
-                <h3>Create Flow</h3>
+                @if($flow==null)
+                    <h3>Create Flow</h3>
+                @else
+                    <h3>Edit Flow : "{{$flow['flow_Name']}}"</h3>
+                @endif
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <a class="btn btn-outline-secondary" href="#" role="button">Detail flow</a>
-                <a class="btn btn-outline-secondary" href="" role="button" disabled>Select template</a>
+                <a class="btn btn-secondary" href="#" role="button">Detail flow</a>
+                <a class="btn btn-outline-secondary disabled" href="" role="button">Select template</a>
             </div>
         </div>
     </div>
@@ -224,7 +228,9 @@
                     </div>
                     <div class="col-lg-7 mb-3">
                         @if($flow['numberOfStep']==null)
-                        <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3"></input>
+                        <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" ></input>
+                        @elseif(Session::has('FlowCreate'))
+                        <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}"></input>
                         @else
                         <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}" disabled></input>
                         @endif
@@ -256,7 +262,11 @@
                                     The system does not save your actions.<br><br><br>
                                     <div>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                        <a type="button" class="btn btn-secondary" href="ListFlow">Yes</a>
+                                        @if($flow==null)
+                                            <a type="button" class="btn btn-secondary" href="ListFlow">Yes</a>
+                                        @else
+                                            <a type="button" class="btn btn-secondary" href="FlowDetail?id={{$flow['flow_Id']}}">Yes</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
