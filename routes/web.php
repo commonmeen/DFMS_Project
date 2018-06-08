@@ -33,6 +33,10 @@ Route::any('FlowDetail','FlowDetailController@detail')->name('FlowDetail');
 
 Route::any('LockFlow','LockFlowController@lockFlow');
 
+Route::any('EditStep','EditStepController@editStep');
+
+Route::any('GetSelectValidator','SearchUserController@getValidator');
+
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
 
