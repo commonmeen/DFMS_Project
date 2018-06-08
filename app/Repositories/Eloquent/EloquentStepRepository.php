@@ -30,6 +30,19 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         return $step ;
     }
 
+    public static function editStep($id,$title,$typeVerify,$typeValidator,$flow_Id,$validator,$deadline){
+        $step = Step::where('step_Id',$id)->first();
+        $step->step_Title = $title ;
+        $step->typeOfVerify = $typeVerify ;
+        $step->typeOfValidator = $typeValidator;
+        $step->flow_Id = $flow_Id ;
+        $step->validator = $validator ;
+        $step->deadline = $deadline ;
+        $step->time_AVG = 0 ;
+        $step->save() ;
+        return $step ;
+    }
+
     public static function getStepById($id)
     {
         $data = Step::where('step_Id',$id)->first();
