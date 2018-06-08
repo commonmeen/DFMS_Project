@@ -13,9 +13,15 @@ class AddFlowController extends Controller
     public function addFlow(Request $request){
         $input = $request->all();
         if($request->has('flow')){
-            $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['deadline']);
+            if($request->has('name')){
+                $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['deadline'],$input['numberOfStep']);
+            }
             $thisFlow = flowRepo::getFlowById($input['flow']);
-            $thisFlow['numberOfStep'] = 0 ;
+            if(!Session::has('FlowCreate')){
+                $thisFlow['numberOfStep'] = 0 ;
+            }else{
+                Session::put('FlowCreate',$thisFlow);
+            }
         } else {
             $user = Session::get('UserLogin');
             $newFlowId = flowRepo::addFlow($input['name'],$user->user_Id,$input['desc'],$input['catId'],$input['deadline'],$input['numberOfStep']);
