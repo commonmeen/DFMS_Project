@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use Session ;
 use Validator ;
 use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo ;
+use App\Repositories\Eloquent\EloquentStepRepository as stepRepo ;
 use App\Repositories\Eloquent\EloquentTemplateRepository as templateRepo;
 
 class AddFlowController extends Controller
 {
     public function addFlow(Request $request){
         $input = $request->all();
+        $allStepId = null ;
         if($request->has('flow')){
             if($request->has('name')){
                 $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['deadline'],$input['numberOfStep']);
@@ -20,6 +22,11 @@ class AddFlowController extends Controller
             if(!Session::has('FlowCreate')){
                 $thisFlow['numberOfStep'] = 0 ;
             }else{
+                $allStep = stepRepo::getStepByFlow($input['flow']);
+                $allStepId = array();
+                foreach($allStep as $step){
+                    array_push($allStepId,$step['step_Id']);
+                }
                 Session::put('FlowCreate',$thisFlow);
             }
         } else {
@@ -29,7 +36,7 @@ class AddFlowController extends Controller
             Session::put('FlowCreate',$thisFlow);
         }
         $allTemplate = templateRepo::listTemplate();
-        return view('ListTemplate',['Flow'=>$thisFlow,'template'=>$allTemplate]);
+        return view('ListTemplate',['Flow'=>$thisFlow,'template'=>$allTemplate, 'allStepId'=>$allStepId]);
     }
 
     public function validateName(Request $request){
