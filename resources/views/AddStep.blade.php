@@ -17,15 +17,20 @@
             cache    : false,
             success  : function(response){
                 document.getElementById('userTable').innerHTML = "" ;
-                for(var i=0; i<response.searchAll.length ; i++){
-                    document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
-                    "<input type='checkbox' name='validator[]'"+
-                    "value='"+response.searchAll[i].user_Id+
-                    "' id='"+response.searchAll[i].user_Id+
-                    "'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
-                    "</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+
-                    "</td><td id='user_Email'>"+response.searchAll[i].user_Email+
-                    "</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                document.getElementById('notFoundErr').innerHTML = "";
+                if(response.searchAll.length>0){
+                    for(var i=0; i<response.searchAll.length ; i++){
+                        document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
+                        "<input type='checkbox' name='validator[]' onchange='validatorCheckValidate()'"+
+                        "value='"+response.searchAll[i].user_Id+
+                        "' id='"+response.searchAll[i].user_Id+
+                        "'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
+                        "</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+
+                        "</td><td id='user_Email'>"+response.searchAll[i].user_Email+
+                        "</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                    }
+                } else {
+                    document.getElementById('notFoundErr').innerHTML = "Sorry, We couldn’t find any name/surname matching <b>'"+document.getElementById("search").value+"'</b>";
                 }
             }
         });
@@ -54,15 +59,20 @@
             cache    : false,
             success  : function(response){
                 document.getElementById('userTable').innerHTML = "" ;
-                for(var i=0; i<response.searchAll.length ; i++){
-                    document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
-                    "<input type='checkbox' name='validator[]'"+
-                    "value='"+response.searchAll[i].user_Id+
-                    "' id='"+response.searchAll[i].user_Id+
-                    "'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
-                    "</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+
-                    "</td><td id='user_Email'>"+response.searchAll[i].user_Email+
-                    "</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                document.getElementById('notFoundErr').innerHTML = "";
+                if(response.searchAll.length>0){
+                    for(var i=0; i<response.searchAll.length ; i++){
+                        document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
+                        "<input type='checkbox' name='validator[]' onchange='validatorCheckValidate()'"+
+                        "value='"+response.searchAll[i].user_Id+
+                        "' id='"+response.searchAll[i].user_Id+
+                        "'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
+                        "</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+
+                        "</td><td id='user_Email'>"+response.searchAll[i].user_Email+
+                        "</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                    }
+                } else {
+                    document.getElementById('notFoundErr').innerHTML = "Sorry, We couldn’t find any name/surname in <b>'"+document.getElementById(p_Id).innerHTML+"'</b>";
                 }
             }
         });
@@ -79,7 +89,7 @@
                 document.getElementById('userTable').innerHTML = "" ;
                 for(var i=0; i<response.searchAll.length ; i++){
                     document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
-                    "<input type='checkbox' name='validator[]'"+
+                    "<input type='checkbox' name='validator[]' onchange='validatorCheckValidate()'"+
                     "value='"+response.searchAll[i].user_Id+
                     "' id='"+response.searchAll[i].user_Id+
                     "' checked></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
@@ -160,7 +170,7 @@
      }
 
      function validatorCheckValidate(){
-         var isNotErr = false ;
+        var isNotErr = false ;
          if(document.getElementsByName("selectBy")[1].checked){
             var checkbox = document.getElementsByName("validator[]") ;
             for (var i = 0, length = checkbox.length; i < length; i++){
@@ -294,23 +304,23 @@
                             
                             <label class="col-lg-3 radio-inline">
                                 @if($stepData['typeOfVerify']!="allow")
-                                    <input type="radio" name="type" value="allow" id="allow"> Allow
+                                    <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow"> Allow
                                 @else
-                                    <input type="radio" name="type" value="allow" id="allow" checked> Allow
+                                    <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow" checked> Allow
                                 @endif 
                             </label>
                             <label class="col-lg-3 radio-inline">
                                 @if($stepData['typeOfVerify']!="password")
-                                    <input type="radio" name="type" value="password" id="password"> Password
+                                    <input type="radio" onchange="verifyValidate()" name="type" value="password" id="password"> Password
                                 @else
-                                    <input type="radio" name="type" value="password" id="password" checked> Password
+                                    <input type="radio" onchange="verifyValidate()" name="type" value="password" id="password" checked> Password
                                 @endif 
                             </label>
                             <label class="col-lg-3 radio-inline">
                                 @if($stepData['typeOfVerify']!="otp")
-                                    <input type="radio" name="type" value="otp" id="OTP"> OTP
+                                    <input type="radio" onchange="verifyValidate()" name="type" value="otp" id="OTP"> OTP
                                 @else
-                                    <input type="radio" name="type" value="otp" id="OTP" checked> OTP
+                                    <input type="radio" onchange="verifyValidate()" name="type" value="otp" id="OTP" checked> OTP
                                 @endif 
                             </label>                                    
                         </div>
@@ -328,7 +338,7 @@
                                 <label class="">Deadline</label>
                             </div>
                             <div class="col-lg-7">
-                                <input type="number" value="{{$stepData['deadline']}}" id="deadline" name="deadline" class="form-control" placeholder="6" onkeyup="deadlineValidate()"> 
+                                <input type="number" value="{{$stepData['deadline']}}" id="deadline" name="deadline" class="form-control" placeholder="6" onchange="deadlineValidate()"> 
                             </div>
                             <div class="col-lg-2">
                                 Hour(s)
@@ -382,7 +392,7 @@
                                 <select class="form-control" id="position" style="display:none" onchange="searchPosition()">
                                     <option id="defaultNull" disabled selected value="notSelect">Position :</option>
                                     @foreach($userPosition as $p)
-                                        <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
+                                        <option value="{{$p->position_Id}}" id="{{$p->position_Id}}">{{$p->position_Name}}</option>
                                     @endforeach
                                 </select>
                             </div>  
@@ -412,7 +422,8 @@
                                 </thead>
                                 <tbody id="userTable">
                                 </tbody>
-                            </table>   
+                            </table>
+                            <p id="notFoundErr" style="text-align:center"></p>
                         </div>
                     </div>
                 <div class="col-lg-2"></div>
