@@ -51,9 +51,10 @@
         }
     }
     function addCat(){
+        document.getElementById("errCat").style.color = "red" ;
         if(document.getElementById("category-name").value == ""){
-            document.getElementById("category-name").style.borderColor = "red" ;
-            document.getElementById("category-name").placeholder = "Please enter category name." ;
+            document.getElementById("category-name").style.borderColor = "red" ;        
+            document.getElementById("errCat").innerHTML = "Please enter category name." ;
         }
         else {
             var cat_Name = {cat_Name : document.getElementById("category-name").value};
@@ -63,10 +64,18 @@
                 data     : cat_Name,
                 cache    : false,
                 success  : function(response){
-                    document.getElementById("listCat").innerHTML += "<option value='"+response.listCat[response.listCat.length-1].cat_Id+"' selected>"+response.listCat[response.listCat.length-1].cat_Name+"</option>" ;
+                    if(response.listCat != null){
+                        document.getElementById("listCat").innerHTML += "<option value='"+response.listCat[response.listCat.length-1].cat_Id+"' selected>"+response.listCat[response.listCat.length-1].cat_Name+"</option>" ;
+                        document.getElementById("category-name").style.borderColor = null ;
+                        document.getElementById("category-name").value = "";
+                        document.getElementById("errCat").innerHTML = "" ;
+                        document.getElementById("cancelCat").click() ;
+                    }else{
+                        document.getElementById("category-name").style.borderColor = "red" ;
+                        document.getElementById("errCat").innerHTML = "This category name already exists." ;
+                    }
                 }
             });
-            document.getElementById("cancelCat").click() ;
         }
     }
 </script>
@@ -151,7 +160,7 @@
                         </div>
                     </div>
                     <div class="col-lg-7 mb-3">
-                        <input type="number" value="{{$flow['flow_Deadline']}}" id="deadline" name="deadline" class="form-control" onkeyup="deadlineValidate()" placeholder="Example: 1"></input>
+                        <input type="number" value="{{$flow['flow_Deadline']}}" id="deadline" name="deadline" class="form-control" onchange="deadlineValidate()" placeholder="Example: 1"></input>
                     </div>
                     <div class="col-lg-2">
                         Day(s)
@@ -172,18 +181,18 @@
                     </div>
                     <div class="col-lg-7 col-sm-9 col-9 mb-3">
                         @if($flow['flow_CatId']==null)
-                        <select class="form-control" name="catId" id="listCat">
-                            @foreach($listCat as $cat)
-                                @if($cat['cat_Name']=="อื่นๆ")
-                                @php $otherId = $cat['cat_Id'] @endphp
-                                @else
-                                <option value="{{$cat['cat_Id']}}">{{$cat['cat_Name']}}</option>
-                                @endif
-                            @endforeach
-                            <option value="{{$otherId}}" selected>อื่นๆ</option>
-                        </select>
+                            <select class="form-control" name="catId" id="listCat">
+                                @foreach($listCat as $cat)
+                                    @if($cat['cat_Name']=="อื่นๆ")
+                                    @php $otherId = $cat['cat_Id'] @endphp
+                                    @else
+                                    <option value="{{$cat['cat_Id']}}">{{$cat['cat_Name']}}</option>
+                                    @endif
+                                @endforeach
+                                <option value="{{$otherId}}" selected>อื่นๆ</option>
+                            </select>
                         @else
-                        <select class="form-control" name="catId" id="listCat">
+                            <select class="form-control" name="catId" id="listCat">
                                 @foreach($listCat as $cat)
                                     @if($cat['cat_Id']==$flow['flow_CatId'])
                                     <option value="{{$cat['cat_Id']}}" selected>{{$cat['cat_Name']}}</option>
@@ -201,7 +210,7 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="addCategoryModalLongTitle">Please enter name of category.</h5>
+                                        <h5 class="modal-title" id="addCategoryModalLongTitle">Please enter name of category.</h5>               
                                     </div>
                                 <div class="modal-body">
                                     <form id="addCat">
@@ -209,6 +218,7 @@
                                             <input type="text" class="form-control" id="category-name" required>
                                         </div>
                                     </form>
+                                    <h6 class="errCat" id="errCat"></h6>
                                 </div>
                                     <div class="modal-footer">
                                         <button type="button" id="cancelCat" class="btn btn-secondary" data-dismiss="modal">cancel</button>
@@ -228,9 +238,9 @@
                     </div>
                     <div class="col-lg-7 mb-3">
                         @if($flow['numberOfStep']==null)
-                        <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" ></input>
+                        <input type="number" name="numberOfStep" id="numberOfStep" onchange="numStepValidate()" class="form-control" placeholder="Example: 3" ></input>
                         @elseif(Session::has('FlowCreate'))
-                        <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}"></input>
+                        <input type="number" name="numberOfStep" id="numberOfStep" onchange="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}"></input>
                         @else
                         <input type="number" name="numberOfStep" id="numberOfStep" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}" disabled></input>
                         <input type="hidden" name="numberOfStep" id="numberOfStep" value="{{$flow['numberOfStep']}}"></input>
