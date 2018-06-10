@@ -29,11 +29,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col"> 
                         <a class="btn btn-outline-secondary" href="AddFlow?flow_Id={{$Flow['flow_Id']}}" role="button">Detail flow</a>
                         <a class="btn btn-secondary" href="#" role="button" >Select template</a>
                         @for($i=1;$i<=$Flow['numberOfStep'];$i++)
-                            <a class="btn btn-outline-secondary disabled" href="" role="button" >Step {{$i}}</a>
+                            @if(count($allStepId)>=$i)
+                                <a class="btn btn-outline-secondary" href="EditStep?id={{$allStepId[$i-1]}}&stepck={{$i}}" role="button">Step {{$i}}</a>
+                            @else
+                                <a class="btn btn-outline-secondary disabled" href="" role="button" >Step {{$i}}</a>
+                            @endif
                         @endfor
                     </div>
                 </div>
