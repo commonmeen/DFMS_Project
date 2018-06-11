@@ -13,7 +13,7 @@ class AddFlowController extends Controller
 {
     public function addFlow(Request $request){
         $input = $request->all();
-        $allStepId = null ;
+        $allStepId = array() ;
         if($request->has('flow')){
             if($request->has('name')){
                 $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['deadline'],$input['numberOfStep']);
@@ -23,7 +23,6 @@ class AddFlowController extends Controller
                 $thisFlow['numberOfStep'] = 0 ;
             }else{
                 $allStep = stepRepo::getStepByFlow($input['flow']);
-                $allStepId = array();
                 foreach($allStep as $step){
                     array_push($allStepId,$step['step_Id']);
                 }
