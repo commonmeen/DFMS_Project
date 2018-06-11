@@ -119,8 +119,10 @@
                                 <tr>
                                     <th>Step</th>
                                     <th>Name</th>
+                                    <th>Deadline(hr)</th>
                                     <th>Verify Type</th>
                                     <th>Veridate By</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -128,10 +130,20 @@
                                     <tr onclick="window.location='EditStep?id={{$s['step_Id']}}';">
                                         <td style="text-align:center">{{array_search($s, $step)+1}}</td>
                                         <td>{{$s['step_Title']}}</td>
+                                        <td>{{$s['deadline']}}</td>
                                         <td>{{$s['typeOfVerify']}}</td>
                                         <td>{{$s['typeOfValidator']}}</td>
+                                        <td><img src="pic/bin-step.png" alt="remove step" style="text-align: center" width="17%" height="16%"/></td>
                                     </tr>
                                 @endforeach
+                                <tr onclick="">
+                                    <td></td>
+                                    <td></td>
+                                    <td><img src="pic/add-button.png" alt="add step" width="20%" height="50%"</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>   
                     </div>
