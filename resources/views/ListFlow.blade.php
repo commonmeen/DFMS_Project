@@ -12,12 +12,35 @@
             </div>
         </div>
         <div class="row">
-            @foreach($allFlow as $category =>$flow)
+            @foreach($allFlow as $category =>$flow) 
+                @if($category == "อื่นๆ")
+                @php $otherFlow = $flow @endphp
+                @else
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                        <h5 class="card-header">{{$category}}</h5>
+                        <div class="card crad_detial mb-3">       
+                            <div class="list-group">
+                                @foreach($flow as $flowdata)
+                                    @if($flowdata['status'] == "on" || $flowdata['status'] == "off")
+                                    <a href="FlowDetail?id={{$flowdata['flow_Id']}}" class="list-group-item list-group-item-action">
+                                        @if($flowdata['status'] == "on")
+                                            {{$flowdata['flow_Name']}}
+                                        @else
+                                        <img src="pic/lock.png" alt="lock" class="icon-lock">{{$flowdata['flow_Name']}}
+                                        @endif
+                                    </a>
+                                    @endif    
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                <h5 class="card-header">{{$category}}</h5>
+                <h5 class="card-header">อื่นๆ</h5>
                 <div class="card crad_detial mb-3">       
                     <div class="list-group">
-                        @foreach($flow as $flowdata)
+                        @foreach($otherFlow as $flowdata)
                             @if($flowdata['status'] == "on" || $flowdata['status'] == "off")
                             <a href="FlowDetail?id={{$flowdata['flow_Id']}}" class="list-group-item list-group-item-action">
                                 @if($flowdata['status'] == "on")
@@ -31,7 +54,6 @@
                     </div>
                 </div>
             </div>
-            @endforeach
         </div>
     </div>
 @endsection
