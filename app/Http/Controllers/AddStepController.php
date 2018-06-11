@@ -61,7 +61,7 @@ class AddStepController extends Controller
             // check type of validator
             if($input['selectBy']=="search"){
                 // check change (if not change, it should not create new version)
-                if($oldStep['step_Title']==$input['title']&&$oldStep['typeOfVerify']==$input['type']&&$oldStep['validator']==$input['validator']){
+                if($oldStep['step_Title']==$input['title']&&$oldStep['typeOfVerify']==$input['type']&&$oldStep['deadline']==$input['deadline']&&$oldStep['validator']==$input['validator']){
                     Session::forget('stepEdit');
                     return redirect('FlowDetail?id='.$oldStep['flow_Id']);
                 } else {
@@ -71,7 +71,7 @@ class AddStepController extends Controller
                 }    
             } else if($input['selectBy']=="position"){
                 // check change (if not change, it should not create new version)
-                if($oldStep['step_Title']==$input['title']&&$oldStep['typeOfVerify']==$input['type']&&$oldStep['validator']==[$input['position']]){
+                if($oldStep['step_Title']==$input['title']&&$oldStep['typeOfVerify']==$input['type']&&$oldStep['deadline']==$input['deadline']&&$oldStep['validator']==[$input['position']]){
                     Session::forget('stepEdit');
                     return redirect('FlowDetail?id='.$oldStep['flow_Id']);
                 } else {
