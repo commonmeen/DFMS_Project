@@ -18,4 +18,9 @@ class EloquentDocumentRepository extends AbstractRepository implements DocumentR
         $data = Document::where('document_Id',$id)->first();
         return json_decode($data,true);
     }
+
+    public static function listDocumentByUserId($userId){
+        $data = Document::where('document_Author',$user_Id)->get();
+        return json_decode($data,true);
+    }
 }
