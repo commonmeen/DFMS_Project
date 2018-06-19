@@ -14,9 +14,9 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         return Flow::class;
     }
 
-    public function listFlow()
+    public static function listFlowCanUse()
     {
-        $data = Flow::all();
+        $data = Flow::where('status',"on")->get();
         return json_decode($data);
     }
 
