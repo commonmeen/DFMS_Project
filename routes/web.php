@@ -37,6 +37,11 @@ Route::any('EditStep','EditStepController@editStep');
 
 Route::any('GetSelectValidator','SearchUserController@getValidator');
 
+Route::any('FileUpload','FileUploadController@upload');
+
+Route::any('ListProcess','ListProcessController@listProcess');
+
+Route::any('NewProcess','ProcessFormController@newProcessForm');
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
 
