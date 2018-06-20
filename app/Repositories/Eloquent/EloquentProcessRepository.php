@@ -23,4 +23,10 @@ class EloquentProcessRepository extends AbstractRepository implements ProcessRep
         $data = Process::where('process_Owner',$user_Id)->get();
         return json_decode($data,true);
     }
+
+    public static function changeStatusProcess($process_Id,$status){
+        $process = Process::where('process_Id',$process_Id)->first();
+        $process->current_StepId = $status ;
+        $process->save();
+    }
 }
