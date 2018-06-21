@@ -27,15 +27,58 @@
     .bs-wizard > .bs-wizard-step:last-child  > .progress {width: 50%;}
     .bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }
 </style>
+<script>
+    function changeStatus(id){
+        var data = {process_Id:id};
+        $.ajax({
+            type     : "GET",
+            url      : "CancelProcess",
+            data     : data,
+            cache    : false,
+            success  : function(response){
+                window.location.reload();
+            }
+        });
+    }
+</script>
 @section('content')
     <div class="container content">
         <div class="row">
             <div class="col-lg-9">
                 <h3>Process : {{$process['process_Name']}}</h3>
             </div>
-            <div class="col-lg-3">
-                <a role="button" class="btn btn-danger float-right" href="">Cancel Process</a>
-            </div>
+            @if($process['current_StepId']!="cancel"&&$process['current_StepId']!="success")
+                <div class="col-lg-3">
+                        <button class="btn btn-danger float-left" type="button" data-toggle="modal" data-target="#cancelProcessModalCenter">Cancel Process</button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="cancelProcessModalCenter" tabindex="-1" role="dialog" aria-labelledby="cancelProcessModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <br><br><br>Do you want to cancel {{$process['process_Name']}} process?<br><br>
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 form-group mb-0">
+                                        <label class="col-form-labelr align-self-center">password</label>
+                                    </div>
+                                    <div class="col-lg-8 mb-3">
+                                        <input type="text" name="password" class="form-control">
+                                    </div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$process['process_Id']}}')" data-dismiss="modal">Yes</button>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            @else
+                <div class="col-lg-3">
+                    <h2>[ {{$process['current_StepId']}} ]</h2>
+                </div>
+            @endif
         </div>
 
         {{-- Progress Bar --}}
@@ -43,9 +86,9 @@
             <div class="row bs-wizard" style="border-bottom:0;">
                 @php $index = 1; $complete = count($process['process_Step'])  @endphp
                 @foreach($steps as $step)
-                    @if($index < $complete)
+                    @if($index < $complete+1)
                         <div class="col-xs-{{12/count($steps)}} bs-wizard-step complete">                             
-                    @elseif($index == $complete) 
+                    @elseif($index == $complete+1) 
                         <div class="col-xs-{{12/count($steps)}} bs-wizard-step active">
                     @else 
                         <div class="col-xs-{{12/count($steps)}} bs-wizard-step disabled"> 
