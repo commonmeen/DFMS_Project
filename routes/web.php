@@ -42,6 +42,11 @@ Route::any('FileUpload','FileUploadController@upload');
 Route::any('ListProcess','ListProcessController@listProcess');
 
 Route::any('NewProcess','ProcessFormController@newProcessForm');
+
+Route::any('ProcessDetail','ProcessDetailController@processDetail');
+
+Route::any('CancelProcess','CancelProcessController@cancel');
+
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
 
