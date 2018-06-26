@@ -34,7 +34,7 @@
                     for(var i=0; i<response.documentList.length ; i++){
                         document.getElementById('ckDoc').innerHTML += "<div class='col-6 content' style='text-align:center'>"+
                         "<input class='c-card' type='checkbox' id='"+response.documentList[i].document_Id+
-                        "' value='"+response.documentList[i].document_Id+"' name='document_Id[]'>"+
+                        "' value='"+response.documentList[i].document_Id+"' onchange='documentValidate()' name='document_Id[]'>"+
                         "<div class='card-content'><div class='card-state-icon'></div>"+
                         "<label for='"+response.documentList[i].document_Id+"'><div class='card-body'>"+
                         "<p class='text-center font-weight-bold' id='txtName'>"+response.documentList[i].document_Name+"</p>"+
@@ -44,11 +44,48 @@
                 }
             });
         }
+        
+        function nameValidate(){
+            if(document.getElementById("name").value==""){
+                var isNotErr = false ;
+                document.getElementById("name").style.borderColor = "red" ;
+                document.getElementById("name").placeholder = "Please enter name of process" ;
+            } else {
+                var isNotErr = true ;
+                document.getElementById("name").style.borderColor = "" ;
+            }
+            return isNotErr ;
+        }
+        
+        function documentValidate(){
+            var isNotErr = false ;
+            var checkbox = document.getElementsByName("document_Id[]") ;
+            for (var i = 0, length = checkbox.length; i < length; i++){
+                if (checkbox[i].checked){
+                    isNotErr = true;
+                    document.getElementById("errDocument").innerHTML = "" ;
+                    break;
+                }
+                else
+                    document.getElementById("errDocument").innerHTML = "**Please choose at least 1 document." ;
+            }
+            return isNotErr;
+        }
+
+        function validateAndSubmit(){
+            $("#file-1").fileinput({
+                uploadUrl: "/FileUpload"
+            });
+            if(documentValidate()&nameValidate())
+                document.getElementById('newProcess').submit();
+            else
+                $('html, body').animate({scrollTop:0}, 'slow');
+        }
     </script>
 @endsection
 @section('content')
 <div class="container content">
-    <form action="NewProcess">
+    <form id="newProcess" action="NewProcess">
         <div class="row">
             <div class="col-12">
                 <h5>Choose Flow</h5>
@@ -56,7 +93,7 @@
             <br>
             <div class="col-lg-2"></div>
             <div class="col-lg-8 col-sm-9 col-9 mb-3">
-                <input type="text" name="name" id="name" class="form-control" placeholder="Enter Process Name">
+                <input type="text" name="name" id="name" class="form-control" onkeyup="nameValidate()" placeholder="Enter Process Name">
             </div>
             <div class="col-lg-2"></div><div class="col-lg-2"></div>
             <div class="col-lg-8 col-sm-9 col-9 mb-3">
@@ -73,7 +110,7 @@
         <div id="hide" style="display:none">
             <div class="row">
                 <div class="col-12">
-                    <h5>Choose Document</h5>
+                    <h5 style="display:inline;">Choose Document</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p style="color:red; display:inline;" id="errDocument"></p>
                 </div>
                 <div class="col-12">
                     <p id="ckDoc"></p>
@@ -88,7 +125,7 @@
                     {!! csrf_field() !!}
                     <div class="form-group">
                         <div class="file-loading">
-                            <input id="file-1" type="file" name="file" multiple data-overwrite-initial="false">
+                            <input id="file-1" type="file" name="file[]" multiple data-overwrite-initial="false">
                         </div>
                     </div>
                 </div>
@@ -107,7 +144,7 @@
                 <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12 text-center">
                         <a class="btn btn-danger m-2" href="">Cancel</a>
-                        <input type="submit" class="btn btn-success m-2" value="Sent"></input>
+                        <button type="button" class="btn btn-success m-2" onclick="validateAndSubmit()">Sent</button>
                     </div>
                 <div class="col-lg-2"></div>
             </div>
@@ -116,7 +153,6 @@
     <br><br>
 </div>
 <script type="text/javascript">
-    $.fn.fileinput.defaults.showRemove = false;
     $("#file-1").fileinput({
         theme: 'fa',
         uploadUrl: "/FileUpload",
