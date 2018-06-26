@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 class FileUploadController extends Controller
 {
     public function upload(Request $request){
-        $imageName = request()->file->getClientOriginalName();
-        request()->file->move(public_path('upload'), $imageName);
-        
-        return response()->json(['uploaded' => '/upload/'.$imageName]);
+        $files = request()->file ;
+        if($files!=null){
+            foreach($files as $file){
+                $imageName = $file->getClientOriginalName();
+                $file->move(public_path('upload'), $imageName);   
+            }
+            return response()->json(['uploaded' => '/upload/'.$imageName]) ;
+        } else {
+            return response()->json() ;
+        }
     }
 }
