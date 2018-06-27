@@ -41,11 +41,15 @@ Route::any('FileUpload','FileUploadController@upload');
 
 Route::any('ListProcess','ListProcessController@listProcess');
 
-Route::any('NewProcess','ProcessFormController@newProcessForm');
+Route::any('DataProcess','ProcessFormController@newProcessForm');
 
 Route::any('ProcessDetail','ProcessDetailController@processDetail');
 
 Route::any('CancelProcess','CancelProcessController@cancel');
+
+Route::any('NewProcess','NewProcessController@newProcess');
+
+Route::any('GetDocumentByFlow','GetFlowDocumentController@getDoc');
 
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
@@ -57,3 +61,6 @@ Route::any('NumStepValidate','AddFlowController@validateNumberOfStep');
 Route::any('AddStepTitleValidate','AddStepController@validateTitle');
 
 Route::any('AddStepDeadlineValidate','AddStepController@validateDeadline');
+
+//Test
+Route::any('Hello','TestController@test');

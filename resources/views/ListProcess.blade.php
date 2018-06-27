@@ -13,7 +13,7 @@
                 <h4>Your Process List</h4>
             </div>
             <div class="col-6 ">
-                <a role="button" class="btn btn-success float-right" href="NewProcess">New Process</a>
+                <a role="button" class="btn btn-success float-right" href="DataProcess">New Process</a>
             </div>
             <div class="col-1"></div>
         </div>
@@ -36,7 +36,7 @@
                     <tbody>
                         @php $successProcess = array(); $cancelProcess = array(); $onprocess=null; @endphp
                         @foreach($allProcess as $process)
-                        @php $step = count($process['process_Step'])@endphp
+                            @php $step = count($process['process_Step'])@endphp
                             @if($process['current_StepId']=="success")
                                 @php array_push($successProcess,$process) @endphp
                             @elseif($process['current_StepId']=="cancel")

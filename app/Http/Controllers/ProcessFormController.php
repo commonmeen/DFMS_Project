@@ -9,6 +9,6 @@ class ProcessFormController extends Controller
 {
     public function newProcessForm(){
         $flow = flowRepo::listFlowCanUse();
-        return view('NewProcess',['flow'=>$flow]);
+        return view('DataProcess',['flows'=>$flow]);
     }
 }
