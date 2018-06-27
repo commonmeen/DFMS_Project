@@ -33,7 +33,7 @@ class EloquentProcessRepository extends AbstractRepository implements ProcessRep
 
     public static function newProcess($name,$owner,$flowId,$docId,$file,$txt){
         $prev = Process::orderBy('created_at','desc')->take(1)->get();
-        $newId = 'P'.str_pad(substr($prev[0]->flow_Id,1)+1, 5, '0', STR_PAD_LEFT);
+        $newId = 'P'.str_pad(substr($prev[0]->process_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $step = EloquentStepRepository::getStepByFlow($flowId);
         $curStep = $step[0]['step_Id'] ;
         $process = new Process ;
