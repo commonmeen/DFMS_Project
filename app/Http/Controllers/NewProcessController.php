@@ -11,10 +11,9 @@ class NewProcessController extends Controller
     public function newProcess(Request $request){
         $input = $request->all();
         $user = Session::get('UserLogin');
-        dd($input);
         if($input['file'][0] == null)
             $input['file'] = [] ;
         $process = processRepo::newProcess($input['name'],$user->user_Id,$input['flowId'],$input['document_Id'],$input['file'],$input['textProcess']);
-        dd($process);
+        return redirect('ListProcess');
     }
 }
