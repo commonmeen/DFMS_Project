@@ -13,9 +13,9 @@
             background-color: #fff;
             border: hidden;
         }
-        .fileinput-remove{
+        .kv-file-upload{
             display: none;
-        }      
+        }   
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
@@ -32,13 +32,17 @@
                 success  : function(response){
                     document.getElementById('ckDoc').innerHTML = "" ;
                     for(var i=0; i<response.documentList.length ; i++){
-                        document.getElementById('ckDoc').innerHTML += "<div class='col-6 content' style='text-align:center'>"+
+                        document.getElementById('ckDoc').innerHTML += "<div class='col-4 content' style='text-align:center;display:inline-block'>"+
                         "<input class='c-card' type='checkbox' id='"+response.documentList[i].document_Id+
                         "' value='"+response.documentList[i].document_Id+"' onchange='documentValidate()' name='document_Id[]'>"+
-                        "<div class='card-content'><div class='card-state-icon'></div>"+
+                        "<div class='card-content'>"+
                         "<label for='"+response.documentList[i].document_Id+"'><div class='card-body'>"+
                         "<p class='text-center font-weight-bold' id='txtName'>"+response.documentList[i].document_Name+"</p>"+
                         "</div></label></div></div>" ;
+                    }
+                    if(response.documentList.length == 0){
+                        document.getElementById('ckDoc').innerHTML = "<div style='text-align:center'>No document about this flow.</div>";
+                        document.getElementById("errDocument").innerHTML = "**Please choose at least 1 document." ;
                     }
                     document.getElementById('hide').style.display = "";
                 }
@@ -109,8 +113,11 @@
         <hr><br>
         <div id="hide" style="display:none">
             <div class="row">
-                <div class="col-12">
+                <div class="col-9">
                     <h5 style="display:inline;">Choose Document</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p style="color:red; display:inline;" id="errDocument"></p>
+                </div>
+                <div class="col-3">
+                    <a role="button" class="btn btn-primary float-right" href="NewDocument">New Document</a>
                 </div>
                 <div class="col-12">
                     <p id="ckDoc"></p>
@@ -136,7 +143,7 @@
                     <h5>Input Text (Optional)</h5>
                 </div>
                 <div class="col-12 col-sm-12 col-11 main-section">
-                    <textarea class="col-12" name="textProcess" id="textProcess" rows="4" placeholder="input text here.."></textarea>
+                    <textarea class="col-12" name="textProcess" id="textProcess" uploadUrl="/FileUpload" rows="4" placeholder="input text here.."></textarea>
                 </div>
             </div>
             <hr><br>
@@ -154,6 +161,8 @@
 </div>
 <script type="text/javascript">
     $("#file-1").fileinput({
+        removeLabel: "Remove all",
+        showUpload: false,
         theme: 'fa',
         uploadUrl: "/FileUpload",
         uploadExtraData: function() {
