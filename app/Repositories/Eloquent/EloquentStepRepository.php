@@ -27,6 +27,12 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         $step->deadline = $deadline ;
         $step->time_AVG = 0 ;
         $step->save() ;
+        $allDeadline = 0;
+        $allStepThisFlow = EloquentStepRepository::getStepByFlow($flow_Id);
+        foreach($allStepThisFlow as $step){
+            $allDeadline += $step['deadline'] ;
+        }
+        EloquentFlowRepository::updateDeadline($flow_Id,$allDeadline);
         return $step ;
     }
 
@@ -40,6 +46,12 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         $step->deadline = $deadline ;
         $step->time_AVG = 0 ;
         $step->save() ;
+        $allDeadline = 0;
+        $allStepThisFlow = EloquentStepRepository::getStepByFlow($flow_Id);
+        foreach($allStepThisFlow as $step){
+            $allDeadline += $step['deadline'] ;
+        }
+        EloquentFlowRepository::updateDeadline($flow_Id,$allDeadline);
         return $step ;
     }
 

@@ -37,7 +37,7 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         return $flowGroupCat;
     }
 
-    public static function addFlow($name,$author,$desc,$catId,$deadline,$noStep){
+    public static function addFlow($name,$author,$desc,$catId,$noStep){
         $prev = Flow::orderBy('created_at','desc')->take(1)->get();
         $newId = 'F'.str_pad(substr($prev[0]->flow_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $flow = new Flow ;
@@ -46,12 +46,12 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->flow_Author = $author ;
         $flow->flow_Description = $desc ;
         $flow->flow_CatId = $catId ;
-        $flow->flow_Deadline = $deadline ;
+        $flow->flow_Deadline = 0 ;
         $flow->numberOfStep = $noStep ;
         $flow->time_AVG = 0 ;
         $flow->numberOfUse = 0 ;
         $flow->template_Id = [];
-        $flow->status = "on";
+        $flow->status = "off";
         $flow->save();   
         return $newId;
     }
@@ -68,13 +68,18 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->save();
     }
 
-    public static function editFlow($id,$name,$desc,$catId,$deadline,$noStep)
+    public static function updateDeadline($id,$deadline){
+        $flow = Flow::where('flow_Id',$id)->first();
+        $flow->flow_Deadline = (int)ceil($deadline/24) ;
+        $flow->save();
+    }
+
+    public static function editFlow($id,$name,$desc,$catId,$noStep)
     {
         $flow = Flow::where('flow_Id',$id)->first();
         $flow->flow_Name = $name;
         $flow->flow_Description = $desc;
         $flow->flow_CatId = $catId;
-        $flow->flow_Deadline = $deadline;
         $flow->numberOfStep = $noStep ;
         $flow->save(); 
         return $flow;
@@ -101,5 +106,5 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $newFlow->status = "on";
         $newFlow->save();
         return $newFlow->flow_Id ;
-    }
+    } 
 }
