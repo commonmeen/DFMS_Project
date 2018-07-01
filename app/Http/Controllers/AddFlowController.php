@@ -16,7 +16,10 @@ class AddFlowController extends Controller
         $allStepId = array() ;
         if($request->has('flow')){
             if($request->has('name')){
-                $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['deadline'],$input['numberOfStep']);
+                $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['numberOfStep']);
+                if(Session::has('FlowEdit')){
+                    return redirect('FlowDetail?id='.$input['flow']);
+                }
             }
             $thisFlow = flowRepo::getFlowById($input['flow']);
             if(!Session::has('FlowCreate')){
@@ -30,7 +33,7 @@ class AddFlowController extends Controller
             }
         } else {
             $user = Session::get('UserLogin');
-            $newFlowId = flowRepo::addFlow($input['name'],$user->user_Id,$input['desc'],$input['catId'],$input['deadline'],$input['numberOfStep']);
+            $newFlowId = flowRepo::addFlow($input['name'],$user->user_Id,$input['desc'],$input['catId'],$input['numberOfStep']);
             $thisFlow = flowRepo::getFlowById($newFlowId);
             Session::put('FlowCreate',$thisFlow);
         }
@@ -38,6 +41,7 @@ class AddFlowController extends Controller
         return view('ListTemplate',['Flow'=>$thisFlow,'template'=>$allTemplate, 'allStepId'=>$allStepId]);
     }
 
+    ///////////////////////// Validate data ///////////////////////
     public function validateName(Request $request){
         $input = $request->all();
         $rules = array('name'=>'required|regex:/^([a-zA-Zก-เ])([^0-9]{0,99})$/');
@@ -48,19 +52,6 @@ class AddFlowController extends Controller
         $validator = Validator::make($input, $rules, $messages);
         if($validator->fails())
             echo $validator->errors()->get('name')[0];
-        else
-            echo "true" ;
-    }
-
-    public function validateDeadline(Request $request){
-        $input = $request->all();
-        $rules = array('deadline'=>'required|integer|min:1');
-        $messages = [
-            'required' => 'Deadline is require.',
-        ];
-        $validator = Validator::make($input, $rules, $messages);
-        if($validator->fails())
-            echo $validator->errors()->get('deadline')[0];
         else
             echo "true" ;
     }
