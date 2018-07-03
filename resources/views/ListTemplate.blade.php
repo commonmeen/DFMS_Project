@@ -84,8 +84,11 @@
                         @foreach($Flow['template_Id'] as $flowTem)
                             @if($t['template_Id']==$flowTem)
                                 <input class="c-card" type="checkbox" id="{{$t['template_Id']}}" value="{{$t['template_Id']}}" name="template_Id[]" checked>
+                                @php array_shift($Flow['template_Id']); @endphp
+                                @break
                             @else
                                 <input class="c-card" type="checkbox" id="{{$t['template_Id']}}" value="{{$t['template_Id']}}" name="template_Id[]">
+                                @break    
                             @endif
                         @endforeach
                     @else
