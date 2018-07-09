@@ -24,7 +24,7 @@
                 <h3>Flow : {{$flow['flow_Name']}}</h3>
             </div>
             <div class="col-lg-3">
-            <a role="button" class="btn btn-primary float-right" href="AddFlow?flow_Id={{$flow['flow_Id']}}">Edit</a>
+            <a role="button" class="btn btn-primary float-right" href="EditFlow?flow_Id={{$flow['flow_Id']}}">Edit</a>
             </div>
             <div class="col-lg-3 text-center">
                 @if($flow['status']=="on")
@@ -32,7 +32,7 @@
                 @elseif($flow['status']=="off")
                     <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Unlock</button>
                 @endif
-            <!-- Modal -->
+                <!-- Modal -->
                 <div class="modal fade" id="lockFlowModalCenter" tabindex="-1" role="dialog" aria-labelledby="lockFlowModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -65,91 +65,78 @@
                 </div>    
             </div>
         </div>
-        <form action="">
-            <div class="row">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-6">
-                    <div class="row mb-5"></div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label class="col-form-labelr align-self-center">Description : </label>
-                        </div>
-                        <div class="col-lg-9 mb-3">
-                            {{$flow['flow_Description']}}
-                        </div>
-                    </div>   
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label class="col-form-labelr align-self-center">Deadline : </label>
-                        </div>
-                        <div class="col-lg-9 mb-3">
-                            {{$flow['flow_Deadline']}} Day(s)
-                        </div>
-                    </div> 
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label class="col-form-labelr align-self-center">Category : </label>
-                        </div>
-                        <div class="col-lg-9 mb-3">
-                            {{$flow['flow_CatId']}} 
-                        </div>
-                    </div> 
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label class="col-form-labelr align-self-center">Template : </label>
-                        </div>
-                        @foreach($flow['template_Id'] as $template_Name)
-                            <div class="col-lg-9 mb-3">
-                                {{array_search($template_Name, $flow['template_Id'])+1}}. {{$template_Name}}
-                            </div>
-                            @if(array_last($flow['template_Id'])!=$template_Name)
-                            <div class="col-lg-3"></div>
-                            @endif
-                        @endforeach
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="row mb-5"></div>
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <label class="col-form-labelr align-self-center">Description : </label>
                     </div>
+                    <div class="col-lg-9 mb-3">
+                        {{$flow['flow_Description']}}
+                    </div>
+                </div>   
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <label class="col-form-labelr align-self-center">Deadline : </label>
+                    </div>
+                    <div class="col-lg-9 mb-3">
+                        {{$flow['flow_Deadline']}} Day(s)
+                    </div>
+                </div> 
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <label class="col-form-labelr align-self-center">Category : </label>
+                    </div>
+                    <div class="col-lg-9 mb-3">
+                        {{$flow['flow_CatId']}} 
+                    </div>
+                </div> 
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <label class="col-form-labelr align-self-center">Template : </label>
+                    </div>
+                    @foreach($flow['template_Id'] as $template_Name)
+                        <div class="col-lg-9 mb-3">
+                            {{array_search($template_Name, $flow['template_Id'])+1}}. {{$template_Name}}
+                        </div>
+                        @if(array_last($flow['template_Id'])!=$template_Name)
+                        <div class="col-lg-3"></div>
+                        @endif
+                    @endforeach
                 </div>
-                <div class="col-lg-3"></div>
             </div>
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8">
-                    <div class=" table-responsive" id="listValidator">
-                        <table class="table table-list-search table-hover">
-                            <thead>
+            <div class="col-lg-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <div class=" table-responsive" id="listValidator">
+                    <table class="table table-list-search">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>Name</th>
+                                <th>Deadline(hr)</th>
+                                <th>Verify Type</th>
+                                <th>Veridate By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($step as $s)                        
                                 <tr>
-                                    <th>Step</th>
-                                    <th>Name</th>
-                                    <th>Deadline(hr)</th>
-                                    <th>Verify Type</th>
-                                    <th>Veridate By</th>
-                                    <th></th>
+                                    <td style="text-align:center">{{array_search($s, $step)+1}}</td>
+                                    <td>{{$s['step_Title']}}</td>
+                                    <td>{{$s['deadline']}}</td>
+                                    <td>{{$s['typeOfVerify']}}</td>
+                                    <td>{{$s['typeOfValidator']}}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($step as $s)                        
-                                    <tr onclick="window.location='EditStep?id={{$s['step_Id']}}';">
-                                        <td style="text-align:center">{{array_search($s, $step)+1}}</td>
-                                        <td>{{$s['step_Title']}}</td>
-                                        <td>{{$s['deadline']}}</td>
-                                        <td>{{$s['typeOfVerify']}}</td>
-                                        <td>{{$s['typeOfValidator']}}</td>
-                                        <td><img src="pic/bin-step.png" alt="remove step" style="text-align: center" width="17%" height="16%"/></td>
-                                    </tr>
-                                @endforeach
-                                <tr onclick="">
-                                    <td></td>
-                                    <td></td>
-                                    <td><img src="pic/add-button.png" alt="add step" width="20%" height="50%"</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>   
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>   
                 </div>
-                <div class="col-lg-2"></div>
             </div>
-        </form>
+        </div>
     </div>
 @endsection
