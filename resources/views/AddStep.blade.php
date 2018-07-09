@@ -248,7 +248,7 @@
                             @if($step==$i)
                                 <button class="dropdown-item" href="#"  >Step {{$i}}</button>
                             @elseif($step>$i)
-                                <button class="dropdown-item" href="" >Step {{$i}}</button>
+                                <button class="dropdown-item" href="EditStep?id={{$allStep[$i-1]}}&stepck={{$i}}" >Step {{$i}}</button>
                             @elseif($step<$i)
                                 <button class="dropdown-item" href="" disabled>Step {{$i}}</button>
                             @endif
@@ -278,6 +278,7 @@
         @endif
 
         <form action="AddStep" id="step">
+            <input type="text" name="flow_Id" value="{{$flow['flow_Id']}}" hidden>
             <div class="row">
                 <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12">
@@ -437,8 +438,23 @@
                         @elseif(Session::has('FlowCreate') && $step==$flow['numberOfStep'])    
                             <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Finish</button>
                         @else
-                            <a class="btn btn-danger m-2" href="FlowDetail?id={{$stepData['flow_Id']}}">Cancel</a>
-                            <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Save</button>
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#cancelCreateFlowModalCenter">Cancel</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="cancelCreateFlowModalCenter" tabindex="-1" role="dialog" aria-labelledby="cancelCreateFlowModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <br><br><br>Do you want to leave this page?<br>
+                                            The system does not save your actions.<br><br><br>
+                                            <div>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                <a type="button" class="btn btn-secondary" href="EditFlow?flow_Id={{$flow['flow_Id']}}#flowStep'">Yes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>               
+                            <button type="button" class="btn btn-success" onClick="validateAndSubmit()">Save</button>
                         @endif
                     </div>
                 <div class="col-lg-2"></div>
