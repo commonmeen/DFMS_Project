@@ -32,11 +32,6 @@
         var isNotErr = show(formData,"NameValidate","name");
         return isNotErr ;
     }
-    function deadlineValidate(){
-        var formData = {deadline : document.getElementById("deadline").value};
-        var isNotErr = show(formData,"DeadlineValidate","deadline");
-        return isNotErr ;
-    }
     function numStepValidate(){
         var formData = {numberOfStep : document.getElementById("numberOfStep").value};
         var isNotErr = show(formData,"NumStepValidate","numberOfStep");
@@ -44,9 +39,8 @@
     }
     function validateAndSubmit(){
         var name = nameValidate();
-        var deadline = deadlineValidate();
         var numStep = numStepValidate();
-        if(name&&deadline&&numStep){
+        if(name&&numStep){
             document.getElementById('flow').submit();
         }
     }
@@ -89,14 +83,18 @@
                 @if($flow==null)
                     <h3>Create Flow</h3>
                 @else
-                    <h3>Edit Flow : "{{$flow['flow_Name']}}"</h3>
+                    <h3>Create Flow : "{{$flow['flow_Name']}}"</h3>
                 @endif
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <a class="btn btn-secondary" href="#" role="button">Detail flow</a>
-                <a class="btn btn-outline-secondary disabled" href="" role="button">Select template</a>
+                @if($flow==null)
+                    <a class="btn btn-outline-secondary disabled" href="" role="button">Select template</a>
+                @else 
+                    <a class="btn btn-outline-secondary" href="ListTemplate?flow={{$flow['flow_Id']}}" role="button">Select template</a>
+                @endif
             </div>
         </div>
     </div>
@@ -112,7 +110,11 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <button class="dropdown-item" href="#">Detail flow</button>
-                        <button class="dropdown-item" href="" disabled>Select template</button>
+                        @if($flow==null)
+                            <button class="dropdown-item" href="#" disabled>Select template</button>
+                        @else 
+                            <button class="dropdown-item" href="ListTemplate?flow={{$flow['flow_Id']}}">Select template</button>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -151,26 +153,6 @@
                     </div>
                     <div class="col-lg-9 mb-3">
                         <textarea value="{{$flow['flow_Description']}}" name="desc" class="form-control" placeholder="Emample: ใช้สำหรับลางาน">{{$flow['flow_Description']}}</textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group mb-0">
-                            <label>Deadline</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-7 mb-3">
-                        <input type="number" value="{{$flow['flow_Deadline']}}" id="deadline" name="deadline" class="form-control" onchange="deadlineValidate()" placeholder="Example: 1"></input>
-                    </div>
-                    <div class="col-lg-2">
-                        Day(s)
-                    </div>
-                </div><div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group mb-0"></div>
-                    </div>
-                    <div class="col-lg-9 mb-3">
-                        <p id="errdeadline"></p>
                     </div>
                 </div>
                 <div class="row">
@@ -238,12 +220,9 @@
                     </div>
                     <div class="col-lg-7 mb-3">
                         @if($flow['numberOfStep']==null)
-                        <input type="number" name="numberOfStep" id="numberOfStep" onchange="numStepValidate()" class="form-control" placeholder="Example: 3" ></input>
+                            <input type="number" name="numberOfStep" id="numberOfStep" onchange="numStepValidate()" class="form-control" placeholder="Example: 3" ></input>
                         @elseif(Session::has('FlowCreate'))
-                        <input type="number" name="numberOfStep" id="numberOfStep" onchange="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}"></input>
-                        @else
-                        <input type="number" name="numberOfStep" id="numberOfStep" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}" disabled></input>
-                        <input type="hidden" name="numberOfStep" id="numberOfStep" value="{{$flow['numberOfStep']}}"></input>
+                            <input type="number" name="numberOfStep" id="numberOfStep" onchange="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}"></input>
                         @endif
                     </div>
                     <div class="col-lg-2">
@@ -259,7 +238,6 @@
             </div>
             <div class="col-lg-2"></div>
         </div>
-
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8 col-xs-12 text-center">
