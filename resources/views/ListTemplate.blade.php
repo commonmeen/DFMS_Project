@@ -59,8 +59,12 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="AddFlow?flow_Id={{$Flow['flow_Id']}}">Detail flow</a>
                                 <a class="dropdown-item" href="#" >Select template</a>
-                                @for($i=1;$i<=$Flow['numberOfStep'];$i++)
-                                    <a class="dropdown-item" href="#">Step {{$i}}</a>
+                                @for($i=1;$i<=$Flow['numberOfStep'];$i++) 
+                                    @if(count($allStepId)>=$i)
+                                        <a class="dropdown-item" href="EditStep?id={{$allStepId[$i-1]}}&stepck={{$i}}">Step {{$i}}</a>
+                                    @else
+                                        <a class="dropdown-item disabled" href="">Step {{$i}}</a>
+                                    @endif
                                 @endfor
                             </div>
                         </div>
