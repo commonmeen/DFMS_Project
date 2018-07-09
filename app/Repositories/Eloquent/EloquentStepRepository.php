@@ -15,7 +15,7 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
     }
 
     public static function addStep($title,$typeVerify,$typeValidator,$flow_Id,$validator,$deadline){
-        $prev = Step::orderBy('created_at','desc')->take(1)->get();
+        $prev = Step::orderBy('step_Id','desc')->take(1)->get();
         $newId = 'S'.str_pad(substr($prev[0]->step_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $step = new Step ;
         $step->step_Id = $newId ;
@@ -28,11 +28,13 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         $step->time_AVG = 0 ;
         $step->save() ;
         $allDeadline = 0;
-        $allStepThisFlow = EloquentStepRepository::getStepByFlow($flow_Id);
-        foreach($allStepThisFlow as $step){
-            $allDeadline += $step['deadline'] ;
+        if($flow_Id != ""){
+            $allStepThisFlow = EloquentStepRepository::getStepByFlow($flow_Id);
+            foreach($allStepThisFlow as $stepThisFlow){
+                $allDeadline += $stepThisFlow['deadline'] ;
+            }
+            EloquentFlowRepository::updateDeadline($flow_Id,$allDeadline);
         }
-        EloquentFlowRepository::updateDeadline($flow_Id,$allDeadline);
         return $step ;
     }
 
@@ -55,6 +57,11 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         return $step ;
     }
 
+    public static function deleteStep($id){
+        $step = Step::where('step_Id',$id)->first();
+        $step->delete();
+    }
+
     public static function getStepById($id)
     {
         $data = Step::where('step_Id',$id)->first();
@@ -66,9 +73,12 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         return json_decode($data,true);
     }
 
-    public static function newStepVersion($oldStepId,$newFlowId,$title,$typeVerify,$typeValidator,$validator,$deadline){
-        $oldStep = EloquentStepRepository::getStepById($oldStepId);
+    public static function newStepVersion($oldStep,$newFlowId,$title,$typeVerify,$typeValidator,$validator,$deadline){
         $stepInThisFlow = EloquentStepRepository::getStepByFlow($oldStep['flow_Id']);
+        // check is it new step in edit flow
+        if($oldStep['step_Title'] == ""){
+            array_push($stepInThisFlow,$oldStep);
+        }
         foreach($stepInThisFlow as $step){
             if($step != $oldStep){
                 $newObject = EloquentStepRepository::addStep($step['step_Title'],$step['typeOfVerify'],$step['typeOfValidator'],$newFlowId,$step['validator'],$step['deadline']);
@@ -80,6 +90,13 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
                 $newObject->save();
             }
         }
+        return ;
+    }
+
+    public static function changeStepVersion($oldStepObject,$newFlowId){
+        $newStep = EloquentStepRepository::addStep($oldStepObject['step_Title'],$oldStepObject['typeOfVerify'],$oldStepObject['typeOfValidator'],$newFlowId,$oldStepObject['validator'],$oldStepObject['deadline']);
+        $newStep->time_AVG = $oldStepObject['time_AVG'] ;
+        $newStep->save();
         return ;
     }
 }
