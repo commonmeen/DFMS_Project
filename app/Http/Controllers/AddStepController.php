@@ -43,6 +43,7 @@ class AddStepController extends Controller
             }
             // check step number
             if($input['step']==$flow['numberOfStep']){
+                flowRepo::lockFlow($flow['flow_Id'],"on");
                 Session::forget('FlowCreate');
                 return    redirect('ListFlow');
             } else {
@@ -56,33 +57,42 @@ class AddStepController extends Controller
                 $position = positionRepo::getAllPosition();
                 return view('AddStep',['allStep'=>$allStepId, 'step'=>$next, 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>null]) ;
             }
-        } else {
+        } else if(Session::has('stepEdit')) {
             $oldStep = Session::get('stepEdit');  
+            $oldStep['flow_Id'] = $input['flow_Id'];
             // check type of validator
             if($input['selectBy']=="search"){
                 // check change (if not change, it should not create new version)
                 if($oldStep['step_Title']==$input['title']&&$oldStep['typeOfVerify']==$input['type']&&$oldStep['deadline']==$input['deadline']&&$oldStep['validator']==$input['validator']){
-                    Session::forget('stepEdit');
-                    return redirect('FlowDetail?id='.$oldStep['flow_Id']);
+                    return redirect('EditFlow?flow_Id='.$oldStep['flow_Id'].'#flowStep');
                 } else {
                     $newFlowId = flowRepo::newFlowVersion($oldStep['flow_Id']);
-                    stepRepo::newStepVersion($oldStep['step_Id'],$newFlowId,$input['title'],$input['type'],"name",$input['validator'],$input['deadline']);
-                    return redirect('FlowDetail?id='.$newFlowId);
+                    stepRepo::newStepVersion($oldStep,$newFlowId,$input['title'],$input['type'],"name",$input['validator'],$input['deadline']);
+                    return redirect('EditFlow?flow_Id='.$newFlowId.'#flowStep');
                 }    
             } else if($input['selectBy']=="position"){
                 // check change (if not change, it should not create new version)
                 if($oldStep['step_Title']==$input['title']&&$oldStep['typeOfVerify']==$input['type']&&$oldStep['deadline']==$input['deadline']&&$oldStep['validator']==[$input['position']]){
-                    Session::forget('stepEdit');
-                    return redirect('FlowDetail?id='.$oldStep['flow_Id']);
+                    return redirect('EditFlow?flow_Id='.$oldStep['flow_Id'].'#flowStep');
                 } else {
                     $newFlowId = flowRepo::newFlowVersion($oldStep['flow_Id']);
-                    stepRepo::newStepVersion($oldStep['step_Id'],$newFlowId,$input['title'],$input['type'],"position",[$input['position']],$input['deadline']);
-                    return redirect('FlowDetail?id='.$newFlowId);
+                    stepRepo::newStepVersion($oldStep,$newFlowId,$input['title'],$input['type'],"position",[$input['position']],$input['deadline']);
+                    return redirect('EditFlow?flow_Id='.$newFlowId.'#flowStep');
                 }     
             }
+        } else if(Session::has('FlowEdit')){
+            $newS = stepRepo::addStep("","","","","",0);
+            $newS = json_decode($newS,true);
+            Session::put('stepEdit',$newS);
+            
+            $flow = flowRepo::getFlowById($input['flow_Id']);
+            $allUser = userRepo::listUser();
+            $position = positionRepo::getAllPosition();
+            return view('AddStep',['step'=>null, 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>null]) ;
         }
     }
 
+    // Validate data
     public function validateTitle(Request $request){
         $input = $request->all();
         $rules = array('title'=>'required|regex:/^([a-zA-Zก-เ])([^0-9]{0,99})$/');
