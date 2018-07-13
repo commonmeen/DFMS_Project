@@ -77,13 +77,18 @@
         }
 
         function validateAndSubmit(){
-            $("#file-1").fileinput({
-                uploadUrl: "/FileUpload"
-            });
-            if(documentValidate()&nameValidate())
-                document.getElementById('newProcess').submit();
-            else
+            if(documentValidate()&nameValidate()){
+                if($('input[type=file]')[0].files.length == 0){
+                    document.getElementById('newProcess').submit();
+                } else {
+                    $("#file-1").fileinput("upload");
+                    $('#file-1').on('filebatchuploadsuccess', function(event, data) {
+                        document.getElementById('newProcess').submit();
+                    }); 
+                }
+            } else {
                 $('html, body').animate({scrollTop:0}, 'slow');
+            }
         }
     </script>
 @endsection
@@ -143,7 +148,7 @@
                     <h5>Input Text (Optional)</h5>
                 </div>
                 <div class="col-12 col-sm-12 col-11 main-section">
-                    <textarea class="col-12" name="textProcess" id="textProcess" uploadUrl="/FileUpload" rows="4" placeholder="input text here.."></textarea>
+                    <textarea class="col-12" name="textProcess" id="textProcess" rows="4" placeholder="input text here.."></textarea>
                 </div>
             </div>
             <hr><br>
@@ -163,6 +168,7 @@
     $("#file-1").fileinput({
         removeLabel: "Remove all",
         showUpload: false,
+        uploadAsync: false,
         theme: 'fa',
         uploadUrl: "/FileUpload",
         uploadExtraData: function() {
