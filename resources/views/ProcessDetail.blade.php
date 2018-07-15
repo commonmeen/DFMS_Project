@@ -132,9 +132,9 @@
                             <label class="col-form-labelr align-self-center">File in process : </label>
                         </div>
                         @foreach($process['data']['file_Name'] as $fileName)
-                            <div class="col-lg-8 mb-3">{{$fileName}}</div>
+                            <div class="col-lg-8 mb-3"><a target="_blank" href="upload/{{$fileName}}"> {{$fileName}} </a></div>
                             @if(array_last($process['data']['file_Name'])!=$fileName)
-                            <div class="col-lg-4"></div>
+                                <div class="col-lg-4"></div>
                             @endif
                         @endforeach
                     </div> 
