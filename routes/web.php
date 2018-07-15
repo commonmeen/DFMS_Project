@@ -51,16 +51,19 @@ Route::any('NewProcess','NewProcessController@newProcess');
 
 Route::any('GetDocumentByFlow','GetFlowDocumentController@getDoc');
 
+Route::any('EditFlow','EditFlowManageController@editFlow');
+
+Route::any('ChangeStep','ChangeStepController@changeStep');
+
+Route::any('ChangeStepSave','ChangeStepController@changeStepSave');
+
+Route::any('clear/session/{key}', 'ClearSessionController@test');
+
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
-
-Route::any('DeadlineValidate','AddFlowController@validateDeadline');
 
 Route::any('NumStepValidate','AddFlowController@validateNumberOfStep');
 
 Route::any('AddStepTitleValidate','AddStepController@validateTitle');
 
 Route::any('AddStepDeadlineValidate','AddStepController@validateDeadline');
-
-//Test
-Route::any('Hello','TestController@test');
