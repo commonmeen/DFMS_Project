@@ -18,6 +18,7 @@ class AddFlowController extends Controller
             if($request->has('name')){
                 $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['numberOfStep']);
                 if(Session::has('FlowEdit')){
+                    Session::forget('FlowEdit');
                     return redirect('FlowDetail?id='.$input['flow']);
                 }
             }
