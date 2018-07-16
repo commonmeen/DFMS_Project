@@ -78,6 +78,7 @@
 
         function validateAndSubmit(){
             if(documentValidate()&nameValidate()){
+                $('BODY').attr('onbeforeunload',false);
                 if($('input[type=file]')[0].files.length == 0){
                     document.getElementById('newProcess').submit();
                 } else {
@@ -90,9 +91,18 @@
                 $('html, body').animate({scrollTop:0}, 'slow');
             }
         }
+        
+        function closeRequest(){
+            return "You have unsaved changes!";
+        }
     </script>
 @endsection
 @section('content')
+<script>
+    $(document).on('change', function () {
+        $('BODY').attr('onbeforeunload',"return closeRequest()");
+    });
+</script>
 <div class="container content">
     <form id="newProcess" action="NewProcess">
         <div class="row">

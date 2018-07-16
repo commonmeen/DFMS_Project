@@ -41,6 +41,8 @@
         var name = nameValidate();
         var numStep = numStepValidate();
         if(name&&numStep){
+            $('BODY').attr('onbeforeunload',false);
+            $(window).off("unload");
             document.getElementById('flow').submit();
         }
     }
@@ -72,9 +74,28 @@
             });
         }
     }
+    function notDelSession(){
+        $('BODY').attr('onbeforeunload',false);
+        $(window).off("unload");
+    }
+    $(window).on("unload",function () {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'clear/session/FlowCreate'
+        });
+    });
+    function closeRequest(){
+        return "You have unsaved changes!";
+    }
 </script>
 @endsection
 @section('content')
+<script>
+    $(document).on('change', function () {
+        $('BODY').attr('onbeforeunload',"return closeRequest()");
+    });
+</script>
 <div class="container content">
     {{-- Large Screen --}}
     <div class="d-none d-sm-block">
@@ -93,7 +114,7 @@
                 @if($flow==null)
                     <a class="btn btn-outline-secondary disabled" href="" role="button">Select template</a>
                 @else 
-                    <a class="btn btn-outline-secondary" href="ListTemplate?flow={{$flow['flow_Id']}}" role="button">Select template</a>
+                    <a class="btn btn-outline-secondary" onclick="notDelSession()" href="ListTemplate?flow={{$flow['flow_Id']}}" role="button">Select template</a>
                 @endif
             </div>
         </div>
@@ -113,7 +134,7 @@
                         @if($flow==null)
                             <button class="dropdown-item" href="#" disabled>Select template</button>
                         @else 
-                            <button class="dropdown-item" href="ListTemplate?flow={{$flow['flow_Id']}}">Select template</button>
+                            <button class="dropdown-item" onclick="notDelSession()" href="ListTemplate?flow={{$flow['flow_Id']}}">Select template</button>
                         @endif
                     </div>
                 </div>
@@ -252,9 +273,9 @@
                                     <div>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                                         @if($flow==null)
-                                            <a type="button" class="btn btn-secondary" href="ListFlow">Yes</a>
+                                            <a type="button" class="btn btn-secondary" onclick="$('BODY').attr('onbeforeunload',false);" href="ListFlow">Yes</a>
                                         @else
-                                            <a type="button" class="btn btn-secondary" href="FlowDetail?id={{$flow['flow_Id']}}">Yes</a>
+                                            <a type="button" class="btn btn-secondary" onclick="$('BODY').attr('onbeforeunload',false);" href="FlowDetail?id={{$flow['flow_Id']}}">Yes</a>
                                         @endif
                                     </div>
                                 </div>

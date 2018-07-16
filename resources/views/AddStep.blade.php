@@ -196,14 +196,39 @@
         var validator = validatorValidate();
         var validatorck = validatorCheckValidate();
         if(title&&deadline&&verify&&validator&&validatorck){
+            notDelSession() ;
             document.getElementById('step').submit();
         }
     }
 
+    function notDelSession(){
+        $('BODY').attr('onbeforeunload',false);
+        $(window).off("unload");
+    }
+
+    $(window).on("unload",function () {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'clear/session/FlowCreate'
+        });
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'clear/session/FlowEdit'
+        });
+    });
+
+    function closeRequest(){
+        return "You have unsaved changes!";
+    }
+
 </script>
 @endsection
-
 @section('content')
+<script>
+    $('BODY').attr('onbeforeunload',"return closeRequest()");
+</script>
     <div class="container content">
         @if($step!=null)
         {{-- Large Screen --}}
@@ -215,16 +240,16 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-outline-secondary" href="AddFlow?flow_Id={{$flow['flow_Id']}}" role="button" >Detail flow</a>
-                    <a class="btn btn-outline-secondary" href="ListTemplate?flow={{$flow['flow_Id']}}" role="button" >Select template</a>
+                    <a class="btn btn-outline-secondary" onclick="notDelSession()" href="AddFlow?flow_Id={{$flow['flow_Id']}}" role="button" >Detail flow</a>
+                    <a class="btn btn-outline-secondary" onclick="notDelSession()" href="ListTemplate?flow={{$flow['flow_Id']}}" role="button" >Select template</a>
                     @for($i=1;$i<=$flow['numberOfStep'];$i++)
                         @if($step==$i)
                             <a class="btn btn-secondary" href="#" role="button" >Step {{$i}}</a>
                         @elseif($step>$i)
-                            <a class="btn btn-outline-secondary" href="EditStep?id={{$allStep[$i-1]}}&stepck={{$i}}" role="button">Step {{$i}}</a>
+                            <a class="btn btn-outline-secondary" onclick="notDelSession()" href="EditStep?id={{$allStep[$i-1]}}&stepck={{$i}}" role="button">Step {{$i}}</a>
                         @elseif($step<$i)
                             @if(count($allStep)>=$i)
-                                <a class="btn btn-outline-secondary" href="EditStep?id={{$allStep[$i-1]}}&stepck={{$i}}" role="button">Step {{$i}}</a>
+                                <a class="btn btn-outline-secondary" onclick="notDelSession()" href="EditStep?id={{$allStep[$i-1]}}&stepck={{$i}}" role="button">Step {{$i}}</a>
                             @else
                                 <a class="btn btn-outline-secondary disabled" href="" role="button">Step {{$i}}</a>
                             @endif   
@@ -242,13 +267,13 @@
                     <div class="dropbown d-inline ml-5">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button class="dropdown-item" href="AddFlow?flow_Id={{$flow['flow_Id']}}">Detail flow</button>
-                            <button class="dropdown-item" href="ListTemplate?flow={{$flow['flow_Id']}}">Select template</button>
+                            <button class="dropdown-item" onclick="notDelSession()" href="AddFlow?flow_Id={{$flow['flow_Id']}}">Detail flow</button>
+                            <button class="dropdown-item" onclick="notDelSession()" href="ListTemplate?flow={{$flow['flow_Id']}}">Select template</button>
                             @for($i=1;$i<=$flow['numberOfStep'];$i++)
                             @if($step==$i)
                                 <button class="dropdown-item" href="#"  >Step {{$i}}</button>
                             @elseif($step>$i)
-                                <button class="dropdown-item" href="EditStep?id={{$allStep[$i-1]}}&stepck={{$i}}" >Step {{$i}}</button>
+                                <button class="dropdown-item" onclick="notDelSession()" href="EditStep?id={{$allStep[$i-1]}}&stepck={{$i}}" >Step {{$i}}</button>
                             @elseif($step<$i)
                                 <button class="dropdown-item" href="" disabled>Step {{$i}}</button>
                             @endif

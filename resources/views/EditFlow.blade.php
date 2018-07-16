@@ -108,15 +108,26 @@
             }
         });
     }
+    function stepAddRequest(flow_Id){
+        $('BODY').attr('onbeforeunload',false);
+        $(window).off("unload");
+        window.location="AddStep?flow_Id="+flow_Id+"&step";
+    }
     function submitDetail(){
+        $('BODY').attr('onbeforeunload',false);
+        $(window).off("unload");
         if(nameValidate()){
             document.getElementById('DetailForm').submit();
         }
     }
     function submitTemplate(){
+        $('BODY').attr('onbeforeunload',false);
+        $(window).off("unload");
         document.getElementById('TemplateForm').submit();
     }
     function submitStep(){
+        $('BODY').attr('onbeforeunload',false);
+        $(window).off("unload");
         $('#submitStepModal').modal();
         $('#submitYes').click(function() {
             // check password
@@ -126,15 +137,33 @@
                 data     : {},
                 cache    : false,
                 success  : function(response){
-                    window.location='EditFlow?flow_Id='+ response.newFlowId ;
+                    window.location='FlowDetail?id='+ response.newFlowId ;
                 }
             });
             $('#submitStepModal').modal('hide');
         });
     }
+    function closeRequest(){
+        return "You have unsaved changes!" ;
+    }
+    $(window).on("unload",function () {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'clear/session/FlowEdit'
+        });
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'clear/session/stepChange'
+        });
+    });
 </script>
 @endsection
 @section('content')
+<script>
+    $('BODY').attr('onbeforeunload',"return closeRequest()");
+</script>
 <div class="container content">
     <div class="d-none d-sm-block">
         <div class="row">
@@ -142,7 +171,7 @@
                 <h3>Edit Flow : "{{$flow['flow_Name']}}"</h3>
             </div>
         </div>
-    </div><br>  <!-- Note!!!!!!!!!]!!!!!!!!!!!!!!!!!!!!!!!!!!! สุดท้ายกลับมาแก้ xxx ให้หมดด้วย -->
+    </div><br>
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#flowDetail">Edit Detail</a>
@@ -246,7 +275,7 @@
                 <div class="row">
                     <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12 text-center">
-                        <button type="button" onClick="submitDetail()" class="btn btn-success">Save</button>
+                        <button type="button" id="detailSubmit" onClick="submitDetail()" class="btn btn-success">Save</button>
                     </div>
                     <div class="col-lg-2"></div>
                 </div>       
@@ -308,7 +337,7 @@
                                     <th>Deadline(hr)</th>
                                     <th>Verify Type</th>
                                     <th>Veridate By</th>
-                                    <th><input type="image" src="pic/add-button.png" style="width:22px;height:22px;" onclick="window.location='AddStep?flow_Id={{$flow['flow_Id']}}&step';"/></th>
+                                    <th><input type="image" src="pic/add-button.png" style="width:22px;height:22px;" onclick="stepAddRequest('{{$flow['flow_Id']}}')"/></th>
                                 </tr>
                             </thead>                           
                             <tbody>
