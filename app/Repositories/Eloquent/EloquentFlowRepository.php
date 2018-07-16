@@ -51,7 +51,7 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->time_AVG = 0 ;
         $flow->numberOfUse = 0 ;
         $flow->template_Id = [];
-        $flow->status = "off";
+        $flow->status = "creating";
         $flow->save();   
         return $newId;
     }
