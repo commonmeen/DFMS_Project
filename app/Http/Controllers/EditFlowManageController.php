@@ -17,6 +17,8 @@ class EditFlowManageController extends Controller
                 stepRepo::deleteStep(Session::get('stepEdit')['step_Id']);
             Session::forget('stepEdit');
         }
+        if(Session::has('stepChange'))
+            Session::forget('stepChange');
         $input = $request->all();
         $cats = catRepo::getAllCategory();
         $flow = flowRepo::getFlowById($input['flow_Id']);
