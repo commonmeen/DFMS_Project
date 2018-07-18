@@ -102,7 +102,7 @@
     }
 
     function show(userData,validateUrl,about) {
-        var isValid = false;
+        var isValid = $.Deferred();
         document.getElementById("err"+about).innerHTML = "" ;
         $.ajax({
             type     : "GET",
@@ -113,14 +113,13 @@
                 if(response != "true"){                    
                     document.getElementById(about).style.borderColor = "red" ;
                     document.getElementById("err"+about).innerHTML = response ;
+                    isValid.resolve(false) ;
                 } else {
                     document.getElementById(about).style.borderColor = "green" ;
+                    isValid.resolve(true) ;
                 }
             }
         });
-        if (document.getElementById(about).style.borderColor == "green"){
-            isValid = true ;
-        }
         return isValid ;
     }
 

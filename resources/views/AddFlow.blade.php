@@ -6,7 +6,7 @@
 @section('script')
 <script type="text/javascript">
     function show(userData,validateUrl,about) {
-        var isValid = false;
+        var isValid = $.Deferred();
         document.getElementById("err"+about).innerHTML = "" ;
         $.ajax({
             type     : "GET",
@@ -17,14 +17,13 @@
                 if(response != "true"){                    
                     document.getElementById(about).style.borderColor = "red" ;
                     document.getElementById("err"+about).innerHTML = response ;
+                    isValid.resolve(false) ;
                 } else {
                     document.getElementById(about).style.borderColor = "green" ;
+                    isValid.resolve(true) ;
                 }
             }
         });
-        if (document.getElementById(about).style.borderColor == "green"){
-            isValid = true ;
-        }
         return isValid ;
     }
     function nameValidate(){
@@ -38,13 +37,13 @@
         return isNotErr ;
     }
     function validateAndSubmit(){
-        var name = nameValidate();
-        var numStep = numStepValidate();
-        if(name&&numStep){
-            $('BODY').attr('onbeforeunload',false);
-            $(window).off("unload");
-            document.getElementById('flow').submit();
-        }
+        $.when(nameValidate(),numStepValidate()).then(function ( chk1, chk2 ) {
+            if(chk1&&chk2){
+                $('BODY').attr('onbeforeunload',false);
+                $(window).off("unload");
+                document.getElementById('flow').submit();
+            }
+        });
     }
     function addCat(){
         document.getElementById("errCat").style.color = "red" ;
@@ -241,9 +240,9 @@
                     </div>
                     <div class="col-lg-7 mb-3">
                         @if($flow['numberOfStep']==null)
-                            <input type="number" name="numberOfStep" id="numberOfStep" onchange="numStepValidate()" class="form-control" placeholder="Example: 3" ></input>
+                            <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" ></input>
                         @elseif(Session::has('FlowCreate'))
-                            <input type="number" name="numberOfStep" id="numberOfStep" onchange="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}"></input>
+                            <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}"></input>
                         @endif
                     </div>
                     <div class="col-lg-2">
