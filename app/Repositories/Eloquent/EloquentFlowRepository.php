@@ -60,18 +60,21 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow = Flow::where('flow_Id',$id)->first();
         $flow->template_Id = $template ;
         $flow->save();
+        return ;
     }
 
     public static function lockFlow($id,$status){
         $flow = Flow::where('flow_Id',$id)->first();
         $flow->status = $status ;
         $flow->save();
+        return ;
     }
 
     public static function updateDeadline($id,$deadline){
         $flow = Flow::where('flow_Id',$id)->first();
         $flow->flow_Deadline = (int)ceil($deadline/24) ;
         $flow->save();
+        return ;
     }
 
     public static function editFlow($id,$name,$desc,$catId,$noStep)
@@ -83,6 +86,13 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->numberOfStep = $noStep ;
         $flow->save(); 
         return $flow;
+    }
+
+    public static function setNumOfStep($flow_Id,$newNumOfStep){
+        $flow = Flow::where('flow_Id',$flow_Id)->first();
+        $flow->numberOfStep = $newNumOfStep ;
+        $flow->save(); 
+        return ;
     }
 
     public static function newFlowVersion($oldFlowId){
