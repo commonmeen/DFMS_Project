@@ -13,7 +13,9 @@ class ChangeStepController extends Controller
         $input = $request->all();
         $flow = Session::get('FlowEdit');
         $stepChange = Session::get('stepChange');
+        $numberOfStep = count($stepChange);
         $newFlowId = flowRepo::newFlowVersion($flow['flow_Id']);
+        flowRepo::setNumOfStep($newFlowId,$numberOfStep);
         foreach($stepChange as $step){
             stepRepo::changeStepVersion($step,$newFlowId);
         }

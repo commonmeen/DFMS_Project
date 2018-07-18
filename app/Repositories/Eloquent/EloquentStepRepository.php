@@ -4,7 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Step;
 use App\Repositories\Contracts\StepRepository;
-
+use App\Repositories\Eloquent\EloquentFlowRepository as FlowRepo;
 use Kurt\Repoist\Repositories\Eloquent\AbstractRepository;
 
 class EloquentStepRepository extends AbstractRepository implements StepRepository
@@ -78,6 +78,7 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         // check is it new step in edit flow
         if($oldStep['step_Title'] == ""){
             array_push($stepInThisFlow,$oldStep);
+            FlowRepo::setNumOfStep($newFlowId,count($stepInThisFlow));
         }
         foreach($stepInThisFlow as $step){
             if($step != $oldStep){
