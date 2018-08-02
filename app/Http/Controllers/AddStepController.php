@@ -8,6 +8,7 @@ use Validator ;
 use App\Repositories\Eloquent\EloquentStepRepository as stepRepo ;
 use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo ;
 use App\Repositories\Eloquent\EloquentUserRepository as userRepo ;
+use App\Repositories\Eloquent\EloquentValidatorRepository as validatorRepo ;
 use App\Repositories\Eloquent\EloquentPositionRepository as positionRepo ;
 
 class AddStepController extends Controller
@@ -25,9 +26,13 @@ class AddStepController extends Controller
                     array_push($allStepId,$step['step_Id']);
                 }
                 if($input['step']<=count($allStep)){
-                    stepRepo::editStep($allStepId[$input['step']-1],$input['title'],$input['type'],"name",$flow['flow_Id'],$input['validator'],$input['deadline']);
+                    stepRepo::removeValidator($allStepId[$input['step']-1],"name");
+                    $newStep = stepRepo::editStep($allStepId[$input['step']-1],$input['title'],$input['type'],"name",$flow['flow_Id'],$input['validator'],$input['deadline']);
                 }else{
-                    stepRepo::addStep($input['title'],$input['type'],"name",$flow['flow_Id'],$input['validator'],$input['deadline']);
+                    $newStep = stepRepo::addStep($input['title'],$input['type'],"name",$flow['flow_Id'],$input['validator'],$input['deadline']);
+                }
+                foreach ($input['validator'] as $validator){
+                    validatorRepo::addStepToValidator($validator,$newStep->step_Id);
                 }
             } else if($input['selectBy']=="position"){
                 $allStep = stepRepo::getStepByFlow($flow['flow_Id']);
@@ -36,10 +41,12 @@ class AddStepController extends Controller
                     array_push($allStepId,$step['step_Id']);
                 }
                 if($input['step']<=count($allStep)){
-                    stepRepo::editStep($allStepId[$input['step']-1],$input['title'],$input['type'],"position",$flow['flow_Id'],[$input['position']],$input['deadline']);
+                    stepRepo::removeValidator($allStepId[$input['step']-1],"position");
+                    $newStep = stepRepo::editStep($allStepId[$input['step']-1],$input['title'],$input['type'],"position",$flow['flow_Id'],[$input['position']],$input['deadline']);
                 }else{
-                    stepRepo::addStep($input['title'],$input['type'],"position",$flow['flow_Id'],[$input['position']],$input['deadline']);
+                    $newStep = stepRepo::addStep($input['title'],$input['type'],"position",$flow['flow_Id'],[$input['position']],$input['deadline']);
                 }
+                positionRepo::addStepToPosition($input['position'],$newStep->step_Id);
             }
             // check step number
             if($input['step']==$flow['numberOfStep']){
@@ -67,7 +74,10 @@ class AddStepController extends Controller
                     return redirect('EditFlow?flow_Id='.$oldStep['flow_Id'].'#flowStep');
                 } else {
                     $newFlowId = flowRepo::newFlowVersion($oldStep['flow_Id']);
-                    stepRepo::newStepVersion($oldStep,$newFlowId,$input['title'],$input['type'],"name",$input['validator'],$input['deadline']);
+                    $newStep = stepRepo::newStepVersion($oldStep,$newFlowId,$input['title'],$input['type'],"name",$input['validator'],$input['deadline']);
+                    foreach ($input['validator'] as $validator){
+                        validatorRepo::addStepToValidator($validator,$newStep->step_Id);
+                    }
                     return redirect('EditFlow?flow_Id='.$newFlowId.'#flowStep');
                 }    
             } else if($input['selectBy']=="position"){
@@ -76,7 +86,8 @@ class AddStepController extends Controller
                     return redirect('EditFlow?flow_Id='.$oldStep['flow_Id'].'#flowStep');
                 } else {
                     $newFlowId = flowRepo::newFlowVersion($oldStep['flow_Id']);
-                    stepRepo::newStepVersion($oldStep,$newFlowId,$input['title'],$input['type'],"position",[$input['position']],$input['deadline']);
+                    $newStep = stepRepo::newStepVersion($oldStep,$newFlowId,$input['title'],$input['type'],"position",[$input['position']],$input['deadline']);
+                    positionRepo::addStepToPosition($input['position'],$newStep->step_Id);
                     return redirect('EditFlow?flow_Id='.$newFlowId.'#flowStep');
                 }     
             }
