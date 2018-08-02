@@ -4,7 +4,9 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Step;
 use App\Repositories\Contracts\StepRepository;
-use App\Repositories\Eloquent\EloquentFlowRepository as FlowRepo;
+use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo;
+use App\Repositories\Eloquent\EloquentValidatorRepository as validatorRepo;
+use App\Repositories\Eloquent\EloquentPositionRepository as positionRepo;
 use Kurt\Repoist\Repositories\Eloquent\AbstractRepository;
 
 class EloquentStepRepository extends AbstractRepository implements StepRepository
@@ -33,7 +35,7 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
             foreach($allStepThisFlow as $stepThisFlow){
                 $allDeadline += $stepThisFlow['deadline'] ;
             }
-            EloquentFlowRepository::updateDeadline($flow_Id,$allDeadline);
+            flowRepo::updateDeadline($flow_Id,$allDeadline);
         }
         return $step ;
     }
@@ -50,10 +52,10 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         $step->save() ;
         $allDeadline = 0;
         $allStepThisFlow = EloquentStepRepository::getStepByFlow($flow_Id);
-        foreach($allStepThisFlow as $step){
-            $allDeadline += $step['deadline'] ;
+        foreach($allStepThisFlow as $stepFlow){
+            $allDeadline += $stepFlow['deadline'] ;
         }
-        EloquentFlowRepository::updateDeadline($flow_Id,$allDeadline);
+        flowRepo::updateDeadline($flow_Id,$allDeadline);
         return $step ;
     }
 
@@ -78,7 +80,7 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         // check is it new step in edit flow
         if($oldStep['step_Title'] == ""){
             array_push($stepInThisFlow,$oldStep);
-            FlowRepo::setNumOfStep($newFlowId,count($stepInThisFlow));
+            flowRepo::setNumOfStep($newFlowId,count($stepInThisFlow));
         }
         foreach($stepInThisFlow as $step){
             if($step != $oldStep){
@@ -91,7 +93,7 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
                 $newObject->save();
             }
         }
-        return ;
+        return $newObject ;
     }
 
     public static function changeStepVersion($oldStepObject,$newFlowId){
@@ -99,5 +101,17 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         $newStep->time_AVG = $oldStepObject['time_AVG'] ;
         $newStep->save();
         return ;
+    }
+
+    public static function removeValidator($stepId,$type){
+        $step = Step::where('step_Id',$stepId)->first();
+        $oldValidators = $step->validator ;
+        if($step->typeOfValidator == "name"){
+            foreach($oldValidators as $oldValidator){
+                validatorRepo::removeStepFromValidator($oldValidator,$stepId);
+            }
+        } else if($step->typeOfValidator == "position"){
+            positionRepo::removeStepFromPosition($oldValidators[0],$stepId);
+        }
     }
 }
