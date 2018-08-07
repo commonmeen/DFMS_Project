@@ -25,6 +25,11 @@ class EloquentProcessRepository extends AbstractRepository implements ProcessRep
         return json_decode($data,true);
     }
 
+    public static function getProcessByFlow($flow_Id){
+        $data = Process::where('process_FlowId',$flow_Id)->orderBy('process_Id','desc')->get();
+        return json_decode($data,true);
+    }
+
     public static function changeStatusProcess($process_Id,$status){
         $process = Process::where('process_Id',$process_Id)->first();
         $process->current_StepId = $status ;
@@ -32,7 +37,7 @@ class EloquentProcessRepository extends AbstractRepository implements ProcessRep
     }
 
     public static function newProcess($name,$owner,$flowId,$docId,$file,$txt){
-        $prev = Process::orderBy('created_at','desc')->take(1)->get();
+        $prev = Process::orderBy('process_Id','desc')->take(1)->get();
         $newId = 'P'.str_pad(substr($prev[0]->process_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $step = EloquentStepRepository::getStepByFlow($flowId);
         $curStep = $step[0]['step_Id'] ;
