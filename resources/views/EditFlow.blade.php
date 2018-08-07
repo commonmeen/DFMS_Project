@@ -113,6 +113,11 @@
         $(window).off("unload");
         window.location="AddStep?flow_Id="+flow_Id+"&step";
     }
+    function stepEditRequest(step_Id){
+        $('BODY').attr('onbeforeunload',false);
+        $(window).off("unload");
+        window.location="EditStep?id="+step_Id;
+    }
     function submitDetail(){
         $('BODY').attr('onbeforeunload',false);
         $(window).off("unload");
@@ -363,11 +368,11 @@
                                                 </div>
                                             @endif
                                         </td>
-                                        <td onclick="window.location='EditStep?id={{$s['step_Id']}}';" style="text-align:center">{{array_search($s, $step)+1}}</td>
-                                        <td onclick="window.location='EditStep?id={{$s['step_Id']}}';">{{$s['step_Title']}}</td>
-                                        <td onclick="window.location='EditStep?id={{$s['step_Id']}}';">{{$s['deadline']}}</td>
-                                        <td onclick="window.location='EditStep?id={{$s['step_Id']}}';">{{$s['typeOfVerify']}}</td>
-                                        <td onclick="window.location='EditStep?id={{$s['step_Id']}}';">{{$s['typeOfValidator']}}</td>
+                                        <td onclick="stepEditRequest('{{$s['step_Id']}}')" style="text-align:center">{{array_search($s, $step)+1}}</td>
+                                        <td onclick="stepEditRequest('{{$s['step_Id']}}')">{{$s['step_Title']}}</td>
+                                        <td onclick="stepEditRequest('{{$s['step_Id']}}')">{{$s['deadline']}}</td>
+                                        <td onclick="stepEditRequest('{{$s['step_Id']}}')">{{$s['typeOfVerify']}}</td>
+                                        <td onclick="stepEditRequest('{{$s['step_Id']}}')">{{$s['typeOfValidator']}}</td>
                                         <td><input type="image" src="pic/bin-step.png" onclick="changeStep('{{$s['step_Id']}}','delete')" style="width:24px;height:24px;"/></td>
                                     </tr>
                                 @endforeach
