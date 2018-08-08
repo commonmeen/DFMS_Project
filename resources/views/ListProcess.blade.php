@@ -26,7 +26,7 @@
             <a class="nav-link" data-toggle="tab" href="#successProcess">Success</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#cancelProcess">Cancel</a>
+            <a class="nav-link" data-toggle="tab" href="#cancelProcess">Cancel/Reject</a>
             </li>
         </ul>
 
@@ -39,7 +39,7 @@
                             @php $step = count($process['process_Step'])@endphp
                             @if($process['current_StepId']=="success")
                                 @php array_push($successProcess,$process) @endphp
-                            @elseif($process['current_StepId']=="cancel")
+                            @elseif($process['current_StepId']=="cancel" || $process['current_StepId']=="reject")
                                 @php array_push($cancelProcess,$process) @endphp
                             @else
                                 @php $onprocess = 1 @endphp
@@ -100,7 +100,7 @@
                                 @php $step = count($process['process_Step'])@endphp
                                 <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
                                     <td>{{$process['process_Name']}}</td>
-                                    <td>Canceled</td>
+                                    <td>{{$process['current_StepId']}}ed</td>
                                 </tr>
                             @endforeach
                         </tbody>
