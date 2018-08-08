@@ -57,6 +57,12 @@ Route::any('ChangeStep','ChangeStepController@changeStep');
 
 Route::any('ChangeStepSave','ChangeStepController@changeStepSave');
 
+Route::any('ListVerify','ValidateListController@listProcessForValidate');
+
+Route::any('Approve','ApproveProcessController@approveProcess');
+
+Route::any('Reject','RejectProcessController@rejectProcess');
+
 Route::any('clear/session/{key}', 'ClearSessionController@test');
 
 // Validate data
