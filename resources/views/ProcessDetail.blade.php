@@ -40,6 +40,18 @@
             }
         });
     }
+    function submit(stepId,action){
+        var data = {step_Id:stepId};
+        $.ajax({
+            type     : "GET",
+            url      : "CheckTypeValidate",
+            data     : data,
+            cache    : false,
+            success  : function(response){
+                console.log(response.type);
+            }
+        });
+    }
 </script>
 @section('content')
     <div class="container content">
@@ -47,33 +59,35 @@
             <div class="col-lg-9">
                 <h3>Process : {{$process['process_Name']}}</h3>
             </div>
-            @if($process['current_StepId']!="cancel"&&$process['current_StepId']!="success")
-                <div class="col-lg-3">
-                        <button class="btn btn-danger float-left" type="button" data-toggle="modal" data-target="#cancelProcessModalCenter">Cancel Process</button>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="cancelProcessModalCenter" tabindex="-1" role="dialog" aria-labelledby="cancelProcessModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <br><br><br>Do you want to cancel {{$process['process_Name']}} process?<br><br>
-                                <div class="row mb-3">
-                                    <div class="col-lg-3 form-group mb-0">
-                                        <label class="col-form-labelr align-self-center">password</label>
+            @if($process['current_StepId']!="cancel"&&$process['current_StepId']!="success"&&$process['current_StepId']!="reject")
+                @if(Session::get('UserLogin')->user_Id == $process['process_Owner'])
+                    <div class="col-lg-3">
+                            <button class="btn btn-danger float-left" type="button" data-toggle="modal" data-target="#cancelProcessModalCenter">Cancel Process</button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="cancelProcessModalCenter" tabindex="-1" role="dialog" aria-labelledby="cancelProcessModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <br><br><br>Do you want to cancel {{$process['process_Name']}} process?<br><br>
+                                    <div class="row mb-3">
+                                        <div class="col-lg-3 form-group mb-0">
+                                            <label class="col-form-labelr align-self-center">password</label>
+                                        </div>
+                                        <div class="col-lg-8 mb-3">
+                                            <input type="text" name="password" class="form-control">
+                                        </div>
+                                        <div class="col-lg-1"></div>
                                     </div>
-                                    <div class="col-lg-8 mb-3">
-                                        <input type="text" name="password" class="form-control">
+                                    <div>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$process['process_Id']}}')" data-dismiss="modal">Yes</button>   
                                     </div>
-                                    <div class="col-lg-1"></div>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                    <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$process['process_Id']}}')" data-dismiss="modal">Yes</button>   
                                 </div>
                             </div>
-                        </div>
-                    </div>    
-                </div>
+                        </div>    
+                    </div>
+                @endif
             @else
                 <div class="col-lg-3">
                     <h2>[ {{$process['current_StepId']}} ]</h2>
@@ -142,5 +156,37 @@
             </div>
             <div class="col-lg-3"></div>
         </div>
+        @if(count($process['process_Step'])!=0)
+        <br><br>
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-9"><h4>Comments :</h4></div> 
+            @foreach($process['process_Step'] as $stepApproved)
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}  : Approved </div>
+                <div class="col-lg-6">{{$stepApproved['comment']}}</div>
+            @endforeach
+        </div>
+        @endif
+
+        <!-- Approver Zone -->
+        <br><br>
+        @if($canApprove)
+            <div class="row">
+                <div class="col-lg-12" style="text-align:center"><h4>Your comment :</h4></div> 
+                <div class="col-12 col-sm-12 col-11 main-section">
+                        <div class="col-lg-3"></div>
+                    <textarea class="col-6" name="textProcess" id="textProcess" rows="4" placeholder="input text here.."></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                    <div class="col-lg-8 col-xs-12 text-center">
+                        <button type="button" class="btn btn-danger m-2" onclick="submit('{{$process['current_StepId']}}','reject')">Reject</button>
+                        <button type="button" class="btn btn-success m-2" onclick="submit('{{$process['current_StepId']}}','approve')">Approve</button>
+                    </div>
+                <div class="col-lg-2"></div>
+            </div>  
+        @endif
     </div>
 @endsection
