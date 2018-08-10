@@ -59,6 +59,8 @@ Route::any('ChangeStepSave','ChangeStepController@changeStepSave');
 
 Route::any('ListVerify','ValidateListController@listProcessForValidate');
 
+Route::any('CheckTypeValidate','CheckTypeValidateController@chkValidate');
+
 Route::any('Approve','ApproveProcessController@approveProcess');
 
 Route::any('Reject','RejectProcessController@rejectProcess');
