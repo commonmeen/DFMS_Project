@@ -40,7 +40,7 @@
             }
         });
     }
-    function submit(stepId,action){
+    function submit(processId,stepId,action){
         var data = {step_Id:stepId};
         $.ajax({
             type     : "GET",
@@ -48,7 +48,40 @@
             data     : data,
             cache    : false,
             success  : function(response){
-                console.log(response.type);
+                if(response.type=="allow"){
+                    $('#allowModal').modal();
+                    $('#allowYes').click(function() {
+                        // sentAtion
+                        $('#allowModal').modal('hide');
+                    });
+                } else if (response.type == "password"){
+                    $('#passwordModal').modal();
+                    $('#passwordYes').click(function() {
+                        // check password
+                        // sentAtion
+                        $('#passwordModal').modal('hide');
+                    });
+                } else if (response.type == "otp"){
+                    $('#otpModal').modal();
+                    $('#otpYes').click(function() {
+                        // check otp
+                        // sentAtion
+                        $('#otpModal').modal('hide');
+                    });
+                }
+            }
+        });
+    }
+    function sentAction(processId,stepId,action){
+        var ment = document.getElementById('comment').value ;
+        var data = {pid:processId,sid:stepId,comment:ment} ;
+        $.ajax({
+            type     : "GET",
+            url      : action,
+            data     : data,
+            cache    : false,
+            success  : function(response){
+                window.location.reload();
             }
         });
     }
@@ -176,17 +209,74 @@
                 <div class="col-lg-12" style="text-align:center"><h4>Your comment :</h4></div> 
                 <div class="col-12 col-sm-12 col-11 main-section">
                         <div class="col-lg-3"></div>
-                    <textarea class="col-6" name="textProcess" id="textProcess" rows="4" placeholder="input text here.."></textarea>
+                    <textarea class="col-6" name="comment" id="comment" rows="4" placeholder="input text here.."></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-2"></div>
                     <div class="col-lg-8 col-xs-12 text-center">
-                        <button type="button" class="btn btn-danger m-2" onclick="submit('{{$process['current_StepId']}}','reject')">Reject</button>
-                        <button type="button" class="btn btn-success m-2" onclick="submit('{{$process['current_StepId']}}','approve')">Approve</button>
+                        <button type="button" class="btn btn-danger m-2" onclick="submit('{{$process['process_Id']}}','{{$process['current_StepId']}}','Reject')">Reject</button>
+                        <button type="button" class="btn btn-success m-2" onclick="submit('{{$process['process_Id']}}','{{$process['current_StepId']}}','Approve')">Approve</button>
                     </div>
                 <div class="col-lg-2"></div>
             </div>  
         @endif
+        <div class="modal fade" id="allowModal" tabindex="-1" role="dialog" aria-labelledby="allowModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <br><br><br>allow?<br><br>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-secondary" id="allowYes">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <br><br><br>password?<br><br>
+                        <div class="row mb-3">
+                            <div class="col-lg-3 form-group mb-0">
+                                <label class="col-form-labelr align-self-center">password</label>
+                            </div>
+                            <div class="col-lg-8 mb-3">
+                                <input type="text" name="password" class="form-control">
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-secondary" id="passwordYes">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <br><br><br>OTP?<br><br>
+                        <div class="row mb-3">
+                            <div class="col-lg-3 form-group mb-0">
+                                <label class="col-form-labelr align-self-center">OTP</label>
+                            </div>
+                            <div class="col-lg-8 mb-3">
+                                <input type="text" name="password" class="form-control">
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-secondary" id="otpYes">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
     </div>
 @endsection
