@@ -29,7 +29,7 @@
             <table class="table table-list-search table-hover">
                 <tbody>
                     @foreach($nowProcess as $process)
-                        <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
+                        <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}&InProgress=true';">
                             <td>{{$process['process_Name']}}</td>
                             <td>{{$process['updated_at']}}</td>
                         </tr>
