@@ -51,21 +51,21 @@
                 if(response.type=="allow"){
                     $('#allowModal').modal();
                     $('#allowYes').click(function() {
-                        // sentAtion
+                        sentAction(processId,stepId,action) ;
                         $('#allowModal').modal('hide');
                     });
                 } else if (response.type == "password"){
                     $('#passwordModal').modal();
                     $('#passwordYes').click(function() {
                         // check password
-                        // sentAtion
+                        sentAction(processId,stepId,action) ;
                         $('#passwordModal').modal('hide');
                     });
                 } else if (response.type == "otp"){
                     $('#otpModal').modal();
                     $('#otpYes').click(function() {
                         // check otp
-                        // sentAtion
+                        sentAction(processId,stepId,action) ;
                         $('#otpModal').modal('hide');
                     });
                 }
@@ -74,16 +74,21 @@
     }
     function sentAction(processId,stepId,action){
         var ment = document.getElementById('comment').value ;
-        var data = {pid:processId,sid:stepId,comment:ment} ;
-        $.ajax({
-            type     : "GET",
-            url      : action,
-            data     : data,
-            cache    : false,
-            success  : function(response){
-                window.location.reload();
-            }
-        });
+        if(action == "Reject" && ment==""){
+            document.getElementById("comment").style.borderColor = "red" ;
+            document.getElementById("errComment").innerHTML = "If you want to reject, you must give the reason by comment." ;
+        } else {
+            var data = {pid:processId,sid:stepId,comment:ment} ;
+            $.ajax({
+                type     : "GET",
+                url      : action,
+                data     : data,
+                cache    : false,
+                success  : function(response){
+                    window.location = "ListVerify";
+                }
+            });
+        }
     }
 </script>
 @section('content')
@@ -208,8 +213,12 @@
             <div class="row">
                 <div class="col-lg-12" style="text-align:center"><h4>Your comment :</h4></div> 
                 <div class="col-12 col-sm-12 col-11 main-section">
-                        <div class="col-lg-3"></div>
+                    <div class="col-3"></div>
                     <textarea class="col-6" name="comment" id="comment" rows="4" placeholder="input text here.."></textarea>
+                    <div class="col-lg-3"></div>
+                    <div class="col-3"></div>
+                    <div class="col-6"><p id="errComment"></p></div>
+                    
                 </div>
             </div>
             <div class="row">
