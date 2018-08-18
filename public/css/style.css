@@ -1,10 +1,79 @@
+/* Navbar */
+@font-face{
+  font-family: 'THSarabun';
+  src: url('/THSarabun.ttf') format('truetype'); 
+}
+body, html{
+  font-family: 'THSarabun';
+  font-size: 18pt;
+}
+.nav-color{
+  background-color: #2A9EBF;
+}
+.nav-menu-color{
+  color:#FFFFFF !important;
+  border-bottom: 4px solid #FFF;
+}
+.navbar-brand{
+  color:#FFFFFF !important;
+}
+.user-color{
+  color:#FFFFFF !important;
+}
+.toggle-nav-menu{
+  color: #FFF !important;
+  font-weight: bold;
+  border-bottom: 4px solid #FFF !important;
+}
+.nav-text{
+  color: #FFF !important;
+}
+a.nav-text:hover{
+  font-weight: bold;
+}
+
+
+
+/* Home Page */
+.toggle-nav.active{
+  color: #2A9EBF !important;
+  font-weight: bold;
+  border-bottom: 4px solid #2A9EBF !important;
+}
+.toggle-nav{
+  color: #000 !important;
+}
+.step-btn{
+  background-color: #2A9EBF;
+  color:#FFF;
+  font-size: 18pt;
+}
+.card-cat{
+  overflow-y: scroll;
+  height: 530px;
+  width: 100%;
+}
+.dropdown-btn{
+  float: right;
+}
+
+
+
+
+
+
+
+
 /* Menu */
 
 .profilePic{
-    width: 50%;
-    display: block;
-    margin-left: auto;
+    width: 80%;
+    margin-top: 3%;
+    margin-bottom: 3%;
     margin-right: auto;
+    margin-left: auto;
+    border-radius: 50%;
+    display: block;
 }
 .center{
     text-align: center;
@@ -27,19 +96,24 @@
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
 }
+.topic{
+  font-size: 20pt;
+  font-weight: bold;
+}
 
 /* ListFlow */
 
-.crad_detial{
+.card_detail{
     overflow-y: scroll;
     height: 300px;
     width: 100%;
 
 }
 .card-header{
-    background-color: #007bff ;
+    background-color: #2A9EBF ;
     text-align: center;
     color: white;
+    font-size: 20pt;
 }
 .button-position{
     float: right;
@@ -61,6 +135,7 @@
 
 
 /* AddFlow */
+
 .top-menu{
     font-size: 1.75rem;
     margin-bottom: .5rem;
@@ -73,6 +148,21 @@
 .template-content{
     margin-left: 20%;
     margin-right: 20%;
+}
+.add-btn{
+  background-color: #2FBF42;
+  color:#FFF;
+  font-size: 18pt;
+}
+.btn{
+  color: #FFF;
+  font-size: 18pt;
+}
+.err-text{
+  font-size: 16pt;
+  color: #F72825;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 *,
