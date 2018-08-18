@@ -9,40 +9,41 @@
     <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link type="text/css" href="css/style.css" rel="stylesheet">
     @yield('script')
     @yield('head')
     <title>@yield('title')</title>
 </head>
 <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light nav-color sticky-top">
         <div class="container">
-        <a class="navbar-brand" href="#">DFMS</a>
+        <a class="navbar-brand" href="/">DFMS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
               
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav mr-auto ">
             <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
+              <a class="nav-link nav-text" href="/">Home</a>
             </li>
             @if(Session::get('UserLogin')->user_Role=="manager")
             <li class="nav-item">
-              <a class="nav-link" href="ListFlow">Flow Template</a>
+              <a class="nav-link nav-text" href="ListFlow">Flow Template</a>
             </li>            
             <li class="nav-item">
-              <a class="nav-link" href="ListTemplate">Document Template</a>
+              <a class="nav-link nav-text" href="ListTemplate">Document Template</a>
             </li>
             @endif
             <li class="nav-item">
-              <a class="nav-link" href="ListDocument">Document</a>
+              <a class="nav-link nav-text" href="ListDocument">Document</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="ListProcess">Process</a>
+              <a class="nav-link nav-text" href="ListProcess">Process</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="ListVerify">Verify</a>
+              <a class="nav-link nav-text" href="ListVerify">Verify</a>
             </li>
             {{-- @if(Session::get('UserLogin')->user_Role=="manager")
             <li class="nav-item">
@@ -50,7 +51,7 @@
             </li>
             @endif --}}
           </ul>
-          <img src="pic/user.png" class="user-pic"> @yield('user')
+          <img src="pic/user.png" class="user-pic"> <span class="user-color">@yield('user')</span>
           <div class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               </a>
