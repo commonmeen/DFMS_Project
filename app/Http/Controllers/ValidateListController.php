@@ -30,8 +30,8 @@ class ValidateListController extends Controller
         foreach($allProcessCanApprove as $process){
             if($process['current_StepId'] == "reject"){
                 array_push($reject,$process);
-            // } else if($process['current_StepId'] == "cancel"){
-            //     array_push($reject,$process);
+            } else if($process['current_StepId'] == "cancel"){
+                array_push($reject,$process);
             } else {
                 $i = 0 ;
                 foreach($validator['step_Id'] as $step_Id){
