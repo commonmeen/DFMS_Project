@@ -9,24 +9,33 @@
     <div class="container">
         <br>
         <div class="row">
-            <div class="col-5">   
-                <h4>Your Process List</h4>
+            {{--  Large screen  --}}
+            <div class="col-12 col-sm-5 col-md-5 col-lg-6 d-none d-sm-block">   
+                <p class="topic">Your Process List</p>
             </div>
-            <div class="col-6 ">
+            <div class="col-sm-6 col-md-6 col-lg-6 d-none d-sm-block">
                 <a role="button" class="btn btn-success float-right" href="DataProcess">New Process</a>
             </div>
-            <div class="col-1"></div>
+
+            {{--  Small screen  --}}
+            <div class="col-12 d-sm-none center">   
+                <p class="topic">Your Process List</p>
+            </div>
+            <div class="col-12 d-sm-none ">
+                <a role="button" class="btn btn-block btn-success float-right" href="DataProcess">New Process</a>
+            </div>
+            
         </div>
         <br>
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs " role="tablist">
             <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#onProcess">On Process</a>
+            <a class="nav-link active toggle-nav" data-toggle="tab" href="#onProcess">On Process</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#successProcess">Success</a>
+            <a class="nav-link toggle-nav" data-toggle="tab" href="#successProcess">Success</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#cancelProcess">Cancel/Reject</a>
+            <a class="nav-link toggle-nav" data-toggle="tab" href="#cancelProcess">Canceled / Rejected</a>
             </li>
         </ul>
 
