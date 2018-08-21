@@ -57,4 +57,55 @@ class EloquentProcessRepository extends AbstractRepository implements ProcessRep
         $process->save();   
         return $process;
     }
+
+    public static function approve($process_Id,$step_Id,$approver_Id,$comment,$docCode){
+        $data = Process::where('process_Id',$process_Id)->first();
+        $steps = EloquentStepRepository::getStepByFlow($data->process_FlowId);
+        if($data->current_StepId == $step_Id){
+            for($i = 0 ; $i<count($steps) ; $i++){
+                if($steps[$i]['step_Id'] == $step_Id){
+                    if(array_last($steps)!=$steps[$i]){
+                        $data->current_StepId = $steps[$i+1]['step_Id'] ;
+                    } else {
+                        $data->current_StepId = "success" ;
+                    }
+                    break ;
+                }
+            }
+            $approveData = app()->make('stdClass');
+            $approveData->step_Id = $step_Id ;
+            $approveData->validator_Id = $approver_Id ;
+            $approveData->comment = $comment ;
+            $approveData->doc_Code = $docCode ;
+            $timeDiff = date_diff(now(),$data->updated_at) ;
+            $stepTimeInMinute = $timeDiff->format('%d')*1440+$timeDiff->format('%h')*60+$timeDiff->format('%i') ;
+            $approveData->step_Time = $stepTimeInMinute ;
+            $data->process_Time = $data->process_Time+$stepTimeInMinute ;
+            $approved = $data->process_Step ;
+            array_push($approved,$approveData);
+            $data->process_Step = $approved;
+            $data->save();
+        }
+        return ;
+    }
+
+    public static function reject($process_Id,$step_Id,$approver_Id,$comment){
+        $data = Process::where('process_Id',$process_Id)->first();
+        if($data->current_StepId == $step_Id){
+            $data->current_StepId = "reject" ;
+            $rejectData = app()->make('stdClass');
+            $rejectData->step_Id = $step_Id ;
+            $rejectData->validator_Id = $approver_Id ;
+            $rejectData->comment = $comment ;
+            $timeDiff = date_diff(now(),$data->updated_at) ;
+            $stepTimeInMinute = $timeDiff->format('%d')*1440+$timeDiff->format('%h')*60+$timeDiff->format('%i') ;
+            $rejectData->step_Time = $stepTimeInMinute ;
+            $data->process_Time = $data->process_Time+$stepTimeInMinute ;
+            $approved = $data->process_Step ;
+            array_push($approved,$rejectData);
+            $data->process_Step = $approved;
+            $data->save();
+        }
+        return ;
+    }
 }
