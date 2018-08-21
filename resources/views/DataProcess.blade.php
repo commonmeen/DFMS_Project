@@ -15,6 +15,9 @@
         }
         .kv-file-upload{
             display: none;
+        }
+        .btn-kv{
+            color: 
         }   
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
@@ -32,17 +35,16 @@
                 success  : function(response){
                     document.getElementById('ckDoc').innerHTML = "" ;
                     for(var i=0; i<response.documentList.length ; i++){
-                        document.getElementById('ckDoc').innerHTML += "<div class='col-4 content' style='text-align:center;display:inline-block'>"+
+                        document.getElementById('ckDoc').innerHTML += "<div class='col-12 col-md-6 col-lg-4 content' style='text-align:center;display:inline-block'>"+
                         "<input class='c-card' type='checkbox' id='"+response.documentList[i].document_Id+
                         "' value='"+response.documentList[i].document_Id+"' onchange='documentValidate()' name='document_Id[]'>"+
                         "<div class='card-content'>"+
-                        "<label for='"+response.documentList[i].document_Id+"'><div class='card-body'>"+
-                        "<p class='text-center font-weight-bold' id='txtName'>"+response.documentList[i].document_Name+"</p>"+
+                        "<label for='"+response.documentList[i].document_Id+"'><div class='card-body'>"+response.documentList[i].document_Name+
                         "</div></label></div></div>" ;
                     }
                     if(response.documentList.length == 0){
                         document.getElementById('ckDoc').innerHTML = "<div style='text-align:center'>No document about this flow.</div>";
-                        document.getElementById("errDocument").innerHTML = "**Please choose at least 1 document." ;
+                        document.getElementById("errDocument").innerHTML = "** Please choose at least 1 document. **" ;
                     }
                     document.getElementById('hide').style.display = "";
                 }
@@ -53,9 +55,10 @@
             if(document.getElementById("name").value==""){
                 var isNotErr = false ;
                 document.getElementById("name").style.borderColor = "red" ;
-                document.getElementById("name").placeholder = "Please enter name of process" ;
+                document.getElementById("errname").innerHTML = "Please enter name of process" ;
             } else {
                 var isNotErr = true ;
+                document.getElementById("errname").innerHTML = "" ;
                 document.getElementById("name").style.borderColor = "" ;
             }
             return isNotErr ;
@@ -68,10 +71,12 @@
                 if (checkbox[i].checked){
                     isNotErr = true;
                     document.getElementById("errDocument").innerHTML = "" ;
+                    document.getElementById("errDocuments").innerHTML = "" ;
                     break;
                 }
                 else
-                    document.getElementById("errDocument").innerHTML = "**Please choose at least 1 document." ;
+                    document.getElementById("errDocument").innerHTML = "Please choose at least 1 document." ;
+                    document.getElementById("errDocuments").innerHTML = "Please choose at least 1 document." ;
             }
             return isNotErr;
         }
@@ -106,16 +111,19 @@
 <div class="container content">
     <form id="newProcess" action="NewProcess">
         <div class="row">
-            <div class="col-12">
-                <h5>Choose Flow</h5>
+            {{--  Large screen  --}}
+            <div class="col-12 d-none d-sm-block">
+                <p class="topic">Choose Flow</p>
             </div>
+            {{--  Small screen  --}}
+            <div class="col-12 center d-sm-none">
+                <p class="topic">Choose Flow</p>
+            </div>
+            
             <br>
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8 col-sm-9 col-9 mb-3">
-                <input type="text" name="name" id="name" class="form-control" onkeyup="nameValidate()" placeholder="Enter Process Name">
-            </div>
-            <div class="col-lg-2"></div><div class="col-lg-2"></div>
-            <div class="col-lg-8 col-sm-9 col-9 mb-3">
+            <div class="col-12 col-lg-8 mb-3 block-center">
+                <input type="text" name="name" id="name" class="form-control mb-3" onkeyup="nameValidate()" placeholder="Enter Process Name">
+                <div id="errname" class="err-text"></div>
                 <select class="form-control" name="flowId" id="flowId" onchange="flowSelect()">
                     <option id="defaultNull" disabled selected value="notSelect">Choose Flow</option>
                     @foreach($flows as $flow)
@@ -123,26 +131,43 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-lg-2"></div>
+
         </div>
-        <hr><br>
+        <hr>
         <div id="hide" style="display:none">
             <div class="row">
-                <div class="col-9">
-                    <h5 style="display:inline;">Choose Document</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p style="color:red; display:inline;" id="errDocument"></p>
+                {{--  Large screen  --}}
+                <div class="col-9 col-sm-9 col-lg-9 d-none d-sm-block">
+                    <p class="topic" >Choose Document</p>
+                    <div class="err-text" id="errDocument"></div>
                 </div>
-                <div class="col-3">
-                    <a role="button" class="btn btn-primary float-right" href="NewDocument">New Document</a>
+                <div class="col-12 col-sm-3 col-lg-3 d-none d-sm-block">
+                    <a role="button" class="btn btn-success float-right" href="NewDocument">New Document</a>
                 </div>
+                {{--  Small screen  --}}
+                <div class="col-12 d-sm-none">
+                    <p class="topic center">Choose Document</p>
+                </div>
+                <div class="col-12 col-sm-3 col-lg-3 d-sm-none">
+                    <a role="button" class="btn btn-block btn-success float-right" href="NewDocument">New Document</a>
+                    <div class="err-text center" id="errDocuments"></div>
+                </div>
+                
                 <div class="col-12">
                     <p id="ckDoc"></p>
                 </div>
             </div>
-            <hr><br>
+            <hr>
             <div class="row">
-                <div class="col-12">
-                    <h5>Upload pic or file (Optional)</h5>
+                {{--  Large screen  --}}
+                <div class="col-12 d-none d-sm-block">
+                    <p class="topic">Upload pic or file (Optional)</p>
                 </div>
+                {{--  Small screen  --}}
+                <div class="col-12 d-sm-none">
+                    <p class="topic center">Upload pic or file (Optional)</p>
+                </div>
+
                 <div class="col-lg-12 col-sm-12 col-11 main-section">
                     {!! csrf_field() !!}
                     <div class="form-group">
@@ -152,23 +177,26 @@
                     </div>
                 </div>
             </div>
-            <hr><br>
+            <hr>
             <div class="row">
-                <div class="col-12">
-                    <h5>Input Text (Optional)</h5>
+                {{--  Large screen  --}}
+                <div class="col-12 d-none d-sm-block">
+                    <p class="topic">Input Text (Optional)</p>
+                </div>
+                {{--  Small screen  --}}
+                <div class="col-12 d-sm-none">
+                    <p class="topic center">Input Text (Optional)</p>
                 </div>
                 <div class="col-12 col-sm-12 col-11 main-section">
                     <textarea class="col-12" name="textProcess" id="textProcess" rows="4" placeholder="input text here.."></textarea>
                 </div>
             </div>
-            <hr><br>
+            <hr>
             <div class="row">
-                <div class="col-lg-2"></div>
-                    <div class="col-lg-8 col-xs-12 text-center">
-                        <a class="btn btn-danger m-2" href="">Cancel</a>
-                        <button type="button" class="btn btn-success m-2" onclick="validateAndSubmit()">Sent</button>
-                    </div>
-                <div class="col-lg-2"></div>
+                <div class="block-center">
+                    <a class="btn btn-danger m-2" href="">Cancel</a>
+                    <button type="button" class="btn btn-success m-2" onclick="validateAndSubmit()">Enter</button>
+                </div>
             </div>
         </div>
     </form>

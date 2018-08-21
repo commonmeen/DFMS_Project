@@ -6,22 +6,27 @@
 @section('content')   
 <div class="container"><br>
     <div class="row">
-        <div class="col-5">   
-            <h4>Verify List</h4>
+        {{--  Large screen  --}}
+        <div class="col-12 d-none d-sm-block">
+            <p class="topic mb-0" >Verify List</p>
+        </div>
+        {{--  Small screen  --}}
+        <div class="col-12 d-sm-none">
+            <p class="topic center mb-0">Verify List</p>
         </div>
     </div><br>
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#inProgressProcess">In Progress</a>
+            <a class="nav-link active toggle-nav" data-toggle="tab" href="#inProgressProcess">In Progress</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#comingProcess">Coming</a>
+            <a class="nav-link toggle-nav" data-toggle="tab" href="#comingProcess">Coming</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#approvedProcess">Approved</a>
+            <a class="nav-link toggle-nav" data-toggle="tab" href="#approvedProcess">Approved</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#rejectedProcess">Rejected/Canceled</a>
+            <a class="nav-link toggle-nav" data-toggle="tab" href="#rejectedProcess">Rejected/Canceled</a>
         </li>
     </ul>
     <div class="tab-content">
