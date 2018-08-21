@@ -20,85 +20,106 @@
 @section('content')   
     <div class="container content">
         <div class="row">
-            <div class="col-lg-6">
-                <h3>Flow : {{$flow['flow_Name']}}</h3>
+            {{--  Large screen  --}}
+            <div class="col-sm-6 col-lg-6 d-none d-sm-block">
+                <p class="topic">Flow : {{$flow['flow_Name']}}</p>
             </div>
-            <div class="col-lg-3">
-            <a role="button" class="btn btn-primary float-right" href="EditFlow?flow_Id={{$flow['flow_Id']}}">Edit</a>
+            <div class="col-sm-3 col-lg-3 d-none d-sm-block">
+                <a role="button" class="btn btn-primary float-right" href="EditFlow?flow_Id={{$flow['flow_Id']}}">Edit</a>
             </div>
-            <div class="col-lg-3 text-center">
+            {{--  Small screen  --}}
+            <div class="col-12 center d-sm-none">
+                <p class="topic">Flow : {{$flow['flow_Name']}}</p>
+            </div>
+            <div class="col-12 d-sm-none">
+                <a role="button" class="btn btn-block btn-primary float-right" href="EditFlow?flow_Id={{$flow['flow_Id']}}">Edit</a>
+            </div>
+
                 @if($flow['status']=="on")
-                    <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Lock</button>
+                    {{--  Large screen  --}}
+                    <div class="col-sm-3 col-md-3 col-lg-3 d-none d-sm-block">
+                        <button class="btn red-button float-left" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Lock</button>
+                    </div>
+                    {{--  Small screen  --}}
+                    <div class="col-12 center d-sm-none">
+                        <button class="btn btn-block red-button float-left" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Lock</button>
+                    </div>
                 @elseif($flow['status']=="off")
-                    <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Unlock</button>
+                    {{--  Large screen  --}}
+                    <div class="col-sm-3 col-lg-3 d-none d-sm-block">
+                        <button class="btn red-button float-left" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Unlock</button>
+                    </div>
+                    {{--  Small screen  --}}
+                    <div class="col-12 d-sm-none">
+                        <button class="btn btn-block red-button" type="button" data-toggle="modal" data-target="#lockFlowModalCenter">Unlock</button>
+                    </div>
                 @endif
                 <!-- Modal -->
                 <div class="modal fade" id="lockFlowModalCenter" tabindex="-1" role="dialog" aria-labelledby="lockFlowModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                            <div class="modal-body">
+                            @if($flow['status']=="on")
+                                <div class="modal-header alert-title">
+                                    Do you want to lock "{{$flow['flow_Name']}}" ?
+                                </div>
+                            @elseif($flow['status']=="off")
+                                <div class="modal-header alert-title">
+                                    "{{$flow['flow_Name']}}" is locked.<br>Do you want to unlock {{$flow['flow_Name']}}?
+                                </div>
+                            @endif
+                            <div class="modal-body row">
+                                <div class="col-lg-3 form-group mb-0">
+                                    <label class="col-form-labelr align-self-center">Password</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="text" name="password" class="form-control">
+                                </div>
+                                <div class="col-lg-1"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                                 @if($flow['status']=="on")
-                                <br><br><br>Do you want to lock {{$flow['flow_Name']}}?<br><br>
-                                @elseif($flow['status']=="off")
-                                <br><br><br>{{$flow['flow_Name']}} is locked.<br>Do you want to unlock {{$flow['flow_Name']}}?<br><br>
-                                @endif
-                                <div class="row mb-3">
-                                    <div class="col-lg-3 form-group mb-0">
-                                        <label class="col-form-labelr align-self-center">password</label>
-                                    </div>
-                                    <div class="col-lg-8 mb-3">
-                                        <input type="text" name="password" class="form-control">
-                                    </div>
-                                    <div class="col-lg-1"></div>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                    @if($flow['status']=="on")
-                                        <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$flow['flow_Id']}}','off')" data-dismiss="modal">Yes</button>
-                                    @elseif($flow['status']=="off") 
-                                        <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$flow['flow_Id']}}','on')" data-dismiss="modal">Yes</button>
-                                    @endif   
-                                </div>
+                                    <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$flow['flow_Id']}}','off')" data-dismiss="modal">Yes</button>
+                                @elseif($flow['status']=="off") 
+                                    <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$flow['flow_Id']}}','on')" data-dismiss="modal">Yes</button>
+                                @endif   
                             </div>
                         </div>
                     </div>
-                </div>    
-            </div>
+                </div>  
         </div>
         <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <div class="row mb-5"></div>
-                <div class="row mb-3">
+            <div class="col-lg-6 block-center mt-3 mb-3">
+                <div class="row">
                     <div class="col-lg-3">
-                        <label class="col-form-labelr align-self-center">Description : </label>
+                        <label class="col-form-labelr align-self-center topic-nomal mb-0">Description : </label>
                     </div>
-                    <div class="col-lg-9 mb-3">
+                    <div class="col-lg-9">
                         {{$flow['flow_Description']}}
                     </div>
                 </div>   
-                <div class="row mb-3">
+                <div class="row">
                     <div class="col-lg-3">
-                        <label class="col-form-labelr align-self-center">Deadline : </label>
+                        <label class="col-form-labelr align-self-center topic-nomal mb-0">Deadline : </label>
                     </div>
-                    <div class="col-lg-9 mb-3">
+                    <div class="col-lg-9">
                         {{$flow['flow_Deadline']}} Day(s)
                     </div>
                 </div> 
-                <div class="row mb-3">
+                <div class="row">
                     <div class="col-lg-3">
-                        <label class="col-form-labelr align-self-center">Category : </label>
+                        <label class="col-form-labelr align-self-center topic-nomal mb-0">Category : </label>
                     </div>
-                    <div class="col-lg-9 mb-3">
+                    <div class="col-lg-9">
                         {{$flow['flow_CatId']}} 
                     </div>
                 </div> 
-                <div class="row mb-3">
+                <div class="row">
                     <div class="col-lg-3">
-                        <label class="col-form-labelr align-self-center">Template : </label>
+                        <label class="col-form-labelr align-self-center topic-nomal mb-0">Template : </label>
                     </div>
                     @foreach($flow['template_Id'] as $template_Name)
-                        <div class="col-lg-9 mb-3">
+                        <div class="col-lg-9">
                             {{array_search($template_Name, $flow['template_Id'])+1}}. {{$template_Name}}
                         </div>
                         @if(array_last($flow['template_Id'])!=$template_Name)
@@ -107,25 +128,23 @@
                     @endforeach
                 </div>
             </div>
-            <div class="col-lg-3"></div>
         </div>
         <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8">
-                <div class=" table-responsive" id="listValidator">
-                    <table class="table table-list-search">
+            <div class="col-lg-8 block-center">
+                <div class="table-responsive" id="listValidator">
+                    <table class="table table-list-search font-nomal">
                         <thead>
-                            <tr>
+                            <tr class="center">
                                 <th>Step</th>
                                 <th>Name</th>
-                                <th>Deadline(hr)</th>
+                                <th>Deadline (hr)</th>
                                 <th>Verify Type</th>
                                 <th>Veridate By</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($step as $s)                        
-                                <tr>
+                                <tr class="center">
                                     <td style="text-align:center">{{array_search($s, $step)+1}}</td>
                                     <td>{{$s['step_Title']}}</td>
                                     <td>{{$s['deadline']}}</td>
