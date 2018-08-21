@@ -30,9 +30,6 @@
             </li>
             @if(Session::get('UserLogin')->user_Role=="manager")
             <li class="nav-item">
-              <a class="nav-link nav-text" href="ListFlow">Flow Template</a>
-            </li>            
-            <li class="nav-item">
               <a class="nav-link nav-text" href="ListTemplate">Document Template</a>
             </li>
             @endif
