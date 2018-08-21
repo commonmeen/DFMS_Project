@@ -45,53 +45,54 @@
         document.getElementById("app-re1").innerHTML = action ;
         document.getElementById("app-re2").innerHTML = action ;
         document.getElementById("app-re3").innerHTML = action ;
-        $.ajax({
-            type     : "GET",
-            url      : "CheckTypeValidate",
-            data     : data,
-            cache    : false,
-            success  : function(response){
-                if(response.type=="allow"){
-                    $('#allowModal').modal();
-                    $('#allowYes').click(function() {
-                        sentAction(processId,stepId,action) ;
-                        $('#allowModal').modal('hide');
-                    });
-                } else if (response.type == "password"){
-                    $('#passwordModal').modal();
-                    $('#passwordYes').click(function() {
-                        // check password
-                        sentAction(processId,stepId,action) ;
-                        $('#passwordModal').modal('hide');
-                    });
-                } else if (response.type == "otp"){
-                    $('#otpModal').modal();
-                    $('#otpYes').click(function() {
-                        // check otp
-                        sentAction(processId,stepId,action) ;
-                        $('#otpModal').modal('hide');
-                    });
-                }
-            }
-        });
-    }
-    function sentAction(processId,stepId,action){
         var ment = document.getElementById('comment').value ;
         if(action == "Reject" && ment==""){
             document.getElementById("comment").style.borderColor = "red" ;
             document.getElementById("errComment").innerHTML = "If you want to reject, you must give the reason by comment." ;
         } else {
-            var data = {pid:processId,sid:stepId,comment:ment} ;
             $.ajax({
                 type     : "GET",
-                url      : action,
+                url      : "CheckTypeValidate",
                 data     : data,
                 cache    : false,
                 success  : function(response){
-                    window.location = "ListVerify";
+                    if(response.type=="allow"){
+                        $('#allowModal').modal();
+                        $('#allowYes').click(function() {
+                            sentAction(processId,stepId,action) ;
+                            $('#allowModal').modal('hide');
+                        });
+                    } else if (response.type == "password"){
+                        $('#passwordModal').modal();
+                        $('#passwordYes').click(function() {
+                            // check password
+                            sentAction(processId,stepId,action) ;
+                            $('#passwordModal').modal('hide');
+                        });
+                    } else if (response.type == "otp"){
+                        $('#otpModal').modal();
+                        $('#otpYes').click(function() {
+                            // check otp
+                            sentAction(processId,stepId,action) ;
+                            $('#otpModal').modal('hide');
+                        });
+                    }
                 }
             });
         }
+    }
+    function sentAction(processId,stepId,action){
+        var ment = document.getElementById('comment').value ;
+        var data = {pid:processId,sid:stepId,comment:ment} ;
+        $.ajax({
+            type     : "GET",
+            url      : action,
+            data     : data,
+            cache    : false,
+            success  : function(response){
+                window.location = "ListVerify";
+            }
+        });
     }
 </script>
 @section('content')
@@ -214,8 +215,12 @@
             <div class="col-lg-10 block-center mb-3">
                 <p class="topic">Comments :</p>
                 @foreach($process['process_Step'] as $stepApproved)
+                    @if($process['current_StepId']=="reject")
+                    <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Rejected) {{$stepApproved['comment']}}</div>
+                    @else
                     <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Approved) {{$stepApproved['comment']}}</div>
-                @endforeach
+                    @endif    
+               @endforeach
             </div>
         </div>
         @endif
