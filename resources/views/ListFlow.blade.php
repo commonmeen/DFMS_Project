@@ -8,7 +8,7 @@
         <div class="row content">
             <div class="col-5"><h4>Flow list</h4></div>
             <div class="col-7 ">
-                <a role="button" class="btn btn-primary float-right" href="AddFlow">Create</a>
+                <a role="button" class="btn add-btn float-right" href="AddFlow">Create</a>
             </div>
         </div>
         <div class="row">
@@ -17,8 +17,8 @@
                 @php $otherFlow = $flow @endphp
                 @else
                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                        <h5 class="card-header">{{$category}}</h5>
-                        <div class="card crad_detial mb-3">       
+                        <p class="card-header">{{$category}}</p>
+                        <div class="card crad_detail mb-3">       
                             <div class="list-group">
                                 @foreach($flow as $flowdata)
                                     @if($flowdata['status'] == "on" || $flowdata['status'] == "off")
@@ -37,7 +37,7 @@
                 @endif
             @endforeach
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                <h5 class="card-header">อื่นๆ</h5>
+                <p class="card-header">อื่นๆ</p>
                 <div class="card crad_detial mb-3">       
                     <div class="list-group">
                         @foreach($otherFlow as $flowdata)
