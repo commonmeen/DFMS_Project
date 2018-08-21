@@ -97,9 +97,9 @@
 </script>
 <div class="container content">
     {{-- Large Screen --}}
-    <div class="d-none d-sm-block">
+    <div class="d-none d-md-block">
         <div class="row">
-            <div class="col">
+            <div class="col-lg-12">
                 @if($flow==null)
                     <h3>Create Flow</h3>
                 @else
@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-lg-12">
                 <a class="btn btn-secondary" href="#" role="button">Detail flow</a>
                 @if($flow==null)
                     <a class="btn btn-outline-secondary disabled" href="" role="button">Select template</a>
@@ -120,12 +120,14 @@
     </div>
 
     {{-- Small Screen --}}
-    <div class="d-sm-none">
+    <div class="d-md-none">
         <div class="row">
-            <div class="col">
+            <div class="col-12 ">
                 <span class="top-menu">Create Flow</span> 
-                <div class="dropbown d-inline ml-5">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </div>
+            <div class="col-12 mb-2">
+                <div class="dropbown d-inline">
+                    <button class="btn btn-block btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Menu
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -154,15 +156,15 @@
                         </div>
                     </div>
                     <div class="col-lg-9 mb-3">
-                    <input type="text" name="name" id="name" onkeyup="nameValidate()" class="form-control" placeholder="Example: การลา" value="{{$flow['flow_Name']}}">
+                        <input type="text" name="name" id="name" onkeyup="nameValidate()" class="form-control" placeholder="Example: การลา" value="{{$flow['flow_Name']}}">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group mb-0"></div>
                     </div>
-                    <div class="col-lg-9 mb-3">
-                        <p id="errname"></p>
+                    <div class="col-lg-9">
+                        <div id="errname" class="err-text"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -220,7 +222,7 @@
                                             <input type="text" class="form-control" id="category-name" required>
                                         </div>
                                     </form>
-                                    <h6 class="errCat" id="errCat"></h6>
+                                    <div class="err-text" id="errCat"></div >
                                 </div>
                                     <div class="modal-footer">
                                         <button type="button" id="cancelCat" class="btn btn-secondary" data-dismiss="modal">cancel</button>
@@ -233,26 +235,28 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-3 col-3 col-md-3">
                         <div class="form-group mb-0">
                             <label>Number of Step</label>
                         </div>
                     </div>
-                    <div class="col-lg-7 mb-3">
+                    <div class="col-lg-7 col-6 mb-3 col-md-6">
                         @if($flow['numberOfStep']==null)
-                            <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" ></input>
+                            <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" >
                         @elseif(Session::has('FlowCreate'))
-                            <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}"></input>
+                            <input type="number" name="numberOfStep" id="numberOfStep" onkeyup="numStepValidate()" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}">
                         @endif
                     </div>
-                    <div class="col-lg-2">
-                        Step(s)
+                    <div class="col-lg-2 col-2 col-md-3 ">
+                        <span class="float-right">Step(s)</span> 
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group mb-0"></div>
                     </div>
                     <div class="col-lg-9 mb-3">
-                        <p id="errnumberOfStep"></p>
+                        <div class="err-text" id="errnumberOfStep"></div>
                     </div>
                 </div>
             </div>
