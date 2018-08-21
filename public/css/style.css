@@ -5,7 +5,7 @@
 }
 body, html{
   font-family: 'THSarabun';
-  font-size: 18pt;
+  font-size: 18pt !important;
 }
 .nav-color{
   background-color: #2A9EBF;
@@ -32,6 +32,24 @@ a.nav-text:hover{
   font-weight: bold;
 }
 
+/* All Page */
+.horizon-center{
+  display: block;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+.red-button{
+  background-color: #F72825;
+  color: #FFF;
+}
+.blue-button{
+  background-color: #2A9EBF;
+  color: #FFF;
+}
+.green-button{
+  background-color: #2FBF42;
+  color: #FFF;
+}
 
 
 /* Home Page */
@@ -93,8 +111,10 @@ a.nav-text:hover{
     align-items: center;
 }
 .tempImg{
-    border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
+}
+.img-text{
+
 }
 .topic{
   font-size: 25pt;
@@ -155,7 +175,6 @@ a.nav-text:hover{
   font-size: 18pt;
 }
 .btn{
-  color: #FFF;
   font-size: 18pt;
 }
 .err-text{
@@ -321,4 +340,15 @@ h1 {
 }
 .topic-nomal{
   font-weight: bold;
+}
+
+/* Flow Detail */
+.font-nomal{
+  font-size: 18pt;
+}
+
+
+/* Edit Flow */
+.img-font{
+  font-size: 20pt;
 }
