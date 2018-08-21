@@ -15,6 +15,9 @@ class ValidateListController extends Controller
         $user = Session::get('UserLogin');
         $validator = validatorRepo::getValidateByUserId($user->user_Id);
         $allStepData = array();
+        if($validator == null){
+            return view('ListVerify',['nowProcess'=>array(),'rejectProcess'=>array(),'passMeProcess'=>array(),'comingProcess'=>array()]);
+        }
         foreach($validator['step_Id'] as $stepId){
             array_push($allStepData,stepRepo::getStepById($stepId));
         }
@@ -55,7 +58,6 @@ class ValidateListController extends Controller
                 }
             }
         }
-        // dd($allProcessCanApprove,$allStepData,$now,$reject,$passMe,$coming);
         return view('ListVerify',['nowProcess'=>$now,'rejectProcess'=>$reject,'passMeProcess'=>$passMe,'comingProcess'=>$coming]);
     }
 }
