@@ -66,9 +66,7 @@
 
 
             <div class="col-12 col-lg-6 col-md-6">
-                
                 <div class="row">
-
                     {{--  Large screen  --}}
                     <div class="col-12 col-sm-5 col-md-5 col-lg-6 d-none d-md-block">   
                         <p class="topic">Flow Template</p>
@@ -85,10 +83,6 @@
                         <a role="button" class="btn btn-block btn-success float-right" href="AddFlow">Add Flow</a>
                     </div>
                 </div>
-               
-                
-                
-                
                 <div class="card">                  
                     <div class="card-body card-cat">
                     @foreach($catFlow as $category =>$flow)               
