@@ -97,7 +97,7 @@ a.nav-text:hover{
     border-radius: .25rem;
 }
 .topic{
-  font-size: 20pt;
+  font-size: 25pt;
   font-weight: bold;
 }
 
@@ -110,7 +110,7 @@ a.nav-text:hover{
 
 }
 .card-header{
-    background-color: #2A9EBF ;
+    background-color: #2A9EBF;
     text-align: center;
     color: white;
     font-size: 20pt;
@@ -293,3 +293,32 @@ h1 {
   color: red;
 }
 
+/* Data Process */
+
+.block-center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Process Detail */
+.bg-comment{
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  margin-bottom: 2%;
+}
+.usr-comment{
+  font-weight: bold;
+  color: #2A9EBF;
+}
+.alert-title{
+  font-weight: bold;
+}
+.topic-cacel{
+  color: #F72825;
+  font-size: 25pt;
+  font-weight: bold;
+}
+.topic-nomal{
+  font-weight: bold;
+}
