@@ -101,9 +101,9 @@
         <div class="row">
             <div class="col-lg-12">
                 @if($flow==null)
-                    <h3>Create Flow</h3>
+                    <p class="topic">Create Flow</p>
                 @else
-                    <h3>Create Flow : "{{$flow['flow_Name']}}"</h3>
+                    <p class="topic">Create Flow : "{{$flow['flow_Name']}}"</p>
                 @endif
             </div>
         </div>
@@ -123,7 +123,7 @@
     <div class="d-md-none">
         <div class="row">
             <div class="col-12 ">
-                <span class="top-menu">Create Flow</span> 
+                <p class="topic center">Create Flow</p> 
             </div>
             <div class="col-12 mb-2">
                 <div class="dropbown d-inline">
@@ -152,7 +152,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group mb-0">
-                            <label class="col-form-labelr align-self-center">Flow Name</label>
+                            <label class="col-form-labelr align-self-center topic-nomal">Flow Name</label>
                         </div>
                     </div>
                     <div class="col-lg-9 mb-3">
@@ -170,7 +170,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group mb-0">
-                            <label>Flow Description</label>
+                            <label class="topic-nomal">Flow Description</label>
                         </div>
                     </div>
                     <div class="col-lg-9 mb-3">
@@ -180,7 +180,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group mb-0">
-                            <label>Category</label>
+                            <label class="topic-nomal">Category</label>
                         </div>
                     </div>
                     <div class="col-lg-7 col-sm-9 col-9 mb-3">
@@ -214,11 +214,12 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="addCategoryModalLongTitle">Please enter name of category.</h5>               
+                                        <p class="modal-title topic" id="addCategoryModalLongTitle">Please enter name of category.</p>               
                                     </div>
                                 <div class="modal-body">
                                     <form id="addCat">
                                         <div class="form-group">
+                                            <span class="topic-nomal">Category name</span>
                                             <input type="text" class="form-control" id="category-name" required>
                                         </div>
                                     </form>
@@ -237,7 +238,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-3 col-md-3">
                         <div class="form-group mb-0">
-                            <label>Number of Step</label>
+                            <label class="topic-nomal">Number of Step</label>
                         </div>
                     </div>
                     <div class="col-lg-7 col-6 mb-3 col-md-6">
@@ -248,7 +249,7 @@
                         @endif
                     </div>
                     <div class="col-lg-2 col-2 col-md-3 ">
-                        <span class="float-right">Step(s)</span> 
+                        <span class="center topic-nomal">Step(s)</span> 
                     </div>
                 </div>
                 <div class="row">
