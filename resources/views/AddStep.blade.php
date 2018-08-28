@@ -234,7 +234,7 @@
         <div class="d-none d-sm-block">
             <div class="row">
                 <div class="col">
-                <h3>Create Flow  : "{{$flow['flow_Name']}}"</h3>
+                <p class="topic">Create Flow  : "{{$flow['flow_Name']}}"</p>
                 </div>
             </div>
             <div class="row">
@@ -262,9 +262,9 @@
         <div class="d-sm-none">
             <div class="row">
                 <div class="col">
-                    <span class="top-menu text-center">Create Flow : "{{$flow['flow_Name']}}"</span> 
-                    <div class="dropbown d-inline ml-5">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
+                    <p class="topic center">Create Flow : "{{$flow['flow_Name']}}"</p> 
+                    <div class="dropbown d-inline">
+                        <button class="btn btn-secondary btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <button class="dropdown-item" onclick="notDelSession()" href="AddFlow?flow_Id={{$flow['flow_Id']}}">Detail flow</button>
                             <button class="dropdown-item" onclick="notDelSession()" href="ListTemplate?flow={{$flow['flow_Id']}}">Select template</button>
@@ -304,184 +304,185 @@
         <form action="AddStep" id="step">
             <input type="text" name="flow_Id" value="{{$flow['flow_Id']}}" hidden>
             <div class="row">
-                <div class="col-lg-2"></div>
-                    <div class="col-lg-8 col-xs-12">
-                        <div class="row mb-3">
-                            <div class="col-lg-3 justify-content-center align-self-center">
-                                <label class="">Name</label>
-                            </div>
-                            <div class="col-lg-9">
-                                <input type="text" id="title" name="title" class="form-control" value="{{$stepData['step_Title']}}" placeholder="Example" onkeyup="titleValidate()">
-                            </div>
+                <div class="col-lg-9 col-xs-12 block-center">
+                    <div class="row">
+                        <div class="col-lg-3 justify-content-center align-self-center">
+                            <label class="topic-nomal">Name</label>
                         </div>
-                        <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group mb-0"></div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <p id="errtitle" class="verifyText"></p>
-                                </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 justify-content-center align-self-center">
-                                <label class="">Verify By</label>
-                            </div>
-                            
-                            <label class="col-lg-3 radio-inline">
-                                @if($stepData['typeOfVerify']!="allow")
-                                    <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow"> Allow
-                                @else
-                                    <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow" checked> Allow
-                                @endif 
-                            </label>
-                            <label class="col-lg-3 radio-inline">
-                                @if($stepData['typeOfVerify']!="password")
-                                    <input type="radio" onchange="verifyValidate()" name="type" value="password" id="password"> Password
-                                @else
-                                    <input type="radio" onchange="verifyValidate()" name="type" value="password" id="password" checked> Password
-                                @endif 
-                            </label>
-                            <label class="col-lg-3 radio-inline">
-                                @if($stepData['typeOfVerify']!="otp")
-                                    <input type="radio" onchange="verifyValidate()" name="type" value="otp" id="OTP"> OTP
-                                @else
-                                    <input type="radio" onchange="verifyValidate()" name="type" value="otp" id="OTP" checked> OTP
-                                @endif 
-                            </label>                                    
-                        </div>
-                        <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group mb-0"></div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <p id="errverify" class="verifyText"></p>
-                                </div>
-                        </div>
-                    
-                        <div class="row mb-3">
-                            <div class="col-lg-3 justify-content-center align-self-center">
-                                <label class="">Deadline</label>
-                            </div>
-                            <div class="col-lg-7">
-                                <input type="number" value="{{$stepData['deadline']}}" id="deadline" name="deadline" class="form-control" placeholder="6" onchange="deadlineValidate()"> 
-                            </div>
-                            <div class="col-lg-2">
-                                Hour(s)
-                            </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group mb-0"></div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <p id="errdeadline" class="verifyText"></p>
-                                </div>
-                        </div> 
-
-                        <div class="row mb-3">
-                            <div class="col-lg-3 justify-content-center align-self-center"> Validator Select By</div>
-                            <div class="col-lg-2 justify-content-center align-self-center">
-                                @if($stepData['typeOfValidator']!="position")
-                                    <input type="radio" name="selectBy" value="position" onclick="validatorValidate()">  Position
-                                @else
-                                    <input type="radio" name="selectBy" value="position" onclick="validatorValidate()" checked>  Position
-                                @endif
-                            </div>
-                            <div class="col-lg-7">
-                                <select class="form-control" name="position" id="selectPosition" style="display:none">
-                                    @foreach($userPosition as $p)
-                                        @php $val = $stepData['validator'] @endphp
-                                        @if($stepData['typeOfValidator']=="position" && $val[0]==$p->position_Id)
-                                            <option value="{{$p->position_Id}}" selected>{{$p->position_Name}}</option>
-                                        @else
-                                            <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>  
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-lg-3"></div>
-                            <div class="col-lg-2 justify-content-center align-self-center">
-                                @if($stepData['typeOfValidator']!="name")
-                                    <input type="radio" name="selectBy" value="search" onclick="validatorValidate()">  Person
-                                @else
-                                    <input type="radio" name="selectBy" value="search" onclick="validatorValidate()" checked>  Person
-                                @endif
-                                </div>
-                            <div class="col-lg-4">
-                                <input style="display:none" class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
-                            </div>
-                            <div class="col-lg-3">
-                                <select class="form-control" id="position" style="display:none" onchange="searchPosition()">
-                                    <option id="defaultNull" disabled selected value="notSelect">Position :</option>
-                                    @foreach($userPosition as $p)
-                                        <option value="{{$p->position_Id}}" id="{{$p->position_Id}}">{{$p->position_Name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>  
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="form-group mb-0"></div>
-                            </div>
-                            <div class="col-lg-9">
-                                <p id="errvalidator" class="verifyText"></p>
-                            </div>
-                        </div> 
-                        <div class=" table-responsive" id="listValidator" style="display:none">
-                            <table class="table table-list-search " >
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            {{-- <div class="ckbox">
-                                                <input type="checkbox" id="checkboxAll">
-                                            </div> --}}
-                                        </th>
-                                        <th>Name</th>
-                                        <th>Surname</th>
-                                        <th>Email</th>
-                                        <th>Position</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="userTable">
-                                </tbody>
-                            </table>
-                            <p id="notFoundErr" style="text-align:center"></p>
+                        <div class="col-lg-9">
+                            <input type="text" id="title" name="title" class="form-control" value="{{$stepData['step_Title']}}" placeholder="Example" onkeyup="titleValidate()">
                         </div>
                     </div>
-                <div class="col-lg-2"></div>
-            </div><br>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group mb-0"></div>
+                        </div>
+                        <div class="col-lg-9">
+                            <p id="errtitle" class="err-text"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 justify-content-center align-self-center">
+                            <label class="topic-nomal">Verify By</label>
+                        </div>
+                        
+                        <label class="col-lg-3 radio-inline">
+                            @if($stepData['typeOfVerify']!="allow")
+                                <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow"> Allow
+                            @else
+                                <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow" checked> Allow
+                            @endif 
+                        </label>
+                        <label class="col-lg-3 radio-inline">
+                            @if($stepData['typeOfVerify']!="password")
+                                <input type="radio" onchange="verifyValidate()" name="type" value="password" id="password"> Password
+                            @else
+                                <input type="radio" onchange="verifyValidate()" name="type" value="password" id="password" checked> Password
+                            @endif 
+                        </label>
+                        <label class="col-lg-3 radio-inline">
+                            @if($stepData['typeOfVerify']!="otp")
+                                <input type="radio" onchange="verifyValidate()" name="type" value="otp" id="OTP"> OTP
+                            @else
+                                <input type="radio" onchange="verifyValidate()" name="type" value="otp" id="OTP" checked> OTP
+                            @endif 
+                        </label>                                    
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group mb-0"></div>
+                        </div>
+                        <div class="col-lg-9">
+                            <p id="errverify" class="err-text"></p>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-lg-3 col-3">
+                            <label class="topic-nomal">Deadline</label>
+                        </div>
+                        <div class="col-lg-7 col-6">
+                            <input type="number" value="{{$stepData['deadline']}}" id="deadline" name="deadline" class="form-control" placeholder="6" onchange="deadlineValidate()"> 
+                        </div>
+                        <div class="col-lg-2 col-3">
+                            <label class="topic-nomal">Hour(s)</label> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group mb-0"></div>
+                        </div>
+                        <div class="col-lg-9">
+                            <p id="errdeadline" class="err-text"></p>
+                        </div>
+                    </div> 
+
+                    <div class="row">
+                        <div class="col-lg-4 justify-content-center align-self-center topic-nomal"> Validator Select By</div>
+                        <div class="col-lg-3 justify-content-center align-self-center">
+                            @if($stepData['typeOfValidator']!="position")
+                                <input type="radio" name="selectBy" value="position" onclick="validatorValidate()">  Position
+                            @else
+                                <input type="radio" name="selectBy" value="position" onclick="validatorValidate()" checked>  Position
+                            @endif
+                        </div>
+                        <div class="col-lg-5">
+                            <select class="form-control" name="position" id="selectPosition" style="display:none">
+                                @foreach($userPosition as $p)
+                                    @php $val = $stepData['validator'] @endphp
+                                    @if($stepData['typeOfValidator']=="position" && $val[0]==$p->position_Id)
+                                        <option value="{{$p->position_Id}}" selected>{{$p->position_Name}}</option>
+                                    @else
+                                        <option value="{{$p->position_Id}}">{{$p->position_Name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>  
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-2 justify-content-center align-self-center">
+                            @if($stepData['typeOfValidator']!="name")
+                                <input type="radio" name="selectBy" value="search" onclick="validatorValidate()">  Person
+                            @else
+                                <input type="radio" name="selectBy" value="search" onclick="validatorValidate()" checked>  Person
+                            @endif
+                            </div>
+                        <div class="col-lg-3">
+                            <input style="display:none" class="form-control mr-sm-2" id="search" name ="search" type="search" onkeyup="find()" placeholder="Search" aria-label="Search">
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control" id="position" style="display:none" onchange="searchPosition()">
+                                <option id="defaultNull" disabled selected value="notSelect">Position :</option>
+                                @foreach($userPosition as $p)
+                                    <option value="{{$p->position_Id}}" id="{{$p->position_Id}}">{{$p->position_Name}}</option>
+                                @endforeach
+                            </select>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group mb-0"></div>
+                        </div>
+                        <div class="col-lg-9">
+                            <p id="errvalidator" class="err-text"></p>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class=" table-responsive" id="listValidator" style="display:none">
+                                <table class="table table-list-search " >
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                {{-- <div class="ckbox">
+                                                    <input type="checkbox" id="checkboxAll">
+                                                </div> --}}
+                                            </th>
+                                            <th>Name</th>
+                                            <th>Surname</th>
+                                            <th>Email</th>
+                                            <th>Position</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userTable">
+                                    </tbody>
+                                </table>
+                                <p id="notFoundErr" style="text-align:center"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
             <input type="hidden" name="step" value={{$step}}>
             <div class="row">
-                <div class="col-lg-2"></div>
-                    <div class="col-lg-8 col-xs-12 text-center">
-                        @if(Session::has('FlowCreate') && $step!=$flow['numberOfStep'])
-                            <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Next</button>
-                        @elseif(Session::has('FlowCreate') && $step==$flow['numberOfStep'])    
-                            <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Finish</button>
-                        @else
-                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#cancelCreateFlowModalCenter">Cancel</button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="cancelCreateFlowModalCenter" tabindex="-1" role="dialog" aria-labelledby="cancelCreateFlowModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <br><br><br>Do you want to leave this page?<br>
-                                            The system does not save your actions.<br><br><br>
-                                            <div>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                <a type="button" class="btn btn-secondary" href="EditFlow?flow_Id={{$flow['flow_Id']}}#flowStep'">Yes</a>
-                                            </div>
+                <div class="col-lg-8 col-xs-12 text-center block-center">
+                    @if(Session::has('FlowCreate') && $step!=$flow['numberOfStep'])
+                        <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Next</button>
+                    @elseif(Session::has('FlowCreate') && $step==$flow['numberOfStep'])    
+                        <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Finish</button>
+                    @else
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#cancelCreateFlowModalCenter">Cancel</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="cancelCreateFlowModalCenter" tabindex="-1" role="dialog" aria-labelledby="cancelCreateFlowModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <br><br><br>Do you want to leave this page?<br>
+                                        The system does not save your actions.<br><br><br>
+                                        <div>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                            <a type="button" class="btn btn-secondary" href="EditFlow?flow_Id={{$flow['flow_Id']}}#flowStep'">Yes</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>               
-                            <button type="button" class="btn btn-success" onClick="validateAndSubmit()">Save</button>
-                        @endif
-                    </div>
-                <div class="col-lg-2"></div>
+                            </div>
+                        </div>               
+                        <button type="button" class="btn btn-success" onClick="validateAndSubmit()">Save</button>
+                    @endif
+                </div>
             </div>
         </form>
     </div>
