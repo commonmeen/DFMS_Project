@@ -38,7 +38,7 @@
             <div class="d-none d-sm-block">
                 <div class="row">
                     <div class="col">
-                        <h3>Create Flow : "{{$Flow['flow_Name']}}"</h3>
+                        <p class="topic">Create Flow : "{{$Flow['flow_Name']}}"</p>
                     </div>
                     <div class="col">
                         <button onclick="submitForm()" class="btn btn-success  float-right">Next</button>
@@ -63,13 +63,13 @@
             <div class="d-sm-none">
                 <div class="row">
                     <div class="col-12">
-                        <p class="top-menu text-center">Create Flow</p>
+                        <p class="topic center">Create Flow</p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4 ">
+                    <div class="col-12">
                         <div class="dropbown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-secondary btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Menu
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -85,9 +85,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-8">
-                        <button onclick="submitForm()" class="btn btn-success  float-right">Next</button>
-                        <a role="button" onclick="notDelSession()" class="btn btn-primary float-right mr-2" href="AddTemplate">Create</a>
+                    <div class="col-6">
+                        <a role="button" onclick="notDelSession()" class="btn btn-primary btn-block" href="AddTemplate">Create</a>
+                    </div>
+                    <div class="col-6">
+                        <button onclick="submitForm()" class="btn btn-success btn-block float-right">Next</button>
                     </div>         
                 </div>   
             </div>        
@@ -111,9 +113,9 @@
                         <div class="card-content">
                             <div class="card-state-icon"></div>
                             <label for="{{$t['template_Id']}}">
-                                <img src="pic/contract.png" alt="{{$t['template_Name']}}" class="card-img-top tempImg">
+                                <img src="pic/contract.png" alt="{{$t['template_Name']}}" class="card-img-top tempImg mt-1">
                                 <div class="card-body ">
-                                    <p class="text-center font-weight-bold ">{{$t['template_Name']}}</p>
+                                    <p class="img-font center">{{$t['template_Name']}}</p>
                                 </div>
                             </label>
                         </div>
