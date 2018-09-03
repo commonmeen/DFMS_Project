@@ -75,3 +75,11 @@ Route::any('NumStepValidate','AddFlowController@validateNumberOfStep');
 Route::any('AddStepTitleValidate','AddStepController@validateTitle');
 
 Route::any('AddStepDeadlineValidate','AddStepController@validateDeadline');
+
+
+
+Route::any('Login', function() {
+    return view('Login');
+});
+
+

@@ -352,3 +352,22 @@ h1 {
 .img-font{
   font-size: 20pt;
 }
+
+/* Login */
+.block-top{
+  top: 25vh;
+  z-index: 2;
+
+}
+.bg-color{
+  background: linear-gradient(to bottom, #49B7AC 0%, #2A9EBF 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* overflow: hidden; */
+}
+.topic-login{
+  color: #FFF;
+  font-size: 50pt;
+  font-weight: bold;
+}
+
