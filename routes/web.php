@@ -13,7 +13,7 @@
 
 Route::any('ListFlow', 'ListFlowController@listFlow');
 
-Route::get('/', 'MenuController@getMenu');
+Route::any('/', 'MenuController@getMenu');
 
 Route::any('AddFlow', 'ListCatController@getAllCategory');
 
@@ -67,6 +67,8 @@ Route::any('Reject','RejectProcessController@rejectProcess');
 
 Route::any('clear/session/{key}', 'ClearSessionController@test');
 
+Route::get('Logout','LogoutController@logout');
+
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
 
@@ -76,10 +78,9 @@ Route::any('AddStepTitleValidate','AddStepController@validateTitle');
 
 Route::any('AddStepDeadlineValidate','AddStepController@validateDeadline');
 
-
-
 Route::any('Login', function() {
     return view('Login');
 });
 
-
+//Test
+Route::any('Hello','TestController@test');
