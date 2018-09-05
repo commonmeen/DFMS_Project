@@ -9,6 +9,6 @@ class LogoutController extends Controller
 {
     public function logout(Request $request){
         Session::flush();
-        return view('Login')->with("Err","");
+        return  redirect('/');
     }
 }
