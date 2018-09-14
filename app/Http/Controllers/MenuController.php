@@ -29,6 +29,7 @@ class MenuController extends Controller
             }
             if($userOnLdap[0]['userpassword'][0] == hash("sha256",$request->input('password'))){
                 $data = userRepo::getUser($userOnLdap[0]['uid'][0]);
+
                 if($data!=null){
                     Session::put('UserLogin',$data);
                     return view('Home',['data'=>$data,'catFlow'=>$catFlow]);
