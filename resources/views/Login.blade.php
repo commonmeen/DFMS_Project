@@ -13,27 +13,6 @@
     <link type="text/css" href="css/style.css" rel="stylesheet">
     <link rel="stylesheet/scss" type="text/scss" href="css/login.scss">
     <title>Document</title>
-    <style>
-            .login-center{
-                position: absolute;
-                top:0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                margin: auto;
-                width: 100%;
-                height: 100px;
-            }
-            .block-width{
-                width: 60%;
-            }
-            .ball {
-                position: absolute;
-                border-radius: 100%;
-                
-              }            
-    </style>
-    
 
 </head>
 <body class="bg-color">
@@ -50,10 +29,7 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-lg-12">
-                            <input type="text" class="form-control" placeholder="Username" id="username" name="username">
-                        </div>
-                        <div class="col-lg-12">
-                            <div id="err-username"></div>
+                            <input type="text" class="form-control" placeholder="Email" id="email" name="email">
                         </div>
                     </div>
                     
@@ -61,25 +37,23 @@
                         <div class="col-lg-12">
                             <input type="password" class="form-control" placeholder="Password" id="password" name="password">
                         </div>
-                        <div class="col-lg-12">
-                            <div id="err-password"></div>
+                        <div class="col-lg-12 mt-2">
+                            <div id="err-password" class="err-login mb-0">
+                                @if($Err != null) {{$Err}}@endif
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-2">
+                        <div class="col-lg-12 block-center">
+                            <button class="btn btn-block btn-success">Login</button>
                         </div>
                     </div>
                 </form>
-                <div class="row mb-2">
-                    <div class="col-lg-12 block-center">
-                        <button class="btn btn-block btn-success" onclick="submit()">Login</button>
-                    </div>
-                </div>
             </div>
         </div>
-        <p> @if($Err != null) {{$Err}}@endif</p>
+        
     </div>
 
-    <script>
-        function submit(){
-            document.getElementById('loginform').submit();
-        }
-    </script>
 </body>
 </html>
