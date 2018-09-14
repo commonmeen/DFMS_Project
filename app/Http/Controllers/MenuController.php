@@ -18,13 +18,14 @@ class MenuController extends Controller
             if($data!=null){
                 return view('Home',['data'=>$data,'catFlow'=>$catFlow]);
             }
-        } else if($request->has('username')) {
+        } else if($request->has('email')) {
             $ldap = ldap_connect("13.229.128.241",389);
             ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
-            $searchOnLdap=ldap_search($ldap, "dc=ldap,dc=doculdap,dc=tk", "mail=".$request->input('username'));
+            $searchOnLdap=ldap_search($ldap, "dc=ldap,dc=doculdap,dc=tk", "mail=".$request->input('email'));
             $userOnLdap = ldap_get_entries($ldap, $searchOnLdap);
             if($userOnLdap['count']==0){
-                return view('Login')->with("Err","Don't have this E-mail on our organization, Please contact the administrator.");
+                $errMessage = "Don't have this E-mail on our organization, Please contact the administrator.";
+                return view('Login', ['Err'=>$errMessage]);
             }
             if($userOnLdap[0]['userpassword'][0] == hash("sha256",$request->input('password'))){
                 $data = userRepo::getUser($userOnLdap[0]['uid'][0]);
@@ -32,13 +33,16 @@ class MenuController extends Controller
                     Session::put('UserLogin',$data);
                     return view('Home',['data'=>$data,'catFlow'=>$catFlow]);
                 } else {
-                    return view('Login')->with("Err","Don't have user in database, Please contact the administrator.");
+                    $errMessage = "Don't have user in database, Please contact the administrator.";
+                    return view('Login',['Err'=>$errMessage]);
                 }
             } else {
-                return view('Login')->with("Err","Password incorrect, Please try agian.");
+                $errMessage = "Username or Password is incorrect, Please try agian.";
+                return view('Login',['Err'=>$errMessage]);
             }
-        } else {
-            return view('Login')->with("Err","");
+        }else {
+            $errMessage = "";
+            return view('Login',['Err'=>$errMessage]);
         }
         return ;
     }
