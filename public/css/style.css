@@ -360,7 +360,7 @@ h1 {
 
 }
 .bg-color{
-  background: linear-gradient(to bottom, #49B7AC 0%, #2A9EBF 100%);
+  background: linear-gradient(to bottom, #2A9EBF 0%, #2A9EBF 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   /* overflow: hidden; */
@@ -369,5 +369,19 @@ h1 {
   color: #FFF;
   font-size: 50pt;
   font-weight: bold;
+}
+.err-login{
+  font-size: 16pt;
+  color: #F72825;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background-color: #FFD3D6;
+  border-radius: .25em;
+  text-align: center;
+}
+
+/* ListDocTemplate */
+.field-label{
+  font-size: 20pt;
 }
 
