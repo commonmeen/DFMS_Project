@@ -69,6 +69,12 @@ Route::any('clear/session/{key}', 'ClearSessionController@test');
 
 Route::get('Logout','LogoutController@logout');
 
+
+Route::any('ListDocTemplate', function() {
+    return view('ListDocTemplate');
+});
+
+
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
 
