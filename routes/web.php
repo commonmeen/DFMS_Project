@@ -69,11 +69,15 @@ Route::any('clear/session/{key}', 'ClearSessionController@test');
 
 Route::get('Logout','LogoutController@logout');
 
+Route::any('ChkPassword','ChkPasswordController@chkPassword');
+
+Route::any('ChkOTP','ChkOTPController@chkOTP');
+
+Route::any('SentOTP','SentOTPController@sentOTP');
 
 Route::any('ListDocTemplate', function() {
     return view('ListDocTemplate');
 });
-
 
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
@@ -83,10 +87,3 @@ Route::any('NumStepValidate','AddFlowController@validateNumberOfStep');
 Route::any('AddStepTitleValidate','AddStepController@validateTitle');
 
 Route::any('AddStepDeadlineValidate','AddStepController@validateDeadline');
-
-Route::any('Login', function() {
-    return view('Login');
-});
-
-//Test
-Route::any('Hello','TestController@test');
