@@ -65,16 +65,57 @@
                     } else if (response.type == "password"){
                         $('#passwordModal').modal();
                         $('#passwordYes').click(function() {
-                            // check password
-                            sentAction(processId,stepId,action) ;
-                            $('#passwordModal').modal('hide');
+                            var data = {password:document.getElementById('password').value} ;
+                            var statusAlready = $.Deferred();
+                            var status ;
+                            $.ajax({
+                                type     : "GET",
+                                url      : "ChkPassword",
+                                data     : data,
+                                cache    : false,
+                                success  : function(response){
+                                    status = response.status;
+                                    statusAlready.resolve(status) ;
+                                }
+                            });
+                            statusAlready.done(function() {
+                                if(status){
+                                    sentAction(processId,stepId,action) ;
+                                    $('#passwordModal').modal('hide');
+                                } else {
+                                    document.getElementById('incorrectPass').innerHTML = "Incorrect Password, Please try again." ;
+                                }
+                            });
                         });
                     } else if (response.type == "otp"){
+                        sentSMS();
                         $('#otpModal').modal();
                         $('#otpYes').click(function() {
-                            // check otp
-                            sentAction(processId,stepId,action) ;
-                            $('#otpModal').modal('hide');
+                            document.getElementById('incorrectOTP').innerHTML = "";
+                            var data = {otp:document.getElementById('otp').value} ;
+                            var statusAlready = $.Deferred();
+                            var status ;
+                            $.ajax({
+                                type     : "GET",
+                                url      : "ChkOTP",
+                                data     : data,
+                                cache    : false,
+                                success  : function(response){
+                                    status = response.status;
+                                    statusAlready.resolve(status) ;
+                                }
+                            });
+                            statusAlready.done(function() {
+                                if(status){
+                                    sentAction(processId,stepId,action) ;
+                                    $('#otpModal').modal('hide');
+                                } else {
+                                    document.getElementById('incorrectOTP').innerHTML = "Incorrect OTP, Please try again" ;
+                                }
+                            });
+                        });
+                        $('#resentOTP').click(function() {
+                            sentSMS();
                         });
                     }
                 }
@@ -91,6 +132,19 @@
             cache    : false,
             success  : function(response){
                 window.location = "ListVerify";
+            }
+        });
+    }
+    function sentSMS(){
+        document.getElementById('OTPShow').innerHTML = "";
+        $.ajax({
+            type     : "GET",
+            url      : "SentOTP",
+            data     : {},
+            cache    : false,
+            success  : function(response){
+                console.log("OTP is sented");
+                document.getElementById('OTPShow').innerHTML = "  ("+response.otp['otp']+")";
             }
         });
     }
@@ -243,6 +297,7 @@
                 <div class="col-lg-2"></div>
             </div>  
         @endif
+        <!-- Modal -->
         <div class="modal fade" id="allowModal" tabindex="-1" role="dialog" aria-labelledby="allowModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -270,7 +325,14 @@
                                 <label class="col-form-labelr align-self-center">password</label>
                             </div>
                             <div class="col-lg-8 mb-3">
-                                <input type="text" name="password" class="form-control">
+                                <input type="password" id="password" name="password" class="form-control">
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3 form-group mb-0"></div>
+                            <div class="col-lg-8 mb-3">
+                                <p style="color:red" id="incorrectPass"></p>
                             </div>
                             <div class="col-lg-1"></div>
                         </div>
@@ -294,17 +356,25 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-3 form-group">
-                                    <label class="col-form-labelr align-self-center">OTP</label>
+                                    <label class="col-form-labelr align-self-center">OTP<span id="OTPShow"></span></label>
                                 </div>
                                 <div class="col-lg-8">
-                                    <input type="text" name="password" class="form-control">
+                                    <input type="text" id="otp" name="otp" class="form-control">
+                                </div>
+                                <div class="col-lg-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 form-group"></div>
+                                <div class="col-lg-8">
+                                    <p style="color:red" id="incorrectOTP"></p>
                                 </div>
                                 <div class="col-lg-1"></div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-secondary" id="otpYes">Yes</button>
+                            <button type="button" class="btn btn-warning mr-auto" id="resentOTP">Resent</button>            
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-success" id="otpYes">Yes</button>
                         </div>
                     </div>
                 </div>

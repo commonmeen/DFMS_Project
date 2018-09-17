@@ -3,7 +3,6 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\User;
-use App\Models\Position;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Eloquent\EloquentPositionRepository as PositionRepo;
 use Kurt\Repoist\Repositories\Eloquent\AbstractRepository;
@@ -73,5 +72,21 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
         }
         $user['user_Position'] = $userPosition ;
         return $user ;
+    }
+
+    public static function checkPassword($email,$pass){
+        $ldap = ldap_connect("13.229.128.241",389);
+        ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
+        $searchOnLdap=ldap_search($ldap, "dc=ldap,dc=doculdap,dc=tk", "mail=".$email);
+        $userOnLdap = ldap_get_entries($ldap, $searchOnLdap);
+        if($userOnLdap['count']==0){
+            return "None User" ;
+        }
+        if($userOnLdap[0]['userpassword'][0] == hash("sha256",$pass)){
+            return $userOnLdap ;
+        } else {
+            return "Incorrect" ;
+        }
+        return "Fail" ;
     }
 }
