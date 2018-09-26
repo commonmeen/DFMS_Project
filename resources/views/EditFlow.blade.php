@@ -206,7 +206,7 @@
                         <div class="row">
                             <div class="col-lg-3 horizon-center">
                                 <div class="form-group mb-0">
-                                    <label class="col-form-labelr align-self-center">Flow Name</label>
+                                    <label class="col-form-labelr align-self-center topic-nomal">Flow Name</label>
                                 </div>
                             </div>
                             <div class="col-lg-9">
@@ -220,7 +220,7 @@
                         <div class="row">
                             <div class="col-lg-3 horizon-center">
                                 <div class="form-group mb-0">
-                                    <label>Flow Description</label>
+                                    <label class="topic-nomal">Flow Description</label>
                                 </div>
                             </div>
                             <div class="col-lg-9">
@@ -230,7 +230,7 @@
                         <div class="row">
                             <div class="col-lg-3 horizon-center">
                                 <div class="form-group mb-0">
-                                    <label>Category</label>
+                                    <label class="topic-nomal">Category</label>
                                 </div>
                             </div>
                             <div class="col-lg-7 col-sm-9 col-9">
@@ -274,14 +274,14 @@
                         <div class="row">
                             <div class="col-lg-3 horizon-center">
                                 <div class="form-group mb-0 ">
-                                    <label>Number of Step</label>
+                                    <label class="topic-nomal">Number of Step</label>
                                 </div>
                             </div>
                             <div class="col-lg-7 col-sm-9 col-9">
                                 <input type="number" name="numberOfStep" id="numberOfStep" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}" disabled></input>
                                 <input type="hidden" name="numberOfStep" id="numberOfStep" value="{{$flow['numberOfStep']}}"></input>
                             </div>
-                            <div class="col-lg-2 col-sm-3 col-3 horizon-center">Step(s)</div>
+                            <div class="col-lg-2 col-sm-3 col-3 horizon-center topic-nomal">Step(s)</div>
                         </div>
                     </div>
                 </div><br>
