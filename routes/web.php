@@ -75,8 +75,14 @@ Route::any('ChkOTP','ChkOTPController@chkOTP');
 
 Route::any('SentOTP','SentOTPController@sentOTP');
 
-Route::any('ListDocTemplate', function() {
-    return view('ListDocTemplate');
+Route::any('SaveDocTemplate','SaveDocTemplateController@saveTemplate');
+
+Route::any('ListDocTemplate','ListDocTemplateController@listTemplate');
+
+Route::any('TemplateDetail','TemplateDetailController@templateDetail');
+
+Route::any('AddDocTemplate', function() {
+    return view('AddDocTemplate');
 });
 
 // Validate data
