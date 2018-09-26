@@ -34,6 +34,7 @@ class EloquentTemplateRepository extends AbstractRepository implements TemplateR
         $template->template_Author = $user_Id ;
         $template->template_Description = $desc ;
         $template->template_Properties = $properties ;
+        $template->status = "on";
         $template->save();
         return $template ;
     }
