@@ -237,7 +237,7 @@
                 <p class="topic">Create Flow  : "{{$flow['flow_Name']}}"</p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col">
                     <a class="btn btn-outline-secondary" onclick="notDelSession()" href="AddFlow?flow_Id={{$flow['flow_Id']}}" role="button" >Detail flow</a>
                     <a class="btn btn-outline-secondary" onclick="notDelSession()" href="ListTemplate?flow={{$flow['flow_Id']}}" role="button" >Select template</a>
@@ -285,29 +285,24 @@
         @else
             <div class="d-none d-sm-block">
                 <div class="row">
-                    <div class="col">
-                    <h3>Edit Flow  : "{{$flow['flow_Name']}}"</h3>
+                    <div class="col-lg-6">
+                        <p class="topic">Edit Flow  : "{{$flow['flow_Name']}}"</p>
                     </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-lg-2">
-                    </div>
-                    <div class="col">
-                        <h5>Step  : {{$stepData['step_Title']}}</h5>
+                    <div class="col-lg-6 float-right">
+                        <p class="topic" style="text-align:right">Step number : {{$stepNumber}}</p>                      
                     </div>
                 </div>
             </div>
-            <br><br>
+            
         @endif
 
         <form action="AddStep" id="step">
             <input type="text" name="flow_Id" value="{{$flow['flow_Id']}}" hidden>
             <div class="row">
                 <div class="col-lg-9 col-xs-12 block-center">
-                    <div class="row">
+                    <div class="row mb-2">
                         <div class="col-lg-3 justify-content-center align-self-center">
-                            <label class="topic-nomal">Name</label>
+                            <label class="topic-nomal horizon-center">Name</label>
                         </div>
                         <div class="col-lg-9">
                             <input type="text" id="title" name="title" class="form-control" value="{{$stepData['step_Title']}}" placeholder="Example" onkeyup="titleValidate()">
@@ -321,26 +316,26 @@
                             <p id="errtitle" class="err-text"></p>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-2">
                         <div class="col-lg-3 justify-content-center align-self-center">
-                            <label class="topic-nomal">Verify By</label>
+                            <label class="topic-nomal horizon-center">Verify By</label>
                         </div>
                         
-                        <label class="col-lg-3 radio-inline">
+                        <label class="col-lg-3 radio-inline mb-0 horizon-center">
                             @if($stepData['typeOfVerify']!="allow")
                                 <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow"> Allow
                             @else
                                 <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow" checked> Allow
                             @endif 
                         </label>
-                        <label class="col-lg-3 radio-inline">
+                        <label class="col-lg-3 radio-inline mb-0 horizon-center">
                             @if($stepData['typeOfVerify']!="password")
                                 <input type="radio" onchange="verifyValidate()" name="type" value="password" id="password"> Password
                             @else
                                 <input type="radio" onchange="verifyValidate()" name="type" value="password" id="password" checked> Password
                             @endif 
                         </label>
-                        <label class="col-lg-3 radio-inline">
+                        <label class="col-lg-3 radio-inline mb-0 horizon-center">
                             @if($stepData['typeOfVerify']!="otp")
                                 <input type="radio" onchange="verifyValidate()" name="type" value="otp" id="OTP"> OTP
                             @else
@@ -357,15 +352,15 @@
                         </div>
                     </div>
                 
-                    <div class="row">
-                        <div class="col-lg-3 col-3">
-                            <label class="topic-nomal">Deadline</label>
+                    <div class="row mb-2">
+                        <div class="col-lg-3 col-3 horizon-center">
+                            <label class="topic-nomal ">Deadline</label>
                         </div>
                         <div class="col-lg-7 col-6">
                             <input type="number" value="{{$stepData['deadline']}}" id="deadline" name="deadline" class="form-control" placeholder="6" onchange="deadlineValidate()"> 
                         </div>
                         <div class="col-lg-2 col-3">
-                            <label class="topic-nomal">Hour(s)</label> 
+                            <label class="topic-nomal horizon-center">Hour(s)</label> 
                         </div>
                     </div>
                     <div class="row">
@@ -377,8 +372,8 @@
                         </div>
                     </div> 
 
-                    <div class="row">
-                        <div class="col-lg-4 justify-content-center align-self-center topic-nomal"> Validator Select By</div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3 justify-content-center align-self-center topic-nomal"> Validator Select By</div>
                         <div class="col-lg-3 justify-content-center align-self-center">
                             @if($stepData['typeOfValidator']!="position")
                                 <input type="radio" name="selectBy" value="position" onclick="validatorValidate()">  Position
@@ -400,8 +395,8 @@
                         </div>  
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-4"></div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3"></div>
                         <div class="col-lg-2 justify-content-center align-self-center">
                             @if($stepData['typeOfValidator']!="name")
                                 <input type="radio" name="selectBy" value="search" onclick="validatorValidate()">  Person
@@ -429,21 +424,18 @@
                             <p id="errvalidator" class="err-text"></p>
                         </div>
                     </div> 
-                    <div class="row">
+                    <div class="row mt-2">
                         <div class="col-lg-12">
                             <div class=" table-responsive" id="listValidator" style="display:none">
                                 <table class="table table-list-search " >
                                     <thead>
                                         <tr>
                                             <th>
-                                                {{-- <div class="ckbox">
-                                                    <input type="checkbox" id="checkboxAll">
-                                                </div> --}}
                                             </th>
-                                            <th>Name</th>
-                                            <th>Surname</th>
-                                            <th>Email</th>
-                                            <th>Position</th>
+                                            <th class="center">Name</th>
+                                            <th class="center">Surname</th>
+                                            <th class="center">Email</th>
+                                            <th class="center">Position</th>
                                         </tr>
                                     </thead>
                                     <tbody id="userTable">
@@ -457,21 +449,21 @@
                 
             </div>
             <input type="hidden" name="step" value={{$step}}>
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col-lg-8 col-xs-12 text-center block-center">
                     @if(Session::has('FlowCreate') && $step!=$flow['numberOfStep'])
-                        <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Next</button>
+                        <button type="button" class="btn btn-success mt-3" onClick="validateAndSubmit()">Next</button>
                     @elseif(Session::has('FlowCreate') && $step==$flow['numberOfStep'])    
-                        <button type="button" class="btn btn-success m-2" onClick="validateAndSubmit()">Finish</button>
+                        <button type="button" class="btn btn-success mt-3" onClick="validateAndSubmit()">Finish</button>
                     @else
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#cancelCreateFlowModalCenter">Cancel</button>
+                        <button class="btn btn-danger mt-3" type="button" data-toggle="modal" data-target="#cancelCreateFlowModalCenter">Cancel</button>
                         <!-- Modal -->
                         <div class="modal fade" id="cancelCreateFlowModalCenter" tabindex="-1" role="dialog" aria-labelledby="cancelCreateFlowModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
-                                        <br><br><br>Do you want to leave this page?<br>
-                                        The system does not save your actions.<br><br><br>
+                                        Do you want to leave this page?<br>
+                                        The system does not save your actions.
                                         <div>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                                             <a type="button" class="btn btn-secondary" href="EditFlow?flow_Id={{$flow['flow_Id']}}#flowStep'">Yes</a>
@@ -480,7 +472,7 @@
                                 </div>
                             </div>
                         </div>               
-                        <button type="button" class="btn btn-success" onClick="validateAndSubmit()">Save</button>
+                        <button type="button" class="btn btn-success mt-3" onClick="validateAndSubmit()">Save</button>
                     @endif
                 </div>
             </div>
