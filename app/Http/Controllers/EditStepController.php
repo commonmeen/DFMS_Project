@@ -15,10 +15,10 @@ class EditStepController extends Controller
         $input = $request->all();
         $thisStep = stepRepo::getStepById($input['id']);        
         $flow = flowRepo::getFlowById($thisStep['flow_Id']);
+        $allStep = stepRepo::getStepByFlow($flow['flow_Id']);
         $allUser = userRepo::listUser();
         $position = positionRepo::getAllPosition();
         if(Session::has('FlowCreate')){
-            $allStep = stepRepo::getStepByFlow($flow['flow_Id']);
             $allStepId = array();
             foreach($allStep as $step){
                 array_push($allStepId,$step['step_Id']);
@@ -26,7 +26,8 @@ class EditStepController extends Controller
             return view('AddStep',['allStep'=>$allStepId, 'step'=>$input['stepck'], 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>$thisStep]) ;
         } else {
             Session::put('stepEdit',$thisStep);
-            return view('AddStep',['step'=>null, 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>$thisStep]) ;
+            $number = array_search($thisStep,$allStep)+1;
+            return view('AddStep',['step'=>null, 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>$thisStep , 'stepNumber'=>$number]) ;
         }
     }
 }
