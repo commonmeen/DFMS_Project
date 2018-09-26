@@ -385,3 +385,10 @@ h1 {
   font-size: 20pt;
 }
 
+/* List Process */
+.text-over{
+  white-space: nowrap; 
+  width: 400px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
