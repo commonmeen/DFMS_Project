@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\Eloquent\EloquentProcessRepository as processRepo;
 use App\Repositories\Eloquent\EloquentStepRepository as stepRepo;
 use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo;
+use App\Repositories\Eloquent\EloquentUserRepository as userRepo;
 use App\Repositories\Eloquent\EloquentValidatorRepository as validatorRepo;
 
 class ValidateListController extends Controller
@@ -31,10 +32,13 @@ class ValidateListController extends Controller
         $passMe = array();
         $coming = array();
         foreach($allProcessCanApprove as $process){
+            $processOwner = userRepo::getUser($process['process_Owner']);
+            $flowOnProcess = flowRepo::getFlowById($process['process_FlowId']);
             if($process['current_StepId'] == "reject"){
                 array_push($reject,$process);
-            } else if($process['current_StepId'] == "cancel"){
-                array_push($reject,$process);
+            // Cancel process is not nessesery to show 
+            // } else if($process['current_StepId'] == "cancel"){
+            //     array_push($reject,$process);
             } else {
                 $i = 0 ;
                 foreach($validator['step_Id'] as $step_Id){
@@ -58,6 +62,6 @@ class ValidateListController extends Controller
                 }
             }
         }
-        return view('ListVerify',['nowProcess'=>$now,'rejectProcess'=>$reject,'passMeProcess'=>$passMe,'comingProcess'=>$coming]);
+        return view('ListVerify',['nowProcess'=>$now,'rejectProcess'=>$reject,'passMeProcess'=>$passMe,'comingProcess'=>$coming, 'processOwner'=>$processOwner , 'flowName'=> $flowOnProcess]);
     }
 }
