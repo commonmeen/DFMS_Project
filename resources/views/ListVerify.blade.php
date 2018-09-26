@@ -1,4 +1,9 @@
 @extends('layout.Navbar') 
+@section('script')
+    <!-- Data table -->
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+@endsection
 @section('user')
     {{Session::get('UserLogin')->user_Name}}
     {{Session::get('UserLogin')->user_Surname}}
@@ -26,100 +31,132 @@
             <a class="nav-link toggle-nav" data-toggle="tab" href="#approvedProcess">Approved</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link toggle-nav" data-toggle="tab" href="#rejectedProcess">Rejected/Canceled</a>
+            <a class="nav-link toggle-nav" data-toggle="tab" href="#rejectedProcess">Rejected</a>
         </li>
     </ul>
     <div class="tab-content">
+        {{--  In Progress  --}}
         <div id="inProgressProcess" class="container tab-pane active"><br>
-            <table class="table table-list-search table-hover">
+            <table class="table table-list-search table-hover" id="inProgress-process">
+                <thead>
+                    <tr class="center">
+                        <th>Process name</th>
+                        <th>Flow Name</th>
+                        <th>Date/Time</th>
+                        <th>Process Owner</th>
+                    </tr>
+                </thead>
                 <tbody>
                     @foreach($nowProcess as $process)
                         <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}&InProgress=true';">
-                            <td>{{$process['process_Name']}}</td>
-                            <td>{{$process['updated_at']}}</td>
+                            <td><div class="text-over">{{$process['process_Name']}}</div></td>
+                            <td class="center">{{$flowName['flow_Name']}}</td>
+                            <td class="center">{{$process['updated_at']}}</td>
+                            <td class="center">{{$processOwner['user_Name']}} {{$processOwner['user_Surname']}}</td>
                         </tr>
-                    @endforeach   
-                    @if(count($nowProcess)==0)
-                        <thead>
-                            <tr>
-                                <td style="text-align:center">
-                                    No Process in Progress.
-                                </td>
-                            </tr>
-                        </thead>
-                    @endif             
+                    @endforeach               
                 </tbody>
             </table>
         </div>
+
+        {{--  Comming Process  --}}
         <div id="comingProcess" class="container tab-pane fade"><br>
-            <table class="table table-list-search table-hover">   
-                @if(count($comingProcess) == 0)
-                    <thead>
-                        <tr>
-                            <td style="text-align:center">
-                                No Process Coming.
-                            </td>
+            <table class="table table-list-search table-hover" id="comming-process">   
+                <thead>
+                    <tr class="center">
+                        <th>Process name</th>
+                        <th>Flow Name</th>
+                        <th>Date/Time</th>
+                        <th>Process Owner</th>
+                        <th>Stage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($comingProcess as $process)
+                        @php $step = count($process['process_Step'])@endphp
+                        <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
+                            <td><div class="text-over">{{$process['process_Name']}}</div></td>
+                            <td class="center">{{$flowName['flow_Name']}}</td>
+                            <td class="center">{{$process['updated_at']}}</td>
+                            <td class="center">{{$processOwner['user_Name']}} {{$processOwner['user_Surname']}}</td>
+                            <td class="center">{{$step}}/{{$process['process_Flow']['numberOfStep']}}</td>
                         </tr>
-                    </thead>
-                @else
-                    <tbody>
-                        @foreach($comingProcess as $process)
-                            @php $step = count($process['process_Step'])@endphp
-                            <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                                <td>{{$process['process_Name']}}</td>
-                                <td>{{$step}}/{{$process['process_Flow']['numberOfStep']}}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                @endif
+                    @endforeach
+                </tbody>
             </table>
         </div>
+
+        {{--  Approve Process  --}}
         <div id="approvedProcess" class="container tab-pane fade"><br>
-            <table class="table table-list-search table-hover">   
-                @if(count($passMeProcess) == 0)
-                    <thead>
-                        <tr>
-                            <td style="text-align:center">
-                                No Process Approved.
-                            </td>
+            <table class="table table-list-search table-hover" id="approved-process">   
+                <thead>
+                    <tr class="center">
+                        <th>Process name</th>
+                        <th>Flow Name</th>
+                        <th>Date/Time</th>
+                        <th>Process Owner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($passMeProcess as $process)
+                        @php $step = count($process['process_Step'])@endphp
+                        <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
+                            <td><div class="text-over">{{$process['process_Name']}}</div></td>
+                            <td class="center">{{$flowName['flow_Name']}}</td>
+                            <td class="center">{{$process['updated_at']}}</td>
+                            <td class="center">{{$processOwner['user_Name']}} {{$processOwner['user_Surname']}}</td>
                         </tr>
-                    </thead>
-                @else
-                    <tbody>
-                        @foreach($passMeProcess as $process)
-                            @php $step = count($process['process_Step'])@endphp
-                            <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                                <td>{{$process['process_Name']}}</td>
-                                <td>{{$process['updated_at']}}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                @endif
+                    @endforeach
+                </tbody>
             </table>
         </div>
+
+        {{--  Reject Process  --}}
         <div id="rejectedProcess" class="container tab-pane fade"><br>
-            <table class="table table-list-search table-hover">   
-                @if(count($rejectProcess) == 0)
-                    <thead>
-                        <tr>
-                            <td style="text-align:center">
-                                No Process Rejected.
-                            </td>
+            <table class="table table-list-search table-hover" id="reject-process">   
+                <thead>
+                    <tr class="center">
+                        <th>Process name</th>
+                        <th>Flow Name</th>
+                        <th>Date/Time</th>
+                        <th>Process Owner</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($rejectProcess as $process)
+                        @php $step = count($process['process_Step'])@endphp
+                        <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
+                            <td><div class="text-over">{{$process['process_Name']}}</div></td>
+                            <td class="center">{{$flowName['flow_Name']}}</td>
+                            <td class="center">{{$process['updated_at']}}</td>
+                            <td class="center">{{$processOwner['user_Name']}} {{$processOwner['user_Surname']}}</td>
+                            <td class="center">{{ucfirst($process['current_StepId'])}}ed</td>
                         </tr>
-                    </thead>
-                @else
-                    <tbody>
-                        @foreach($rejectProcess as $process)
-                            @php $step = count($process['process_Step'])@endphp
-                            <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                                <td>{{$process['process_Name']}}</td>
-                                <td>{{$process['current_StepId']}}ed</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                @endif
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
 </div>
+    <script>
+        $(document).ready( function () {
+            $('#inProgress-process').DataTable();
+        } );
+
+        $(document).ready( function () {
+            $('#approved-process').DataTable();
+        } );
+
+        $(document).ready( function () {
+            $('#comming-process').DataTable();
+        } );
+
+        $(document).ready( function () {
+            $('#reject-process').DataTable();
+        } );
+
+
+
+    </script>
 @endsection
