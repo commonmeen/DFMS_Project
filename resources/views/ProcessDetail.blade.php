@@ -6,13 +6,12 @@
 {{--  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">  --}}
 <style>
     .bs-wizard {margin-top: 40px;}
-
     .bs-wizard {border-bottom: solid 1px #e0e0e0; padding: 0 0 10px 0;}
     .bs-wizard > .bs-wizard-step {padding: 0; position: relative;}
     .bs-wizard > .bs-wizard-step + .bs-wizard-step {}
     .bs-wizard > .bs-wizard-step .bs-wizard-stepnum {color: #595959; font-size: 25px; margin-bottom: 5px; font-weight:bold}
     .bs-wizard > .bs-wizard-step .bs-wizard-info {color: #595959; font-size: 25px;}
-    .bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 40px; height: 40px; display: block; background: #fbe8aa; top: 45px; left: 50%; margin-top: -2px; margin-left: -15px; border-radius: 50%;} 
+    .bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 40px; height: 40px; display: block; background: #fbe8aa; top: 45px; left: 50%; margin-top: -2px; margin-left: -19px; border-radius: 50%;} 
     .bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {content: ' '; width: 24px; height: 24px; background: #fbbd19; border-radius: 50px; position: absolute; top: 8px; left: 8px; } 
     .bs-wizard > .bs-wizard-step > .progress {position: relative; border-radius: 0px; height: 8px; box-shadow: none; margin: 20px 0;}
     .bs-wizard > .bs-wizard-step > .progress > .progress-bar {width:0px; box-shadow: none; background: #fbe8aa;}
@@ -220,9 +219,14 @@
                         <div class="col-{{12/count($steps)}} col-md-{{12/count($steps)}} col-lg-{{12/count($steps)}} bs-wizard-step disabled"> 
                     @endif          
                             <div class="text-center bs-wizard-stepnum">Step {{$index++}}</div>
+                            @if(count($steps)==1)
+                            <a href="#" class="bs-wizard-dot" style="margin-buttom:5px"></a>
+                            <div class="bs-wizard-info text-center mt-4">{{$step['step_Title']}}</div>
+                            @else
                             <div class="progress"><div class="progress-bar"></div></div>
                             <a href="#" class="bs-wizard-dot"></a>
                             <div class="bs-wizard-info text-center">{{$step['step_Title']}}</div>
+                            @endif
                         </div>
                 @endforeach
             </div>  
