@@ -25,6 +25,7 @@ class MenuController extends Controller
                 $processes[$i]['numberOfStep'] = flowRepo::getFlowById($processes[$i]['process_FlowId'])['numberOfStep'];
             }
             // Verify process
+            $now = array();
             if($validator != null){
                 $allProcessCanApprove = array();
                 $allStepData = array();
@@ -36,7 +37,6 @@ class MenuController extends Controller
                     $allProcessCanApprove = array_add($allProcessCanApprove,$stepData['flow_Id'],processRepo::getProcessByFlow($stepData['flow_Id']));
                 }
                 $allProcessCanApprove = array_collapse($allProcessCanApprove);
-                $now = array();
                 foreach($allProcessCanApprove as $process){
                     $flowOnProcess = flowRepo::getFlowById($process['process_FlowId']);
                     $process['flowObject'] = $flowOnProcess ;
@@ -50,7 +50,7 @@ class MenuController extends Controller
             }
             
             if($data!=null){
-                return view('Home',['data'=>$data,'catFlow'=>$catFlow, 'allProcess'=>$processes ,'nowProcess'=>$now , 'flowName'=> $flowOnProcess]);
+                return view('Home',['data'=>$data,'catFlow'=>$catFlow, 'allProcess'=>$processes ,'nowProcess'=>$now]);
             }
         } else if($request->has('email')) {
             $passStatus = userRepo::checkPassword($request->input('email'),$request->input('password'));
