@@ -34,6 +34,8 @@ class ValidateListController extends Controller
         foreach($allProcessCanApprove as $process){
             $processOwner = userRepo::getUser($process['process_Owner']);
             $flowOnProcess = flowRepo::getFlowById($process['process_FlowId']);
+            $process['flowObject'] = $flowOnProcess ;
+            $process['ownerObject'] = $processOwner ;
             if($process['current_StepId'] == "reject"){
                 array_push($reject,$process);
             // Cancel process is not nessesery to show 
@@ -62,6 +64,6 @@ class ValidateListController extends Controller
                 }
             }
         }
-        return view('ListVerify',['nowProcess'=>$now,'rejectProcess'=>$reject,'passMeProcess'=>$passMe,'comingProcess'=>$coming, 'processOwner'=>$processOwner , 'flowName'=> $flowOnProcess]);
+        return view('ListVerify',['nowProcess'=>$now,'rejectProcess'=>$reject,'passMeProcess'=>$passMe,'comingProcess'=>$coming]);
     }
 }
