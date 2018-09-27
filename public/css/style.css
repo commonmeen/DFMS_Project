@@ -75,6 +75,10 @@ a.nav-text:hover{
   float: right;
 }
 
+.card-body{
+  padding: 0.8em !important;
+}
+
 
 
 
