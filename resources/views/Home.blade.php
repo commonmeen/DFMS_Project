@@ -27,8 +27,8 @@
                         </div>
                     </div>    
                 </div>
-            
 
+                {{--  Tabs  --}}
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active toggle-nav" id="process-tab" data-toggle="tab" href="#process" role="tab" aria-controls="process" aria-selected="true">Process status</a>
@@ -37,29 +37,40 @@
                     <a class="nav-link toggle-nav" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verify</a>
                     </li>
                 </ul>
+                {{--  Process tab  --}}
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="process" role="tabpanel" aria-labelledby="process-tab">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row cardDetail">
-                                    <span class="col-10">Process name : ขอใช้สถานที่ CB2301</span>
-                                    <button type="button" class="btn step-btn col-2">3/5</button>
-                                </div>
+                        @foreach($allProcess as $process)
+                            <div class="card">
+                                <a href="ProcessDetail?id={{$process['process_Id']}}" class="list-group-item-action">
+                                    <div class="card-body">
+                                        @php $step = count($process['process_Step'])@endphp
+                                        <div class="row cardDetail">
+                                            <span class="col-10">Process name : {{$process['process_Name']}}</span>
+                                            <button type="button" class="btn step-btn col-2" disabled>{{$step}}/{{$process['numberOfStep']}}</button>
+                                        </div>   
+                                    </div>
+                                </a>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
+                {{--  Verify Process  --}}
                     <div class="tab-pane fade" id="verify" role="tabpanel" aria-labelledby="verify-tab">
                         <div class="tab-pane fade show active" id="process" role="tabpanel" aria-labelledby="process-tab">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row cardDetail">
-                                        <span class="col-10">Process name : ขอใช้สถานที่ CB2301 </span>
-                                    </div>
-                                    <div class="row cardDetail">
-                                        <span class="col-10">From : คณะเทคโนโลยีสารสนเทศ</span>
-                                    </div>
+                            @foreach($nowProcess as $process)
+                                <div class="card">
+                                    <a href="ProcessDetail?id={{$process['process_Id']}}&InProgress=true" class="list-group-item-action">
+                                        <div class="card-body">
+                                            <div class="row cardDetail">
+                                                <span class="col-10">Process name : {{$process['process_Name']}} </span>
+                                            </div>
+                                            <div class="row cardDetail">
+                                                <span class="col-10">Flow name : {{$process['flowObject']['flow_Name']}}</span>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
