@@ -141,16 +141,32 @@
         $('#submitStepModal').modal();
         $('#submitYes').click(function() {
             // check password
+            var password = document.getElementById('password').value;
+            var data = {password:password};
             $.ajax({
                 type     : "GET",
-                url      : "ChangeStepSave",
-                data     : {},
+                url      : "ChkPassword",
+                data     : data,
                 cache    : false,
                 success  : function(response){
-                    window.location='FlowDetail?id='+ response.newFlowId ;
+                    console.log(response.status);
+                    if(response.status==false){
+                        document.getElementById('errPassword').innerHTML = "Incorrect password please try again";
+                    }else{
+                        $.ajax({
+                            type     : "GET",
+                            url      : "ChangeStepSave",
+                            data     : {},
+                            cache    : false,
+                            success  : function(response){
+                                window.location='FlowDetail?id='+ response.newFlowId ;
+                            }
+                        });
+                        $('#submitStepModal').modal('hide');
+                    }
                 }
             });
-            $('#submitStepModal').modal('hide');
+            
         });
     }
     function closeRequest(){
@@ -197,6 +213,8 @@
             <a class="nav-link toggle-nav" data-toggle="tab" href="#flowStep">Edit Step</a>
         </li>
     </ul>
+
+    {{--  Edit Detail  --}}
     <div class="tab-content">
         <div id="flowDetail" class="container tab-pane active"><br>
             <form id="DetailForm" action="ListTemplate">
@@ -293,6 +311,8 @@
                 </div>       
             </form>
         </div>
+
+        {{--  Edit Template  --}}
         <div id="flowTemplate" class="container tab-pane fade"><br>
             <form id="TemplateForm" action="AddFlowTemplate">
                 <input type="text" name="flow_Id" value="{{$flow['flow_Id']}}" hidden>
@@ -352,9 +372,11 @@
                 </div>
             </form>
         </div>
+
+        {{--  Edit Step  --}}
         <div id="flowStep" class="container tab-pane fade"><br>
             <div class="row">
-                <div class="col-lg-10 block-center">
+                <div class="col-lg-12 block-center">
                     <div class="table-responsive" id="listValidator">
                         <table class="table table-list-search table-hover">
                             <thead>
@@ -411,12 +433,15 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-lg-3 form-group mb-0 horizon-center">
-                                                    <label class="col-form-labelr align-self-center">password</label>
+                                                    <label class="col-form-labelr">Password</label>
                                                 </div>
-                                                <div class="col-lg-8">
-                                                    <input type="text" name="password" class="form-control">
+                                                <div class="col-lg-9">
+                                                    <input type="password" name="password" id="password" class="form-control">
                                                 </div>
-                                                <div class="col-lg-1"></div>
+                                                <div class="col-lg-3"></div>
+                                                <div class="col-lg-9">
+                                                    <div id="errPassword" class="err-text"></div> 
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
