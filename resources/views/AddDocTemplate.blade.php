@@ -83,20 +83,6 @@
                 subtypes: {
                     text: ['time']
                 },
-                typeUserAttrs: {
-                    date: {
-                        min: {
-                            label: 'Date min.',
-                            description: 'Minimum',
-                            type: 'date'
-                        },
-                        max: {
-                            label: 'Date max.',
-                            description: 'Maximum',
-                            type: 'date'
-                        }
-                    }
-                },
                 disabledAttrs: ["className", "access","name"],
                 typeUserDisabledAttrs: {
                     'checkbox-group': [
@@ -112,6 +98,27 @@
                         'subtype'
                     ]
                 },
+                typeUserAttrs: {
+                    date: {
+                        min: {
+                            label: 'Date min.',
+                            description: 'Minimum',
+                            type: 'date'
+                        },
+                        max: {
+                            label: 'Date max.',
+                            description: 'Maximum',
+                            type: 'date'
+                        }
+                    },
+                    'radio-group': {
+                        name: {
+                            label: ' ',
+                            type: 'text',
+                            hidden: true
+                        }
+                    }
+                },
                 disableFields: [
                     'autocomplete',
                     'date',
@@ -125,7 +132,7 @@
                     'text',
                     'radio-group'
                 ],
-                showActionButtons: false
+                showActionButtons: true
             };
             document.getElementById('clear').addEventListener('click', function() {
                 formBuilder.actions.clearFields();
