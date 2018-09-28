@@ -59,7 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php $successProcess = array(); $cancelProcess = array(); $rejectProcess = array(); $onprocess=null; @endphp
+                        @php $successProcess = array(); $cancelProcess = array(); $rejectProcess = array(); @endphp
                         @foreach($allProcess as $process)
                             @php $step = count($process['process_Step'])@endphp
                             @if($process['current_StepId']=="success")
@@ -69,7 +69,6 @@
                             @elseif($process['current_StepId']=="reject")
                                 @php array_push($rejectProcess,$process) @endphp
                             @else
-                                @php $onprocess = 1 @endphp
                                 <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
                                     <td><div class="text-over">{{$process['process_Name']}}</div></td>
                                     <td class="center">{{$process['created_at']}}</td>
