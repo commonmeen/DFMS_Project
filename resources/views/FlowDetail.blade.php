@@ -4,6 +4,26 @@
     {{Session::get('UserLogin')->user_Surname}}
 @endsection
 <script type="text/javascript">
+    function checkPassword(id,status){
+        var password = document.getElementById('password').value;
+        var data = {password:password};
+        $.ajax({
+            type     : "GET",
+            url      : "ChkPassword",
+            data     : data,
+            cache    : false,
+            success  : function(response){
+                console.log(response.status);
+                if(response.status==false){
+                    document.getElementById('errPassword').innerHTML = "Incorrect password please try again";
+                }else{
+                    changeStatus(id,status);
+                    $('#lockFlowModalCenter').modal('hide');
+                }
+            }
+        });
+    }
+
     function changeStatus(id,status){
         var data = {flow_id:id,newStatus:status};
         $.ajax({
@@ -64,34 +84,37 @@
                                 </div>
                             @elseif($flow['status']=="off")
                                 <div class="modal-header alert-title">
-                                    "{{$flow['flow_Name']}}" is locked.<br>Do you want to unlock {{$flow['flow_Name']}}?
+                                    "{{$flow['flow_Name']}}" is locked. Do you want to unlock "{{$flow['flow_Name']}}"?
                                 </div>
                             @endif
                             <div class="modal-body row">
-                                <div class="col-lg-3 form-group mb-0">
-                                    <label class="col-form-labelr align-self-center">Password</label>
+                                <div class="col-lg-3 form-group mb-0 horizon-center">
+                                    <label class="col-form-labelr ">Password</label>
                                 </div>
-                                <div class="col-lg-8">
-                                    <input type="text" name="password" class="form-control">
+                                <div class="col-lg-9">
+                                    <input type="password" name="password" class="form-control" id="password">
                                 </div>
-                                <div class="col-lg-1"></div>
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-9">
+                                    <div id="errPassword" class="err-text"></div> 
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                                 @if($flow['status']=="on")
-                                    <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$flow['flow_Id']}}','off')" data-dismiss="modal">Yes</button>
+                                    <button type="button" class="btn btn-secondary" onclick="checkPassword('{{$flow['flow_Id']}}','off')">Yes</button>
                                 @elseif($flow['status']=="off") 
-                                    <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$flow['flow_Id']}}','on')" data-dismiss="modal">Yes</button>
-                                @endif   
+                                    <button type="button" class="btn btn-secondary" onclick="checkPassword('{{$flow['flow_Id']}}','on')">Yes</button>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>  
         </div>
         <div class="row">
-            <div class="col-lg-6 block-center mt-3 mb-3">
+            <div class="col-lg-10 block-center mt-3 mb-3">
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <label class="col-form-labelr align-self-center topic-nomal mb-0">Description : </label>
                     </div>
                     <div class="col-lg-9">
@@ -99,7 +122,7 @@
                     </div>
                 </div>   
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <label class="col-form-labelr align-self-center topic-nomal mb-0">Deadline : </label>
                     </div>
                     <div class="col-lg-9">
@@ -107,7 +130,7 @@
                     </div>
                 </div> 
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <label class="col-form-labelr align-self-center topic-nomal mb-0">Category : </label>
                     </div>
                     <div class="col-lg-9">
@@ -115,7 +138,7 @@
                     </div>
                 </div> 
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <label class="col-form-labelr align-self-center topic-nomal mb-0">Template : </label>
                     </div>
                     @foreach($flow['template_Id'] as $template_Name)
@@ -130,7 +153,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-8 block-center">
+            <div class="col-lg-10 block-center">
                 <div class="table-responsive" id="listValidator">
                     <table class="table table-list-search font-nomal">
                         <thead>
