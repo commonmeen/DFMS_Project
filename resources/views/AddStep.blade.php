@@ -289,7 +289,10 @@
                         <p class="topic">Edit Flow  : "{{$flow['flow_Name']}}"</p>
                     </div>
                     <div class="col-lg-6 float-right">
-                        <p class="topic" style="text-align:right">Step number : {{$stepNumber}}</p>                      
+                        @if(isset($stepNumber))
+                            <p class="topic" style="text-align:right">Step number : {{$stepNumber}}</p>
+                        @endif
+                        {{--  <p class="topic" style="text-align:right">Step number : {{$stepNumber}}</p>                        --}}
                     </div>
                 </div>
             </div>
@@ -466,7 +469,7 @@
                                         The system does not save your actions.
                                         <div>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                            <a type="button" class="btn btn-secondary" href="EditFlow?flow_Id={{$flow['flow_Id']}}#flowStep'">Yes</a>
+                                            <button type="button" class="btn btn-secondary" onclick="notDelSession();window.location='EditFlow?flow_Id={{$flow['flow_Id']}}#flowStep'">Yes</button>
                                         </div>
                                     </div>
                                 </div>
