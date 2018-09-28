@@ -100,6 +100,24 @@
         function closeRequest(){
             return "You have unsaved changes!";
         }
+
+        function catSelect(){
+            var catFlow = {!! json_encode($catFlow) !!};
+            var filterFlow = document.getElementById('catFlow').value;
+            while( document.getElementById('flowId').options.length-1 ) {
+                document.getElementById('flowId').remove(1);
+            }
+            console.log(catFlow);
+            console.log(filterFlow);
+            console.log(catFlow[filterFlow]);
+
+            for(var i =0; i<catFlow[filterFlow].length ; i++){
+                console.log(catFlow[filterFlow][i].flow_Name);
+                var flow = new Option(catFlow[filterFlow][i].flow_Name,catFlow[filterFlow][i].flow_Id)
+                document.getElementById('flowId').options.add(flow);
+            }
+            
+        }
     </script>
 @endsection
 @section('content')
@@ -121,16 +139,35 @@
             </div>
             
             <br>
-            <div class="col-12 col-lg-8 mb-3 block-center">
-                <input type="text" name="name" id="name" class="form-control mb-3" onkeyup="nameValidate()" placeholder="Enter Process Name">
+            <div class="col-12 col-lg-8 mb-2 block-center">
+                <span class="topic-nomal">Process name : </span>
+                <input type="text" name="name" id="name" class="form-control" onkeyup="nameValidate()" placeholder="Enter Process Name">
                 <div id="errname" class="err-text"></div>
-                <select class="form-control" name="flowId" id="flowId" onchange="flowSelect()">
-                    <option id="defaultNull" disabled selected value="notSelect">Choose Flow</option>
-                    @foreach($flows as $flow)
-                        <option value="{{$flow->flow_Id}}">{{$flow->flow_Name}}</option>
-                    @endforeach
-                </select>
             </div>
+    
+            <div class="col-12 col-lg-8 block-center">
+                <div class="row">
+                    <div class="col-lg-7 col-12 mb-2">
+                        <span class="topic-nomal">Flow name : </span>
+                        <select class="form-control" name="flowId" id="flowId" onchange="flowSelect()">
+                            <option id="defaultNull" disabled selected value="notSelect">Choose Flow</option>
+                                @foreach($flows as $flow)
+                                    <option value="{{$flow->flow_Id}}">{{$flow->flow_Name}}</option>
+                                @endforeach                            
+                        </select>
+                    </div>
+                    <div class="col-lg-5 col-12 mb-2">
+                        <span class="topic-nomal">Filter flow by category : </span>
+                        <select class="form-control" id="catFlow" name="catFlow" onchange="catSelect()">
+                            <option id="defaultNull" disabled selected value="notSelect">Choose Category</option>
+                            @foreach($catFlow as $cat => $flow)
+                                <option value="{{$cat}}">{{$cat}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+    
 
         </div>
         <hr>
