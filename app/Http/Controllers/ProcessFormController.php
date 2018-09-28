@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Debugbar;
+
 use Illuminate\Http\Request;
 use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo;
 
