@@ -40,7 +40,7 @@
               <a class="nav-link nav-text" href="ListProcess">Process</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-text" href="ListVerify">Verify</a>
+              <a class="nav-link nav-text" href="ListVerify">Approve</a>
             </li>
             {{-- @if(Session::get('UserLogin')->user_Role=="manager")
             <li class="nav-item">
