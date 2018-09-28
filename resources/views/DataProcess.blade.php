@@ -107,16 +107,15 @@
             while( document.getElementById('flowId').options.length-1 ) {
                 document.getElementById('flowId').remove(1);
             }
-            console.log(catFlow);
-            console.log(filterFlow);
-            console.log(catFlow[filterFlow]);
 
+            document.getElementById('flowId').options[0].selected = true;
             for(var i =0; i<catFlow[filterFlow].length ; i++){
-                console.log(catFlow[filterFlow][i].flow_Name);
-                var flow = new Option(catFlow[filterFlow][i].flow_Name,catFlow[filterFlow][i].flow_Id)
-                document.getElementById('flowId').options.add(flow);
+                if(catFlow[filterFlow][i].status == "on"){
+                    var flow = new Option(catFlow[filterFlow][i].flow_Name,catFlow[filterFlow][i].flow_Id);
+                    document.getElementById('flowId').options.add(flow);
+                }
             }
-            
+            document.getElementById('hide').style.display = 'none';
         }
     </script>
 @endsection
