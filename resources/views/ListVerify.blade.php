@@ -13,11 +13,11 @@
     <div class="row">
         {{--  Large screen  --}}
         <div class="col-12 d-none d-sm-block">
-            <p class="topic mb-0" >Verify List</p>
+            <p class="topic mb-0" >Approve List</p>
         </div>
         {{--  Small screen  --}}
         <div class="col-12 d-sm-none">
-            <p class="topic center mb-0">Verify List</p>
+            <p class="topic center mb-0">Approve List</p>
         </div>
     </div><br>
     <ul class="nav nav-tabs" role="tablist">
