@@ -132,7 +132,7 @@
                     'text',
                     'radio-group'
                 ],
-                showActionButtons: true
+                showActionButtons: false
             };
             document.getElementById('clear').addEventListener('click', function() {
                 formBuilder.actions.clearFields();
