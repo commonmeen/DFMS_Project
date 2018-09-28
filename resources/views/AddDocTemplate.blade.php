@@ -42,6 +42,7 @@
             <button type="button" class="mt-3 btn-danger" id="clear">Clear</button>
             <button type="button" class="mt-3 btn-success" id="save">Save</button>
         </center>
+        <input type="hidden" id="token" value="{{csrf_token()}}">
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -132,9 +133,9 @@
             document.getElementById('save').addEventListener('click', function() {
                 fbEditor.toggle();
                 formData = formBuilder.actions.getData('json');
-                data = {title : document.getElementById('name').value,desc : document.getElementById('desc').value,formData: formData}
+                data = {_token:document.getElementById('token').value, title : document.getElementById('name').value,desc : document.getElementById('desc').value,formData: formData}
                 $.ajax({
-                    type     : "GET",
+                    type     : "POST",
                     url      : 'SaveDocTemplate',
                     data     : data,
                     cache    : false,
