@@ -15,15 +15,15 @@
                             <img src="../pic/user.png" class="profilePic" > 
                         </div>
                         <div class="col-lg-8">
-                            <span>Name : {{$data->user_Name}} {{$data->user_Surname}}</span><br>
-                            <span>Position : </span>   
+                            <span><span class="topic-nomal">Name : </span>{{$data->user_Name}} {{$data->user_Surname}}</span><br>
+                            <span class="topic-nomal">Position : </span>   
                                 @foreach($data->user_Position as $position)
                                     {{$position}}
                                     @if(array_last($data->user_Position)!=$position)
                                         ,
                                     @endif
                                 @endforeach
-                            <br><span>Email : {{$data->user_Email}}</span>
+                            <br><span><span class="topic-nomal">Email : </span>{{$data->user_Email}}</span>
                         </div>
                     </div>    
                 </div>
@@ -46,8 +46,8 @@
                                     <div class="card-body">
                                         @php $step = count($process['process_Step'])@endphp
                                         <div class="row cardDetail">
-                                            <span class="col-10">Process name : {{$process['process_Name']}}</span>
-                                            <button type="button" class="btn step-btn col-2" disabled>{{$step}}/{{$process['numberOfStep']}}</button>
+                                            <span class="col-10"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}}</span>
+                                            <span class="col-10"><span class="topic-nomal">Process status : </span>{{$step}}/{{$process['numberOfStep']}} step</span>
                                         </div>   
                                     </div>
                                 </a>
@@ -62,10 +62,10 @@
                                     <a href="ProcessDetail?id={{$process['process_Id']}}&InProgress=true" class="list-group-item-action">
                                         <div class="card-body">
                                             <div class="row cardDetail">
-                                                <span class="col-10">Process name : {{$process['process_Name']}} </span>
+                                                <span class="col-10"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}} </span>
                                             </div>
                                             <div class="row cardDetail">
-                                                <span class="col-10">Flow name : {{$process['flowObject']['flow_Name']}}</span>
+                                                <span class="col-10"><span class="topic-nomal">Flow name : </span>{{$process['flowObject']['flow_Name']}}</span>
                                             </div>
                                         </div>
                                     </a>
