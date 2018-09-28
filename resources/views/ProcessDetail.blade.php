@@ -27,18 +27,35 @@
     .bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }
 </style>
 <script>
-    function changeStatus(id){
+
+    function checkPassword(id){
+        var password = document.getElementById('cancelPassword').value;
+        var pass = {password:password};
         var data = {process_Id:id};
         $.ajax({
             type     : "GET",
-            url      : "CancelProcess",
-            data     : data,
+            url      : "ChkPassword",
+            data     : pass,
             cache    : false,
             success  : function(response){
-                window.location.reload();
+                if(response.status==false){
+                    document.getElementById('errCancelPassword').innerHTML = "Incorrect password please try again";
+                }else{
+                    $.ajax({
+                        type     : "GET",
+                        url      : "CancelProcess",
+                        data     : data,
+                        cache    : false,
+                        success  : function(response){
+                            window.location.reload();
+                        }
+                    });
+                    $('#cancelProcessModalCenter').modal('hide');
+                }
             }
         });
     }
+
     function submit(processId,stepId,action){
         var data = {step_Id:stepId};
         document.getElementById("app-re1").innerHTML = action ;
@@ -171,6 +188,7 @@
                         <button class="btn btn-block btn-danger" type="button" data-toggle="modal" data-target="#cancelProcessModalCenter">Cancel Process</button>
                     </div>
 
+                    {{--  Cancel Process  --}}
                     <!-- Modal -->
                     <div class="modal fade" id="cancelProcessModalCenter" tabindex="-1" role="dialog" aria-labelledby="cancelProcessModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -183,17 +201,20 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-lg-3 form-group mb-0">
-                                            <label class="col-form-labelr align-self-center">password</label>
+                                            <label class="col-form-labelr align-self-center">Password</label>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <input type="text" name="password" class="form-control">
+                                        <div class="col-lg-9">
+                                            <input type="password" name="password" id="cancelPassword" class="form-control">
                                         </div>
-                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-3"></div>
+                                        <div class="col-lg-9">
+                                            <div id="errCancelPassword" class="err-text"></div> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                    <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$process['process_Id']}}')" data-dismiss="modal">Yes</button>   
+                                    <button type="button" class="btn btn-secondary" onclick="checkPassword('{{$process['process_Id']}}')">Yes</button>   
                                 </div>
                             </div>
                         </div>    
@@ -289,7 +310,7 @@
                 <div class="col-lg-12" style="text-align:center"><h4>Your comment :</h4></div> 
                 <div class="col-12 col-sm-12 col-11 main-section">
                     <textarea class="col-8 block-center" name="comment" id="comment" rows="4" placeholder="input text here.."></textarea>
-                    <div class="col-12"><p id="errComment"></p></div>  
+                    <div class="col-8 block-center"><p id="errComment" class="err-text"></p></div>  
                 </div>
             </div>
             <div class="row">
@@ -326,7 +347,7 @@
                         </div>    
                         <div class="row mb-3">
                             <div class="col-lg-3 form-group mb-0">
-                                <label class="col-form-labelr align-self-center">password</label>
+                                <label class="col-form-labelr align-self-center">Password</label>
                             </div>
                             <div class="col-lg-8 mb-3">
                                 <input type="password" id="password" name="password" class="form-control">
