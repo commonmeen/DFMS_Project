@@ -41,17 +41,19 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="process" role="tabpanel" aria-labelledby="process-tab">
                         @foreach($allProcess as $process)
-                            <div class="card">
-                                <a href="ProcessDetail?id={{$process['process_Id']}}" class="list-group-item-action">
-                                    <div class="card-body">
-                                        @php $step = count($process['process_Step'])@endphp
-                                        <div class="row cardDetail">
-                                            <span class="col-10"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}}</span>
-                                            <span class="col-10"><span class="topic-nomal">Process status : </span>{{$step}}/{{$process['numberOfStep']}} step</span>
-                                        </div>   
-                                    </div>
-                                </a>
-                            </div>
+                            @if($process['current_StepId']!="success" && $process['current_StepId']!="cancel" && $process['current_StepId']!="reject")
+                                <div class="card">
+                                    <a href="ProcessDetail?id={{$process['process_Id']}}" class="list-group-item-action">
+                                        <div class="card-body">
+                                            @php $step = count($process['process_Step'])@endphp
+                                            <div class="row cardDetail">
+                                                <span class="col-10"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}}</span>
+                                                <span class="col-10"><span class="topic-nomal">Process status : </span>{{$step}}/{{$process['numberOfStep']}} step</span>
+                                            </div>   
+                                        </div>
+                                    </a>
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                 {{--  Verify Process  --}}
