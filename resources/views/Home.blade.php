@@ -34,7 +34,7 @@
                         <a class="nav-link active toggle-nav" id="process-tab" data-toggle="tab" href="#process" role="tab" aria-controls="process" aria-selected="true">Process status</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link toggle-nav" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Verify</a>
+                    <a class="nav-link toggle-nav" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Approve status</a>
                     </li>
                 </ul>
                 {{--  Process tab  --}}
@@ -56,7 +56,7 @@
                             @endif
                         @endforeach
                     </div>
-                {{--  Verify Process  --}}
+                {{--  Approve Process  --}}
                     <div class="tab-pane fade" id="verify" role="tabpanel" aria-labelledby="verify-tab">
                         <div class="tab-pane fade show active" id="process" role="tabpanel" aria-labelledby="process-tab">
                             @foreach($nowProcess as $process)
