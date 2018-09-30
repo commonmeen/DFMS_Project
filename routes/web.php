@@ -11,75 +11,77 @@
 |
 */
 
-Route::any('ListFlow', 'ListFlowController@listFlow');
-
 Route::any('/', 'MenuController@getMenu');
-
-Route::any('AddFlow', 'ListCatController@getAllCategory');
-
-Route::any('ListTemplate','AddFlowController@addFlow');
-
-Route::any('AddStep', 'AddStepController@addStep');
-
-Route::any('SearchUser','SearchUserController@searchUser');
-
-Route::any('AddFlowTemplate','AddFlowTemplateController@addFlowTemplate');
 
 Route::any('AddCategory','AddCatController@addCat');
 
-Route::any('SearchPosition','SearchUserController@searchPosition');
+Route::any('AddFlow', 'ListCatController@getAllCategory');
 
-Route::any('FlowDetail','FlowDetailController@detail')->name('FlowDetail');
+Route::any('AddFlowTemplate','AddFlowTemplateController@addFlowTemplate');
 
-Route::any('LockFlow','LockFlowController@lockFlow');
+Route::any('AddStep', 'AddStepController@addStep');
 
-Route::any('EditStep','EditStepController@editStep');
-
-Route::any('GetSelectValidator','SearchUserController@getValidator');
-
-Route::any('FileUpload','FileUploadController@upload');
-
-Route::any('ListProcess','ListProcessController@listProcess');
-
-Route::any('DataProcess','ProcessFormController@newProcessForm');
-
-Route::any('ProcessDetail','ProcessDetailController@processDetail');
+Route::any('Approve','ApproveProcessController@approveProcess');
 
 Route::any('CancelProcess','CancelProcessController@cancel');
 
-Route::any('NewProcess','NewProcessController@newProcess');
-
-Route::any('GetDocumentByFlow','GetFlowDocumentController@getDoc');
-
-Route::any('EditFlow','EditFlowManageController@editFlow');
+Route::any('ChangeTemplateStatus','ChangeTemplateStatusController@changeStatusTemplate');
 
 Route::any('ChangeStep','ChangeStepController@changeStep');
 
 Route::any('ChangeStepSave','ChangeStepController@changeStepSave');
 
-Route::any('ListVerify','ValidateListController@listProcessForValidate');
-
 Route::any('CheckTypeValidate','CheckTypeValidateController@chkValidate');
-
-Route::any('Approve','ApproveProcessController@approveProcess');
-
-Route::any('Reject','RejectProcessController@rejectProcess');
-
-Route::any('clear/session/{key}', 'ClearSessionController@test');
-
-Route::get('Logout','LogoutController@logout');
-
-Route::any('ChkPassword','ChkPasswordController@chkPassword');
 
 Route::any('ChkOTP','ChkOTPController@chkOTP');
 
-Route::any('SentOTP','SentOTPController@sentOTP');
+Route::any('ChkPassword','ChkPasswordController@chkPassword');
 
-Route::any('SaveDocTemplate','SaveDocTemplateController@saveTemplate');
+Route::any('DataProcess','ProcessFormController@newProcessForm');
+
+Route::any('EditFlow','EditFlowManageController@editFlow');
+
+Route::any('EditStep','EditStepController@editStep');
+
+Route::any('FileUpload','FileUploadController@upload');
+
+Route::any('FlowDetail','FlowDetailController@detail')->name('FlowDetail');
+
+Route::any('GetDocumentByFlow','GetFlowDocumentController@getDoc');
+
+Route::any('GetSelectValidator','SearchUserController@getValidator');
 
 Route::any('ListDocTemplate','ListDocTemplateController@listTemplate');
 
+Route::any('ListFlow', 'ListFlowController@listFlow');
+
+Route::any('ListProcess','ListProcessController@listProcess');
+
+Route::any('ListTemplate','AddFlowController@addFlow');
+
+Route::any('ListVerify','ValidateListController@listProcessForValidate');
+
+Route::any('LockFlow','LockFlowController@lockFlow');
+
+Route::get('Logout','LogoutController@logout');
+
+Route::any('NewProcess','NewProcessController@newProcess');
+
+Route::any('ProcessDetail','ProcessDetailController@processDetail');
+
+Route::any('Reject','RejectProcessController@rejectProcess');
+
+Route::any('SaveDocTemplate','SaveDocTemplateController@saveTemplate');
+
+Route::any('SearchPosition','SearchUserController@searchPosition');
+
+Route::any('SearchUser','SearchUserController@searchUser');
+
+Route::any('SentOTP','SentOTPController@sentOTP');
+
 Route::any('TemplateDetail','TemplateDetailController@templateDetail');
+
+Route::any('clear/session/{key}', 'ClearSessionController@test');
 
 Route::any('AddDocTemplate', function() {
     return view('AddDocTemplate');

@@ -83,20 +83,6 @@
                 subtypes: {
                     text: ['time']
                 },
-                typeUserAttrs: {
-                    date: {
-                        min: {
-                            label: 'Date min.',
-                            description: 'Minimum',
-                            type: 'date'
-                        },
-                        max: {
-                            label: 'Date max.',
-                            description: 'Maximum',
-                            type: 'date'
-                        }
-                    }
-                },
                 disabledAttrs: ["className", "access","name"],
                 typeUserDisabledAttrs: {
                     'checkbox-group': [
@@ -111,6 +97,27 @@
                     'textarea':[
                         'subtype'
                     ]
+                },
+                typeUserAttrs: {
+                    date: {
+                        min: {
+                            label: 'Date min.',
+                            description: 'Minimum',
+                            type: 'date'
+                        },
+                        max: {
+                            label: 'Date max.',
+                            description: 'Maximum',
+                            type: 'date'
+                        }
+                    },
+                    'radio-group': {
+                        name: {
+                            label: ' ',
+                            type: 'text',
+                            hidden: true
+                        }
+                    }
                 },
                 disableFields: [
                     'autocomplete',
