@@ -3,6 +3,33 @@
     {{Session::get('UserLogin')->user_Name}}
     {{Session::get('UserLogin')->user_Surname}}
 @endsection
+@section('script')
+<style>
+    .field-label{
+        font-size: 30px !important;
+        font-weight: bold !important;
+    }
+    .add-opt{
+        font-size: 20px !important;
+        background-color: lightgreen !important;
+    }
+    .fb-header{
+        background-color:lightgray !important;
+    }
+    .remove, .topic-nomal{
+        font-size: 40px !important;
+    }
+    .form-control, .tooltip-element, .sortable-options{
+        font-size: 20px !important;
+    }
+    .form-group, .input{
+        font-size: 25px !important;
+    }
+    .fld-subtype{
+        height: 35px !important;
+    } 
+</style>
+@endsection
 @section('content')
     <div class="container " style="font-size:20pt">
         <br>
@@ -23,7 +50,7 @@
                 </div>
             </div>
             <div class="col-lg-9 mb-3">
-                <input type="text" name="name" id="name" onkeyup="" class="form-control" placeholder="Example: แบบฟอร์มการขอยืมอุปกรณ์" value="">
+                <input type="text" name="name" id="name" onkeyup="" class="form-control input" placeholder="Example: แบบฟอร์มการขอยืมอุปกรณ์" value="">
             </div>
         </div>
         <div class="row">
@@ -33,7 +60,7 @@
                 </div>
             </div>
             <div class="col-lg-9 mb-3">
-                <textarea id="desc" name="desc" class="form-control" placeholder="Emample: ใช้สำหรับสร้างเอกสารเพื่อขอยืมอุปกรณ์ในคณะเท่านั้น"></textarea>
+                <textarea id="desc" name="desc" class="form-control input" placeholder="Emample: ใช้สำหรับสร้างเอกสารเพื่อขอยืมอุปกรณ์ในคณะเท่านั้น"></textarea>
             </div>
         </div>
         <div id="build-wrap"></div>
