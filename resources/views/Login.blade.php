@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-lg-12 mt-2">
                             <div id="err-password" class="err-login mb-0">
-                                @if($Err != null) {{$Err}}@endif
+                                @if(isset($Err)) {{$Err}}@endif
                             </div>
                         </div>
                     </div>

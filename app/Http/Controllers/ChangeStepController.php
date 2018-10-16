@@ -10,18 +10,30 @@ use App\Repositories\Eloquent\EloquentStepRepository as stepRepo ;
 class ChangeStepController extends Controller
 {
     public function changeStepSave(Request $request){
-        $input = $request->all();
-        $flow = Session::get('FlowEdit');
-        $stepChange = Session::get('stepChange');
-        $numberOfStep = count($stepChange);
-        $newFlowId = flowRepo::newFlowVersion($flow['flow_Id']);
-        flowRepo::setNumOfStep($newFlowId,$numberOfStep);
-        foreach($stepChange as $step){
-            stepRepo::changeStepVersion($step,$newFlowId);
+        if(Session::has('Login')){
+            if(Session::get('UserLogin')->user_Role=="manager"){
+                $input = $request->all();
+                if(Session::has('FlowEdit') && Session::has('stepChange')){
+                    $flow = Session::get('FlowEdit');
+                    $stepChange = Session::get('stepChange');
+                    $numberOfStep = count($stepChange);
+                    $newFlowId = flowRepo::newFlowVersion($flow['flow_Id']);
+                    flowRepo::setNumOfStep($newFlowId,$numberOfStep);
+                    foreach($stepChange as $step){
+                        stepRepo::changeStepVersion($step,$newFlowId);
+                    }
+                    Session::forget('FlowEdit');
+                    Session::forget('stepChange');
+                    return ['newFlowId'=>$newFlowId];
+                } else {
+                    dd("Err occur","This page can't load.","Session not found");
+                }
+            } else {
+                dd("Error occur", "Permission denied. Plz login on manager role.");
+            }
+        } else {
+            return view('Login');
         }
-        Session::forget('FlowEdit');
-        Session::forget('stepChange');
-        return ['newFlowId'=>$newFlowId];
     }
 
     public function changeStep(Request $request){

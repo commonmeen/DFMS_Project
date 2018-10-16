@@ -12,22 +12,28 @@ use App\Repositories\Eloquent\EloquentPositionRepository as positionRepo ;
 class EditStepController extends Controller
 {
     public function editStep(Request $request){
-        $input = $request->all();
-        $thisStep = stepRepo::getStepById($input['id']);        
-        $flow = flowRepo::getFlowById($thisStep['flow_Id']);
-        $allStep = stepRepo::getStepByFlow($flow['flow_Id']);
-        $allUser = userRepo::listUser();
-        $position = positionRepo::getAllPosition();
-        if(Session::has('FlowCreate')){
-            $allStepId = array();
-            foreach($allStep as $step){
-                array_push($allStepId,$step['step_Id']);
-            }
-            return view('AddStep',['allStep'=>$allStepId, 'step'=>$input['stepck'], 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>$thisStep]) ;
-        } else {
-            Session::put('stepEdit',$thisStep);
-            $number = array_search($thisStep,$allStep)+1;
-            return view('AddStep',['step'=>null, 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>$thisStep , 'stepNumber'=>$number]) ;
-        }
+        if(Session::has('UserLogin')){
+            if(Session::get('UserLogin')->user_Role=="manager"){
+                $input = $request->all();
+                $thisStep = stepRepo::getStepById($input['id']);        
+                $flow = flowRepo::getFlowById($thisStep['flow_Id']);
+                $allStep = stepRepo::getStepByFlow($flow['flow_Id']);
+                $allUser = userRepo::listUser();
+                $position = positionRepo::getAllPosition();
+                if(Session::has('FlowCreate')){
+                    $allStepId = array();
+                    foreach($allStep as $step){
+                        array_push($allStepId,$step['step_Id']);
+                    }
+                    return view('AddStep',['allStep'=>$allStepId, 'step'=>$input['stepck'], 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>$thisStep]) ;
+                } else {
+                    Session::put('stepEdit',$thisStep);
+                    $number = array_search($thisStep,$allStep)+1;
+                    return view('AddStep',['step'=>null, 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>$thisStep , 'stepNumber'=>$number]) ;
+                }
+            } else 
+            dd("Error occur", "Permission denied. Plz login on manager role.");
+        } else 
+        return view('Login');
     }
 }

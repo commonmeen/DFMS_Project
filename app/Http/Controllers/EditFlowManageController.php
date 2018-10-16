@@ -12,19 +12,25 @@ use App\Repositories\Eloquent\EloquentStepRepository as stepRepo;
 class EditFlowManageController extends Controller
 {
     public function editFlow(Request $request){
-        if(Session::has('stepEdit')){
-            if(Session::get('stepEdit')['step_Title']=="")
-                stepRepo::deleteStep(Session::get('stepEdit')['step_Id']);
-            Session::forget('stepEdit');
-        }
-        if(Session::has('stepChange'))
-            Session::forget('stepChange');
-        $input = $request->all();
-        $cats = catRepo::getAllCategory();
-        $flow = flowRepo::getFlowById($input['flow_Id']);
-        $allTemplate = tempRepo::listTemplate();
-        $stepFlow = stepRepo::getStepByFlow($flow['flow_Id']);
-        Session::put('FlowEdit',$flow);
-        return view('EditFlow',['listCat'=>$cats,'flow'=>$flow,'template'=>$allTemplate,'step'=>$stepFlow]);
+        if(Session::has('UserLogin')){
+            if(Session::get('UserLogin')->user_Role=="manager"){
+                if(Session::has('stepEdit')){
+                    if(Session::get('stepEdit')['step_Title']=="")
+                        stepRepo::deleteStep(Session::get('stepEdit')['step_Id']);
+                    Session::forget('stepEdit');
+                }
+                if(Session::has('stepChange'))
+                    Session::forget('stepChange');
+                $input = $request->all();
+                $cats = catRepo::getAllCategory();
+                $flow = flowRepo::getFlowById($input['flow_Id']);
+                $allTemplate = tempRepo::listTemplate();
+                $stepFlow = stepRepo::getStepByFlow($flow['flow_Id']);
+                Session::put('FlowEdit',$flow);
+                return view('EditFlow',['listCat'=>$cats,'flow'=>$flow,'template'=>$allTemplate,'step'=>$stepFlow]);
+            } else 
+            dd("Error occur", "Permission denied. Plz login on manager role.");
+        } else 
+        return view('Login');
     }
 }
