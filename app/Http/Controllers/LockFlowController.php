@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo ;
 
 class LockFlowController extends Controller
