@@ -71,8 +71,7 @@ class MenuController extends Controller
                 }
             }
         }else {
-            $errMessage = "";
-            return view('Login',['Err'=>$errMessage]);
+            return view('Login');
         }
         return ;
     }

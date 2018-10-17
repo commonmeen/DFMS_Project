@@ -216,6 +216,11 @@
             async: false,
             url: 'clear/session/FlowEdit'
         });
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'clear/session/stepEdit'
+        });
     });
 
     function closeRequest(){

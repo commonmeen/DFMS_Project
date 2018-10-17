@@ -10,10 +10,18 @@ use App\Repositories\Eloquent\EloquentUserRepository as userRepo;
 class ListDocTemplateController extends Controller
 {
     public function listTemplate(){
-        $allTemplate = templateRepo::listTemplate();
-        for($i = 0 ; $i < count($allTemplate) ; $i++ ){
-            $allTemplate[$i]['template_AuthorName'] = userRepo::getUser($allTemplate[$i]['template_Author'])['user_Name'];
+        if(Session::has('UserLogin')){
+            if(Session::get('UserLogin')->user_Role=="manager"){
+                $allTemplate = templateRepo::listTemplate();
+                for($i = 0 ; $i < count($allTemplate) ; $i++ ){
+                    $allTemplate[$i]['template_AuthorName'] = userRepo::getUser($allTemplate[$i]['template_Author'])['user_Name'];
+                }
+                return view('ListDocTemplate',['allTemplate'=>$allTemplate]);
+            } else {
+                dd("Error occur", "Permission denied. Plz login on manager role.");
+            }
+        } else {
+            return view('Login');
         }
-        return view('ListDocTemplate',['allTemplate'=>$allTemplate]);
     }
 }
