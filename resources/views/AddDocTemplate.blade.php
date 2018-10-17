@@ -6,28 +6,34 @@
 @section('script')
 <style>
     .field-label{
-        font-size: 30px !important;
+        font-size: 22pt !important;
         font-weight: bold !important;
     }
     .add-opt{
-        font-size: 20px !important;
+        font-size: 18pt !important;
         background-color: lightgreen !important;
     }
     .fb-header{
         background-color:lightgray !important;
     }
-    .remove, .topic-nomal{
-        font-size: 40px !important;
+    .remove{
+        font-size: 40pt !important;
+    }
+    .topic-nomal{
+        font-size: 26pt !important;
     }
     .form-control, .tooltip-element, .sortable-options{
-        font-size: 20px !important;
+        font-size: 16pt !important;
     }
     .form-group, .input{
-        font-size: 25px !important;
+        font-size: 18pt !important;
     }
     .fld-subtype{
         height: 35px !important;
     } 
+    input{
+        border-radius: 3px !important;
+    }
 </style>
 @endsection
 @section('content')
