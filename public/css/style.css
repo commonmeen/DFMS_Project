@@ -68,8 +68,11 @@ a.nav-text:hover{
 }
 .card-cat{
   overflow-y: scroll;
-  height: 530px;
+  height: 660px;
   width: 100%;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 .dropdown-btn{
   float: right;
@@ -77,6 +80,10 @@ a.nav-text:hover{
 
 .card-body{
   padding: 0.8em !important;
+}
+.process-height{
+  height: 500px;
+  overflow-y: scroll;
 }
 
 
@@ -344,6 +351,18 @@ h1 {
 }
 .topic-nomal{
   font-weight: bold;
+}
+.overflow-text{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.doc-block{
+  border-style:solid;
+  border-width: 1;
+  border-color: lightgrey;
+  border-radius: 5px;
+  padding:25px;
 }
 
 /* Flow Detail */
