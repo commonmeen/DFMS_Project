@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session ;
 use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo ;
 use App\Repositories\Eloquent\EloquentStepRepository as stepRepo ;
 use App\Repositories\Eloquent\EloquentTemplateRepository as templateRepo ;
@@ -24,9 +25,11 @@ class FlowDetailController extends Controller
                 $thisFlow['template_Id'] = $arrayTemplateName ;
                 $stepFlow = stepRepo::getStepByFlow($input['id']);
                 return view('FlowDetail',['flow'=>$thisFlow,'step'=>$stepFlow]);
-            } else 
-            dd("Error occur", "Permission denied. Plz login on manager role.");
-        } else 
-        return view('Login');
+            } else {
+                dd("Error occur", "Permission denied. Plz login on manager role.");
+            }
+        } else {
+            return view('Login');
+        }
     }
 }
