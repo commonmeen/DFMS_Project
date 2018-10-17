@@ -3,6 +3,46 @@
     {{Session::get('UserLogin')->user_Name}}
     {{Session::get('UserLogin')->user_Surname}}
 @endsection
+@section('script')
+<style>
+    .rendered-form{
+        font-size: 18pt !important;
+    }
+    .fb-checkbox-group-label, .fb-date-label, .fb-number-label, .fb-radio-group-label, .fb-select-label, .fb-text-label, .fb-text-label, .fb-textarea-label {
+        font-size: 20pt !important;
+        font-weight: bold !important;
+        margin-right: 20px !important;
+        margin-bottom: 0px !important;
+    }
+    input{
+        border-radius: 3px !important;
+        font-weight: lighter;
+    }
+    select, textarea{
+        border-radius: 4px !important;
+    }
+    h1{
+        background-color:lightgray !important;
+        margin-top: 15px !important;
+    }
+    .fb-render{
+        margin-left:30px !important;
+        margin-right: 30px !important;
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+    }
+    .col-8{
+        border-style: solid;
+        border-width: 1px;
+        border-color: lightgray !important;
+        border-radius: 5px !important;
+        margin-bottom: 20px !important;
+    }
+    {{--  div{
+        margin-bottom: 20px !important;
+    }  --}}
+</style>
+@endsection
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -60,9 +100,17 @@
             </div> 
         </div>
     </div>
-    <input type='hidden' id="properties" value="{{ json_encode($template->template_Properties,true) }}"/>
-    <div class="fb-render">
+    
+    <hr>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <input type='hidden' id="properties" value="{{ json_encode($template->template_Properties,true) }}"/>
+            <div class="fb-render"></div>
+        </div>
+        <div class="col-2"></div>
     </div>
+
     <center>
         <a role="button" class="btn btn-primary" href="EditFlow?temp_id={{$template->template_Id}}">Edit</a>
         @if($template->status=="on")
@@ -70,7 +118,8 @@
         @elseif($template->status=="off")
             <button class="btn red-button" type="button" data-toggle="modal" data-target="#lockTemplateModalCenter">Unlock</button>
         @endif
-        </center>
+    </center>
+
     <!-- Lock Modal -->
     <div class="modal fade" id="lockTemplateModalCenter" tabindex="-1" role="dialog" aria-labelledby="lockTemplateModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
