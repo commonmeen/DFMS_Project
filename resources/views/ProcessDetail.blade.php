@@ -1,4 +1,8 @@
 @extends('layout.Navbar') 
+@section('script')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+@endsection
 @section('user')
     {{Session::get('UserLogin')->user_Name}}
     {{Session::get('UserLogin')->user_Surname}}
@@ -24,7 +28,7 @@
     .bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot:after {opacity: 0;}
     .bs-wizard > .bs-wizard-step:first-child  > .progress {left: 50%; width: 50%;}
     .bs-wizard > .bs-wizard-step:last-child  > .progress {width: 50%;}
-    .bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }
+    .bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }   
 </style>
 <script>
 
@@ -170,11 +174,11 @@
         <div class="row">
             {{--  Large screen  --}}
             <div class="col-12 col-sm-9 col-lg-9 d-none d-sm-block">
-                <p class="topic">Process : {{$process['process_Name']}}</p>
+                <p class="topic">Process name : {{$process['process_Name']}}</p>
             </div>
             {{--  Small screen  --}}
             <div class="col-12 col-sm-9 d-sm-none">
-                <p class="topic center">Process : {{$process['process_Name']}}</p>
+                <p class="topic center ">Process name: {{$process['process_Name']}}</p>
             </div>
 
             @if($process['current_StepId']!="cancel"&&$process['current_StepId']!="success"&&$process['current_StepId']!="reject")
@@ -255,43 +259,82 @@
         {{-- End Progress Bar --}}
         <br>
         <div class="row">
-            <div class="col-lg-6 block-center">
+            <div class="col-lg-6 block-center" id="block-data">
                 <div class="row">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-5">
                         <label class="align-self-center mb-0 topic-nomal">Process Flow : </label>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-7 overflow-text">
                         {{$process['process_FlowName']}}
                     </div>
-                </div>   
+                </div> 
                 <div class="row">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-5">
+                        <label class="align-self-center mb-0 topic-nomal">Process owner : </label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        {{$owner->user_Name}}  {{$owner->user_Surname}}
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-12 col-lg-5">
                         <label class=" align-self-center mb-0 topic-nomal">Document in process : </label>
                     </div>
                     @foreach($process['data']['document_Name'] as $docName)
-                        <div class="col-12 col-lg-6">{{$docName}}</div>
+                            <button class="btn btn-outline-primary col-lg-7 col-12 overflow-text"  onclick="showDocument('{{$docName}}')">{{$docName}}</button> 
+                            <div class="col-lg-5"></div>
+                        
                         @if(array_last($process['data']['document_Name'])!=$docName)
                         @endif
                     @endforeach
                 </div> 
                 @if(count($process['data']['file_Name'])!=0)
                     <div class="row">
-                        <div class="col-12 col-lg-6">
+                        <div class="col-12 col-lg-5">
                             <label class="align-self-center mb-0 topic-nomal">File in process : </label>
                         </div>
                         @foreach($process['data']['file_Name'] as $fileName)
-                            <div class="col-12 col-lg-6"><a target="_blank" href="upload/{{$fileName}}"> {{$fileName}} </a></div>
+                            <div class="col-12 col-lg-7"><a target="_blank" href="upload/{{$fileName}}"> {{$fileName}} </a></div>
                             @if(array_last($process['data']['file_Name'])!=$fileName)
                             @endif
                         @endforeach
                     </div> 
                 @endif
             </div>
+                        
+                <div class="col-lg-6 animated fadeInUp delay-3s" sytle="overflow:hidden" id="block-document" hidden>
+                    <div id="show" class="doc-block" hidden></div>
+                </div>        
+
+            <script>
+                function showDocument(docName){
+                    document.getElementById('show').innerHTML = "";
+                    
+                    @foreach($document as $doc)
+                        var documentName = '<?= $doc['document_Name'] ?>';
+                        
+                        if(docName == documentName){
+                            document.getElementById('show').innerHTML += "<h5 class=center style='margin-bottom:0px'>"+documentName+"</h5><br>";
+                            @foreach($doc['data'] as $detail)
+                                var title = '<?= $detail['title'] ?>';
+                                var detail = '<?= $detail['detail'] ?>';
+                                console.log(title);
+                                document.getElementById('block-document').hidden = false;
+                                document.getElementById('show').hidden = false;
+                                document.getElementById('show').innerHTML += "<span class='topic-nomal'>"+title+"</span> : "; 
+                                document.getElementById('show').innerHTML += detail+"<br>";
+                            @endforeach
+                        }
+                    @endforeach
+                }
+            </script>
+
+
         </div>
         <br>
         @if(count($process['process_Step'])!=0)
         <div class="row">
-            <div class="col-lg-10 block-center mb-3">
+            <div class="col-lg-6 mb-3">
                 <p class="topic">Comments :</p>
                 @foreach($process['process_Step'] as $stepApproved)
                     @if($process['current_StepId']=="reject")
