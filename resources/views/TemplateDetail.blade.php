@@ -16,6 +16,9 @@
     }
     input{
         border-radius: 3px !important;
+        border-style: solid;
+        border-width: 1px;
+        border-color:darkgray !important;
         font-weight: lighter;
     }
     select, textarea{
@@ -26,10 +29,10 @@
         margin-top: 15px !important;
     }
     .fb-render{
-        margin-left:30px !important;
-        margin-right: 30px !important;
-        margin-top: 15px !important;
-        margin-bottom: 15px !important;
+        margin-left:40px !important;
+        margin-right: 40px !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
     }
     .col-8{
         border-style: solid;

@@ -277,7 +277,7 @@
                                     <div>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                                         @if($flow==null)
-                                            <a type="button" class="btn btn-secondary" onclick="$('BODY').attr('onbeforeunload',false);" href="ListFlow">Yes</a>
+                                            <a type="button" class="btn btn-secondary" onclick="$('BODY').attr('onbeforeunload',false);" href="/">Yes</a>
                                         @else
                                             <a type="button" class="btn btn-secondary" onclick="$('BODY').attr('onbeforeunload',false);" href="FlowDetail?id={{$flow['flow_Id']}}">Yes</a>
                                         @endif
