@@ -21,15 +21,19 @@ class ProcessDetailController extends Controller
             $thisProcess['process_Step'][$i]['approver_Detail'] = json_decode(userRepo::getUser($thisProcess['process_Step'][$i]['validator_Id']),true);
         }
         $documentName = array();
+        $documentObject = array();
         foreach ($thisProcess['data']['document_Id'] as $docId){
             $doc = docRepo::getDocumentById($docId);
             array_push($documentName,$doc['document_Name']);
+            array_push($documentObject,$doc);
         }
         $thisProcess['data']['document_Name'] = $documentName ;
+        $processOwner =  json_decode(userRepo::getUser($thisProcess['process_Owner']));
         $canApprove = false ;
         if($request->has("InProgress")){
             $canApprove = true ;
         }
-        return view('ProcessDetail',['process'=>$thisProcess,'steps'=>$stepFlow,'canApprove'=>$canApprove]);
+
+        return view('ProcessDetail',['process'=>$thisProcess,'steps'=>$stepFlow,'canApprove'=>$canApprove, 'owner'=>$processOwner, 'document'=>$documentObject]);
     }
 } 
