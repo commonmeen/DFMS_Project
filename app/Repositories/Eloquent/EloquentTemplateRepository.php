@@ -40,7 +40,7 @@ class EloquentTemplateRepository extends AbstractRepository implements TemplateR
     }
 
     public static function changeStatus($temp_Id,$status){
-        $temp = Template::where('template_Id',$id)->first();
+        $temp = Template::where('template_Id',$temp_Id)->first();
         $temp->status = $status ;
         $temp->save();
         return ;
