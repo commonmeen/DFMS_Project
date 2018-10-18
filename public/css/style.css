@@ -67,12 +67,12 @@ a.nav-text:hover{
   font-size: 18pt;
 }
 .card-cat{
-  overflow-y: scroll;
+  overflow-y: hidden;
   height: 660px;
   width: 100%;
 }
-::-webkit-scrollbar {
-  display: none;
+.card-cat:hover{
+  overflow-y: scroll;
 }
 .dropdown-btn{
   float: right;
@@ -83,6 +83,10 @@ a.nav-text:hover{
 }
 .process-height{
   height: 500px;
+  overflow-y: hidden;
+}
+
+.process-height:hover{
   overflow-y: scroll;
 }
 
