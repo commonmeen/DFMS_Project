@@ -45,11 +45,10 @@
         margin-bottom: 20px !important;
     }  --}}
 </style>
-@endsection
-@section('content')
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src="http://formbuilder.online/assets/js/form-render.min.js"></script>
+<script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
 <script>    
     jQuery(function($) {
         $('.fb-render').formRender({
@@ -57,13 +56,32 @@
             formData: document.getElementById('properties').value 
         });
     });
+    function checkPassword(id,status){
+        var password = document.getElementById('password').value;
+        var data = {password:password};
+
+        $.ajax({
+            type     : "GET",
+            url      : "ChkPassword",
+            data     : data,
+            cache    : false,
+            success  : function(response){
+                console.log(response.status);
+                if(response.status==false){
+                    document.getElementById('errPassword').innerHTML = "Incorrect password please try again";
+                }else{
+                    changeStatus(id,status);
+                    $('#lockTemplateModalCenter').modal('hide');
+                }
+            }
+        });
+    }
 
     function changeStatus(id,status){
         var data = {template_id:id,newStatus:status};
-        console.log(data);
         $.ajax({
             type     : "GET",
-            url      : "ChangeTemplateStatus",
+            url      : "LockTemplate",
             data     : data,
             cache    : false,
             success  : function(response){
@@ -72,6 +90,8 @@
         });
     }
 </script>
+@endsection
+@section('content')
 <div class="container content">
     <div class="row">
         {{--  Large screen  --}}
@@ -133,24 +153,27 @@
                     </div>
                 @elseif($template->status=="off")
                     <div class="modal-header alert-title">
-                        "{{$template->template_Name}}" is locked.<br>Do you want to unlock {{$flow['flow_Name']}}?
+                        "{{$template->template_Name}}" is locked.<br>Do you want to unlock {{$template->template_Name}}?
                     </div>
                 @endif
                 <div class="modal-body row">
                     <div class="col-lg-3 form-group mb-0">
                         <label class="col-form-labelr align-self-center">Password</label>
                     </div>
-                    <div class="col-lg-8">
-                        <input type="text" id="password" name="password" class="form-control">
+                    <div class="col-lg-9">
+                        <input type="password" id="password" name="password" class="form-control">
                     </div>
-                    <div class="col-lg-1"></div>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-9">
+                        <div id="errPassword" class="err-text"></div> 
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     @if($template->status == "on")
-                        <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$template->template_Id}}','off')" data-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-secondary" onclick="checkPassword('{{$template->template_Id}}','off')" >Yes</button>
                     @elseif($template->status == "off") 
-                        <button type="button" class="btn btn-secondary" onclick="changeStatus('{{$template->template_Id}}','on')" data-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-secondary" onclick="checkPassword('{{$template->template_Id}}','on')" >Yes</button>
                     @endif   
                 </div>
             </div>
