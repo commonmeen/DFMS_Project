@@ -63,6 +63,8 @@ Route::any('ListVerify','ValidateListController@listProcessForValidate');
 
 Route::any('LockFlow','LockFlowController@lockFlow');
 
+Route::any('LockTemplate','LockTemplateController@lockTemplate');
+
 Route::get('Logout','LogoutController@logout');
 
 Route::any('NewProcess','NewProcessController@newProcess');
