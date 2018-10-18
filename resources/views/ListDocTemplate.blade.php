@@ -4,8 +4,8 @@
     {{Session::get('UserLogin')->user_Surname}}
 @endsection
 @section('script')
-<link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
-<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready( function () {
         $('#allTemp').DataTable();
@@ -49,7 +49,7 @@
                         <th>Template name</th>
                         <th>Author</th>
                         <th>Last Update</th>
-                        <th><span hidden>Modify</span></th>
+                        <th>Lock</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +58,11 @@
                             <td><div class="text-over">{{$template['template_Name']}}</div></td>
                             <td class="center">{{$template['template_AuthorName']}}</td>
                             <td class="center">{{$template['created_at']}}</td>
-                            <td><input type="image" src="pic/writing.png" onclick="window.location='';" style="width:24px;height:24px;"/>&nbsp;&nbsp;&nbsp;<input type="image" src="pic/lock.png" onclick="" style="width:24px;height:24px;"/></td>
+                            @if($template['status']=='off')
+                            <td class="center"><input type="image"  src="pic/lock.png" onclick="" style="width:24px;height:24px;"/></td>
+                            @else
+                            <td></td>
+                            @endif
                         </tr>
                     @endforeach              
                 </tbody>
