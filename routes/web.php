@@ -15,6 +15,8 @@ Route::any('/', 'MenuController@getMenu');
 
 Route::any('AddCategory','AddCatController@addCat');
 
+Route::any('AddDocument','AddDocumentController@addDoc');
+
 Route::any('AddFlow', 'ListCatController@getAllCategory');
 
 Route::any('AddFlowTemplate','AddFlowTemplateController@addFlowTemplate');
@@ -39,6 +41,8 @@ Route::any('ChkPassword','ChkPasswordController@chkPassword');
 
 Route::any('DataProcess','ProcessFormController@newProcessForm');
 
+Route::any('DocumentDetail','DocumentDetailController@docDetail');
+
 Route::any('EditFlow','EditFlowManageController@editFlow');
 
 Route::any('EditStep','EditStepController@editStep');
@@ -52,6 +56,8 @@ Route::any('GetDocumentByFlow','GetFlowDocumentController@getDoc');
 Route::any('GetSelectValidator','SearchUserController@getValidator');
 
 Route::any('ListDocTemplate','ListDocTemplateController@listTemplate');
+
+Route::any('ListDocument','ListDocumentController@listDoc');
 
 Route::any('ListFlow', 'ListFlowController@listFlow');
 

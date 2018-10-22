@@ -18,6 +18,17 @@ class EloquentTemplateRepository extends AbstractRepository implements TemplateR
         $data = Template::all();
         return json_decode($data,true);
     }
+    
+    public static function listOnTemplate(){
+        $allTemp = EloquentTemplateRepository::listTemplate();
+        $tempCanUse = array();
+        foreach($allTemp as $temp){
+            if($temp['status']=="on"){
+                array_push($tempCanUse,$temp);
+            }
+        }
+        return $tempCanUse ;
+    }
 
     public static function getTemplateById($id){
         $data = Template::where('template_Id',$id)->first();

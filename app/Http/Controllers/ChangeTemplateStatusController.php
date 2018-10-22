@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 use App\Repositories\Eloquent\EloquentTemplateRepository as templateRepo;
 
 class ChangeTemplateStatusController extends Controller
