@@ -85,9 +85,9 @@ Route::any('TemplateDetail','TemplateDetailController@templateDetail');
 
 Route::any('clear/session/{key}', 'ClearSessionController@test');
 
-Route::any('AddDocTemplate', function() {
-    return view('AddDocTemplate');
-});
+Route::any('AddDocTemplate', 'AddDocTemplateController@addTemplate');
+
+Route::any('EditDocTemplate', 'EditDocTemplateController@editDocTemplate');
 
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
