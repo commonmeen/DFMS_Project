@@ -19,9 +19,6 @@
     .remove{
         font-size: 40pt !important;
     }
-    .topic-nomal{
-        font-size: 26pt !important;
-    }
     .form-control, .tooltip-element, .sortable-options{
         font-size: 16pt !important;
     }
@@ -38,42 +35,45 @@
 @endsection
 @section('content')
     <div class="container " style="font-size:20pt">
-        <br>
         <div class="row">
             {{--  Large screen  --}}
-            <div class="col-12 col-sm-5 col-md-5 col-lg-6 d-none d-sm-block">   
+            <div class="col-12 col-sm-5 col-md-5 col-lg-6 d-none d-sm-block mt-3">   
                 <p class="topic">Create Document Template</p>
             </div>
             {{--  Small screen  --}}
-            <div class="col-12 d-sm-none center">   
+            <div class="col-12 d-sm-none center mt-3">   
                 <p class="topic">Create Document Template</p>
             </div>            
-        </div>
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="form-group mb-0">
-                    <label class="col-form-labelr align-self-center topic-nomal">Name : </label>
+            <div class="col-lg-8 col-12 block-center">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group mb-0">
+                            <label class="col-form-labelr align-self-center topic-nomal">Name : </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 mb-3">
+                        <input type="text" name="name" id="name" onkeyup="" class="form-control input" placeholder="Example: แบบฟอร์มการขอยืมอุปกรณ์" value="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group mb-0">
+                            <label class="col-form-labelr align-self-center topic-nomal">Description : </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 mb-3">
+                        <textarea id="desc" name="desc" class="form-control input" placeholder="Emample: ใช้สำหรับสร้างเอกสารเพื่อขอยืมอุปกรณ์ในคณะเท่านั้น"></textarea>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-9 mb-3">
-                <input type="text" name="name" id="name" onkeyup="" class="form-control input" placeholder="Example: แบบฟอร์มการขอยืมอุปกรณ์" value="">
-            </div>
         </div>
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="form-group mb-0">
-                    <label class="col-form-labelr align-self-center topic-nomal">Description : </label>
-                </div>
-            </div>
-            <div class="col-lg-9 mb-3">
-                <textarea id="desc" name="desc" class="form-control input" placeholder="Emample: ใช้สำหรับสร้างเอกสารเพื่อขอยืมอุปกรณ์ในคณะเท่านั้น"></textarea>
-            </div>
-        </div>
+        <hr>
+
         <div id="build-wrap"></div>
         <div class="fb-render"></div>
         <center>
-            <button type="button" class="mt-3 btn-danger" id="clear">Clear</button>
-            <button type="button" class="mt-3 btn-success" id="save">Save</button>
+            <button type="button" class="btn mt-3 btn-danger" id="clear">Clear</button>
+            <button type="button" class="btn mt-3 btn-success" id="save">Save</button>
         </center>
         <input type="hidden" id="token" value="{{csrf_token()}}">
     </div>
@@ -181,8 +181,7 @@
                     cache    : false,
                     success  : function(response){
                         if(response.temp != null){
-                            console.log("bye",response);
-                            window.location = "/";
+                            window.location = "/ListDocTemplate";
                         }    
                     }
                 });
