@@ -54,16 +54,18 @@
                 </thead>
                 <tbody>
                     @foreach($allTemplate as $template)
-                        <tr onclick="window.location='TemplateDetail?temp_id={{$template['template_Id']}}';">
-                            <td><div class="text-over">{{$template['template_Name']}}</div></td>
-                            <td class="center">{{$template['template_AuthorName']}}</td>
-                            <td class="center">{{$template['created_at']}}</td>
-                            @if($template['status']=='off')
-                            <td class="center"><input type="image"  src="pic/lock.png" onclick="" style="width:24px;height:24px;"/></td>
-                            @else
-                            <td></td>
-                            @endif
-                        </tr>
+                        @if($template['status']=='on' || $template['status']=='off')
+                            <tr onclick="window.location='TemplateDetail?temp_id={{$template['template_Id']}}';">
+                                <td><div class="text-over">{{$template['template_Name']}}</div></td>
+                                <td class="center">{{$template['template_AuthorName']}}</td>
+                                <td class="center">{{$template['created_at']}}</td>
+                                @if($template['status']=='off')
+                                <td class="center"><image type="image"  src="pic/lock.png" onclick="" style="width:24px;height:24px;"/></image>
+                                @else
+                                <td></td>
+                                @endif
+                            </tr>
+                        @endif
                     @endforeach              
                 </tbody>
             </table>
