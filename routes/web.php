@@ -55,6 +55,8 @@ Route::any('GetDocumentByFlow','GetFlowDocumentController@getDoc');
 
 Route::any('GetSelectValidator','SearchUserController@getValidator');
 
+Route::any('GetTemplateForDocument','TemplateForAddDocController@templateAddDoc');
+
 Route::any('ListDocTemplate','ListDocTemplateController@listTemplate');
 
 Route::any('ListDocument','ListDocumentController@listDoc');
