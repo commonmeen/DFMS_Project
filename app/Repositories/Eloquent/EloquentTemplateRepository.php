@@ -4,7 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Template;
 use App\Repositories\Contracts\TemplateRepository;
-
+use Session ;
 use Kurt\Repoist\Repositories\Eloquent\AbstractRepository;
 
 class EloquentTemplateRepository extends AbstractRepository implements TemplateRepository
@@ -49,6 +49,26 @@ class EloquentTemplateRepository extends AbstractRepository implements TemplateR
         $template->save();
         return $template ;
     }
+
+    public static function editTemplate($oldTemplateArray){
+        $oldTemplateId = $oldTemplateArray['template_Id'];
+        $properties = json_decode($oldTemplateArray['formData'],true);
+        $prev = Template::orderBy('template_Id','desc')->take(1)->get();
+        $newId = 'T'.str_pad(substr($prev[0]->template_Id,1)+1, 5, '0', STR_PAD_LEFT);
+        $newTemplate = new Template ;
+        $newTemplate->template_Id = $newId ;
+        $newTemplate->save();
+        $oldTemplate = Template::where('template_Id',$oldTemplateId)->first();
+        $oldTemplate->status = $newId ;
+        $oldTemplate->save();
+        $newTemplate->template_Name = $oldTemplateArray['title'];
+        $newTemplate->template_Author = $oldTemplate->template_Author ;
+        $newTemplate->template_Description = $oldTemplateArray['desc'] ;
+        $newTemplate->template_Properties = $properties ;
+        $newTemplate->status = "on";
+        $newTemplate->save();
+        return $newTemplate;
+    } 
 
     public static function changeStatus($temp_Id,$status){
         $temp = Template::where('template_Id',$temp_Id)->first();
