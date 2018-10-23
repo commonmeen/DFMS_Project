@@ -168,6 +168,25 @@
             }
         });
     }
+
+    function showDocument(docName){
+        document.getElementById('show').innerHTML = "";
+        @foreach($document as $doc)
+            var documentName = '<?= $doc['document_Name'] ?>';
+            
+            if(docName == documentName){
+                document.getElementById('show').innerHTML += "<h5 class=center style='margin-bottom:0px'>"+documentName+"</h5><br>";
+                @foreach($doc['data'] as $detail)
+                    var title = '<?= $detail['title'] ?>';
+                    var detail = '<?= $detail['detail'] ?>';
+                    document.getElementById('block-document').hidden = false;
+                    document.getElementById('show').hidden = false;
+                    document.getElementById('show').innerHTML += "<span class='topic-nomal'>"+title+"</span> : "; 
+                    document.getElementById('show').innerHTML += detail+"<br>";
+                @endforeach
+            }
+        @endforeach
+    }
 </script>
 @section('content')
     <div class="container content">
@@ -302,39 +321,17 @@
                 @endif
             </div>
                         
-                <div class="col-lg-6 animated fadeInUp delay-3s" sytle="overflow:hidden" id="block-document" hidden>
+                <div class="col-lg-8 block-center animated fadeInUp delay-3s" sytle="overflow:hidden" id="block-document" hidden>
                     <div id="show" class="doc-block" hidden></div>
                 </div>        
 
-            <script>
-                function showDocument(docName){
-                    document.getElementById('show').innerHTML = "";
-                    
-                    @foreach($document as $doc)
-                        var documentName = '<?= $doc['document_Name'] ?>';
-                        
-                        if(docName == documentName){
-                            document.getElementById('show').innerHTML += "<h5 class=center style='margin-bottom:0px'>"+documentName+"</h5><br>";
-                            @foreach($doc['data'] as $detail)
-                                var title = '<?= $detail['title'] ?>';
-                                var detail = '<?= $detail['detail'] ?>';
-                                console.log(title);
-                                document.getElementById('block-document').hidden = false;
-                                document.getElementById('show').hidden = false;
-                                document.getElementById('show').innerHTML += "<span class='topic-nomal'>"+title+"</span> : "; 
-                                document.getElementById('show').innerHTML += detail+"<br>";
-                            @endforeach
-                        }
-                    @endforeach
-                }
-            </script>
 
 
         </div>
         <br>
         @if(count($process['process_Step'])!=0)
         <div class="row">
-            <div class="col-lg-6 mb-3">
+            <div class="col-lg-6 block-center mb-3">
                 <p class="topic">Comments :</p>
                 @foreach($process['process_Step'] as $stepApproved)
                     @if($process['current_StepId']=="reject")
@@ -353,7 +350,7 @@
                 <div class="col-lg-12" style="text-align:center"><h4>Your comment :</h4></div> 
                 <div class="col-12 col-sm-12 col-11 main-section">
                     <textarea class="col-8 block-center" name="comment" id="comment" rows="4" placeholder="input text here.."></textarea>
-                    <div class="col-8 block-center"><p id="errComment" class="err-text"></p></div>  
+                    <div id="errComment" class="block-center col-lg-8 err-text"></div>
                 </div>
             </div>
             <div class="row">
