@@ -117,7 +117,7 @@
                     <div class="col-lg-2">
                         <label class="col-form-labelr align-self-center topic-nomal mb-0">Description : </label>
                     </div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-9" style="white-space:pre-line;">
                         {{$flow['flow_Description']}}
                     </div>
                 </div>   
