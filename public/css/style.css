@@ -456,3 +456,7 @@ h1{
   overflow: hidden;
   text-overflow: ellipsis; 
 }
+
+tbody{
+  cursor: pointer;
+}
