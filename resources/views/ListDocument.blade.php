@@ -31,7 +31,7 @@
                 <p class="topic">Your Document List</p>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6 d-none d-sm-block">
-                <a role="button" class="btn btn-success float-right" href="AddDocument">New Document</a>
+                <a role="button" class="btn btn-success float-right" href="GetTemplateForDocument">New Document</a>
             </div>
 
             {{--  Small screen  --}}
