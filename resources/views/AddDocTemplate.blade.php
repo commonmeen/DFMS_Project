@@ -5,10 +5,6 @@
 @endsection
 @section('script')
 <style>
-    .field-label{
-        font-size: 22pt !important;
-        font-weight: bold !important;
-    }
     .add-opt{
         font-size: 18pt !important;
         background-color: lightgreen !important;
@@ -222,6 +218,7 @@
                     success  : function(response){
                         if(response.temp != null){
                             window.location = "/ListDocTemplate";
+                            {{Session::put('tempStatus','AddTemplate')}}
                         }    
                     }
                 });
