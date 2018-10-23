@@ -4,47 +4,7 @@
     {{Session::get('UserLogin')->user_Surname}}
 @endsection
 @section('script')
-<style>
-    .rendered-form{
-        font-size: 18pt !important;
-    }
-    .fb-checkbox-group-label, .fb-date-label, .fb-number-label, .fb-radio-group-label, .fb-select-label, .fb-text-label, .fb-text-label, .fb-textarea-label {
-        font-size: 20pt !important;
-        font-weight: bold !important;
-        margin-right: 20px !important;
-        margin-bottom: 0px !important;
-    }
-    input{
-        border-radius: 3px !important;
-        border-style: solid;
-        border-width: 1px;
-        border-color:darkgray !important;
-        font-weight: lighter;
-    }
-    select, textarea{
-        border-radius: 4px !important;
-    }
-    h1{
-        background-color:lightgray !important;
-        margin-top: 15px !important;
-    }
-    .fb-render{
-        margin-left:40px !important;
-        margin-right: 40px !important;
-        margin-top: 20px !important;
-        margin-bottom: 20px !important;
-    }
-    .col-8{
-        border-style: solid;
-        border-width: 1px;
-        border-color: lightgray !important;
-        border-radius: 5px !important;
-        margin-bottom: 20px !important;
-    }
-    {{--  div{
-        margin-bottom: 20px !important;
-    }  --}}
-</style>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -95,16 +55,16 @@
 <div class="container content">
     <div class="row">
         {{--  Large screen  --}}
-        <div class="col-sm-6 col-lg-6 d-none d-sm-block">
+        <div class="col-sm-6 col-lg-12 d-none d-sm-block mt-3">
             <p class="topic">Template Name : {{$template->template_Name}}</p>
         </div>
         {{--  Small screen  --}}
-        <div class="col-12 center d-sm-none">
+        <div class="col-12 center d-sm-none mt-3">
             <p class="topic">Template Name : {{$template->template_Name}}</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 block-center mt-3 mb-3">
+        <div class="col-lg-8 block-center">
             <div class="row">
                 <div class="col-lg-3">
                     <label class="col-form-labelr align-self-center topic-nomal mb-0">Description : </label>
@@ -135,7 +95,7 @@
     </div>
 
     <center>
-        <a role="button" class="btn btn-primary" href="EditFlow?temp_id={{$template->template_Id}}">Edit</a>
+        <a role="button" class="btn btn-primary" href="EditDocTemplate?temp_id={{$template->template_Id}}">Edit</a>
         @if($template->status=="on")
             <button class="btn red-button " type="button" data-toggle="modal" data-target="#lockTemplateModalCenter">Lock</button>
         @elseif($template->status=="off")
