@@ -35,4 +35,18 @@ class EloquentDocumentRepository extends AbstractRepository implements DocumentR
         }
         return $documentCanUse ;
     }
+
+    public static function addNewDocument($name,$author,$template_Id,$data){
+        $prev = Document::orderBy('document_Id','desc')->take(1)->get();
+        $newId = 'D'.str_pad(substr($prev[0]->document_Id,1)+1, 5, '0', STR_PAD_LEFT);
+        $document = new Document ;
+        $document->document_Id = $newId ;
+        $document->document_Name = $name ;
+        $document->document_Author = $author ;
+        $document->document_TemplateId = $template_Id ;
+        $document->data = $data ;
+        $document->status = "unuse";
+        $document->save();   
+        return $newId;
+    }
 }

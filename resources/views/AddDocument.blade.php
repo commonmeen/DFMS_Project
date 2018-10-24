@@ -140,8 +140,8 @@
             <div class="row">
                     <div class="col-2"></div>
                     <div class="col-8">
-                        <input type='hidden' id="properties" value=""/>
-                        <div class="forFormRender"></div>
+                        <input type='hidden' name="prop" id="properties" value=""/>
+                        <div class="forFormRender"></div> 
                     </div>
                     <div class="col-2"></div>
                 </div>
