@@ -17,6 +17,8 @@ Route::any('AddCategory','AddCatController@addCat');
 
 Route::any('AddDocument','AddDocumentController@addDoc');
 
+Route::any('AddDocTemplate', 'AddDocTemplateController@addTemplate');
+
 Route::any('AddFlow', 'ListCatController@getAllCategory');
 
 Route::any('AddFlowTemplate','AddFlowTemplateController@addFlowTemplate');
@@ -44,6 +46,8 @@ Route::any('DataProcess','ProcessFormController@newProcessForm');
 Route::any('DocumentDetail','DocumentDetailController@docDetail');
 
 Route::any('EditFlow','EditFlowManageController@editFlow');
+
+Route::any('EditDocTemplate', 'EditDocTemplateController@editDocTemplate');
 
 Route::any('EditStep','EditStepController@editStep');
 
@@ -91,9 +95,14 @@ Route::any('TemplateDetail','TemplateDetailController@templateDetail');
 
 Route::any('clear/session/{key}', 'ClearSessionController@test');
 
-Route::any('AddDocTemplate', 'AddDocTemplateController@addTemplate');
 
-Route::any('EditDocTemplate', 'EditDocTemplateController@editDocTemplate');
+Route::any('testmail','MailController@sentEmail');
+
+
+Route::any('check', function() {
+    return view('check');
+});
+
 
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
