@@ -49,4 +49,10 @@ class EloquentDocumentRepository extends AbstractRepository implements DocumentR
         $document->save();   
         return $newId;
     }
+
+    public static function deleteDocumentById($doc_Id){
+        $document = Document::where('document_Id',$doc_Id)->first();
+        $document->delete();
+        return true ;
+    }
 }
