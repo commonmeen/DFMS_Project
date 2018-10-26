@@ -17,9 +17,6 @@
             $('#drafts-page').DataTable();
         });
 
-        $(document).ready( function () {
-            $('#trush-page').DataTable();
-        });
     </script>
 @endsection
 @section('content')
@@ -50,9 +47,6 @@
             <li class="nav-item">
             <a class="nav-link toggle-nav" data-toggle="tab" href="#drafts">Drafts</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link toggle-nav" data-toggle="tab" href="#trush">Trush</a>
-            </li>
         </ul>
 
         @php $sentDoc = array(); $draftsDoc = array(); $deleteDoc = array(); @endphp
@@ -61,8 +55,6 @@
                 @php array_push($sentDoc,$document) @endphp
             @elseif($document['status']=="unuse")
                 @php array_push($draftsDoc,$document) @endphp
-            @elseif($document['status']=="delete")
-                @php array_push($deleteDoc,$document) @endphp
             @endif
         @endforeach
 
@@ -98,26 +90,6 @@
                     </thead>
                     <tbody>
                         @foreach($draftsDoc as $doc)
-                            <tr onclick="window.location='DocumentDetail?doc_Id={{$doc['document_Id']}}';">
-                                <td><div class="text-over">{{$doc['document_Name']}}</div></td>
-                                <td class="center">{{$doc['updated_at']}}</td>
-                            </tr>
-                        @endforeach        
-                    </tbody>
-                </table>
-            </div>
-
-            {{--  Trush  --}}
-            <div id="trush" class="container tab-pane fade"><br>
-                <table class="table table-list-search table-hover" id="trush-page">   
-                    <thead>
-                        <tr class="center">
-                            <th>Docutment name</th>
-                            <th>Last Update</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($deleteDoc as $doc)
                             <tr onclick="window.location='DocumentDetail?doc_Id={{$doc['document_Id']}}';">
                                 <td><div class="text-over">{{$doc['document_Name']}}</div></td>
                                 <td class="center">{{$doc['updated_at']}}</td>
