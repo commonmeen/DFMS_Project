@@ -31,14 +31,6 @@
             <a role="button" class="btn btn-block btn-success float-right" href="AddDocTemplate">New Template</a>
         </div>
     </div>
-    <ul class="nav nav-tabs " role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active toggle-nav" data-toggle="tab" href="#all">All Template</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link toggle-nav" data-toggle="tab" href="#trash">Trash</a>
-        </li>
-    </ul>
 
     <div class="tab-content">
         {{--  all tab  --}}
@@ -49,7 +41,7 @@
                         <th>Template name</th>
                         <th>Author</th>
                         <th>Last Update</th>
-                        <th>Lock</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,36 +52,13 @@
                                 <td class="center">{{$template['template_AuthorName']}}</td>
                                 <td class="center">{{$template['created_at']}}</td>
                                 @if($template['status']=='off')
-                                <td class="center"><image type="image"  src="pic/lock.png" onclick="" style="width:24px;height:24px;"/></image>
+                                <td class="center"><img src="pic/lock.png" style="width:24px;height:24px;"><span hidden>lock</span></td>
                                 @else
                                 <td></td>
                                 @endif
                             </tr>
                         @endif
                     @endforeach              
-                </tbody>
-            </table>
-        </div>
-
-        {{--  trash tab  --}}
-        <div id="trash" class="container tab-pane fade"><br>
-            <table class="table table-list-search table-hover" id="success-page">   
-                <thead>
-                    <tr class="center">
-                        <th>Process name</th>
-                        <th>Date/Time</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{-- @foreach($successProcess as $process)
-                        @php $step = count($process['process_Step'])@endphp
-                        <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                            <td><div class="text-over">{{$process['process_Name']}}</div></td>
-                            <td class="center">{{$process['created_at']}}</td>
-                            <td class="center">{{ucfirst($process['current_StepId'])}}</td>
-                        </tr>
-                    @endforeach --}}
                 </tbody>
             </table>
         </div>
