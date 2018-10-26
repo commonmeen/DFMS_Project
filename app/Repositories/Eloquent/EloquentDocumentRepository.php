@@ -55,4 +55,11 @@ class EloquentDocumentRepository extends AbstractRepository implements DocumentR
         $document->delete();
         return true ;
     }
+
+    public static function changeStatus($doc_Id,$status){
+        $document = Document::where('document_Id',$doc_Id)->first();
+        $document->status = $status ;
+        $document->save();
+        return true ;
+    }
 }

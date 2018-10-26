@@ -102,7 +102,20 @@
                 <h5><center>{{$document['document_Name']}}</center></h5>
                 <br>
                 @foreach($document['data'] as $detail)
-                    <span class='topic-nomal'>{{$detail['title']}} : </span> {{$detail['detail']}} <br>     
+                    <span class='topic-nomal'>{{$detail['title']}} : </span> 
+                    @if(is_array($detail['detail']))
+                        @foreach($detail['detail'] as $dataInDetail)
+                            @if($dataInDetail != array_last($detail['detail']))
+                                {{$dataInDetail}}, 
+                            @elseif(count($detail['detail'])>1)
+                                and {{$dataInDetail}}
+                            @else
+                                {{$dataInDetail}}
+                            @endif
+                        @endforeach
+                    @else
+                        {{$detail['detail']}} <br>
+                    @endif
                 @endforeach
             </div>
         </div>
