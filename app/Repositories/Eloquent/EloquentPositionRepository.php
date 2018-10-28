@@ -20,6 +20,11 @@ class EloquentPositionRepository extends AbstractRepository implements PositionR
         return json_decode($data);
     }
 
+    public static function getPositionById($p_Id){
+        $position = Position::where('position_Id',$p_Id)->first();
+        return json_decode($position,true);
+    }
+
     public static function addStepToPosition($position_Id,$step){
         $position = Position::where('position_Id',$position_Id)->first();
         $array_step = $position->validate_Step ;
@@ -28,6 +33,7 @@ class EloquentPositionRepository extends AbstractRepository implements PositionR
         $position->save();
         return ;
     }
+
     public static function removeStepFromPosition($position_Id,$step){
         $position = Position::where('position_Id',$position_Id)->first();
         $array_step = $position->validate_Step ;
