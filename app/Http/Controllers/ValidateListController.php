@@ -8,6 +8,7 @@ use App\Repositories\Eloquent\EloquentProcessRepository as processRepo;
 use App\Repositories\Eloquent\EloquentStepRepository as stepRepo;
 use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo;
 use App\Repositories\Eloquent\EloquentUserRepository as userRepo;
+use App\Repositories\Eloquent\EloquentPositionRepository as positionRepo;
 use App\Repositories\Eloquent\EloquentValidatorRepository as validatorRepo;
 
 class ValidateListController extends Controller
@@ -17,11 +18,21 @@ class ValidateListController extends Controller
             $user = Session::get('UserLogin');
             $validator = validatorRepo::getValidateByUserId($user->user_Id);
             $allStepData = array();
-            if($validator == null){
-                return view('ListVerify',['nowProcess'=>array(),'rejectProcess'=>array(),'passMeProcess'=>array(),'comingProcess'=>array()]);
+            $position_Id = $user->user_Position ;
+            foreach($position_Id as $pos_Id){
+                $position = positionRepo::getPositionById($pos_Id);
+                foreach($position['validate_Step'] as $vaStep_Id){
+                    array_push($allStepData,stepRepo::getStepById($vaStep_Id));
+                }
             }
-            foreach($validator['step_Id'] as $stepId){
-                array_push($allStepData,stepRepo::getStepById($stepId));
+            if($validator == null){
+                if(count($allStepData)==0){
+                    return view('ListVerify',['nowProcess'=>array(),'rejectProcess'=>array(),'passMeProcess'=>array(),'comingProcess'=>array()]);
+                }
+            } else {
+                foreach($validator['step_Id'] as $stepId){
+                    array_push($allStepData,stepRepo::getStepById($stepId));
+                }
             }
             $allProcessCanApprove = array();
             foreach($allStepData as $stepData){
@@ -44,14 +55,14 @@ class ValidateListController extends Controller
                 //     array_push($reject,$process);
                 } else {
                     $i = 0 ;
-                    foreach($validator['step_Id'] as $step_Id){
-                        if($step_Id == $process['current_StepId']){
+                    foreach($allStepData as $step){
+                        if($step['step_Id'] == $process['current_StepId']){
                             array_push($now,$process);
                             $i = 1 ;
                             break ;
                         } else {
                             foreach($process['process_Step'] as $passStep){
-                                if($passStep['step_Id'] == $step_Id){
+                                if($passStep['step_Id'] == $step['step_Id']){
                                     array_push($passMe,$process);
                                     $i = 1 ;
                                     break;
