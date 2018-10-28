@@ -40,46 +40,66 @@
                 {{--  Process tab  --}}
                 <div class="tab-content process-height" id="myTabContent">
                     <div class="tab-pane fade show active" id="process" role="tabpanel" aria-labelledby="process-tab">
-                        @foreach($allProcess as $process)
-                            @if($process['current_StepId']!="success" && $process['current_StepId']!="cancel" && $process['current_StepId']!="reject")
-                                <div class="card">
-                                    <a href="ProcessDetail?id={{$process['process_Id']}}" class="list-group-item-action">
-                                        <div class="card-body">
-                                            @php $step = count($process['process_Step'])@endphp
-                                            <div class="row cardDetail">
-                                                <span class="col-12 overflow-text"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}}</span>
-                                                <span class="col-12"><span class="topic-nomal">Current step : </span>{{$step}} of {{$process['numberOfStep']}}</span>
-                                                <span class="col-12"><span class="topic-nomal">Process status : </span>{{number_format((int)$step/(int)$process['numberOfStep']*100,2)}} percent</span>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{(int)$step/(int)$process['numberOfStep']*100}}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>  
-                                        </div>
-                                    </a>
+                        @if(count($allProcess)==0)
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row cardDetail">
+                                        <span class="text-center col-12 overflow-text topic-nomal">Don't have any process.</span>
+                                    </div>
                                 </div>
-                            @endif
-                        @endforeach
+                            </div>
+                        @else
+                            @foreach($allProcess as $process)
+                                @if($process['current_StepId']!="success" && $process['current_StepId']!="cancel" && $process['current_StepId']!="reject")
+                                    <div class="card">
+                                        <a href="ProcessDetail?id={{$process['process_Id']}}" class="list-group-item-action">
+                                            <div class="card-body">
+                                                @php $step = count($process['process_Step'])@endphp
+                                                <div class="row cardDetail">
+                                                    <span class="col-12 overflow-text"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}}</span>
+                                                    <span class="col-12"><span class="topic-nomal">Current step : </span>{{$step}} of {{$process['numberOfStep']}}</span>
+                                                    <span class="col-12"><span class="topic-nomal">Process status : </span>{{number_format((int)$step/(int)$process['numberOfStep']*100,2)}} percent</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{(int)$step/(int)$process['numberOfStep']*100}}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>  
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
                 {{--  Approve Process  --}}
                     <div class="tab-pane fade" id="verify" role="tabpanel" aria-labelledby="verify-tab">
                         <div class="tab-pane fade show active" id="process" role="tabpanel" aria-labelledby="process-tab">
-                            @foreach($nowProcess as $process)
+                            @if(count($nowProcess)==0)
                                 <div class="card">
-                                    <a href="ProcessDetail?id={{$process['process_Id']}}&InProgress=true" class="list-group-item-action">
-                                        <div class="card-body">
-                                            <div class="row cardDetail">
-                                                <span class="col-10 overflow-text"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}} </span>
-                                            </div>
-                                            <div class="row cardDetail">
-                                                <span class="col-10 overflow-text"><span class="topic-nomal">Process owner : </span>{{$process['owner']}}</span>
-                                            </div>
-                                            <div class="row cardDetail">
-                                                <span class="col-10 overflow-text"><span class="topic-nomal">Flow name : </span>{{$process['flowObject']['flow_Name']}}</span>
-                                            </div>
+                                    <div class="card-body">
+                                        <div class="row cardDetail">
+                                            <span class="text-center col-12 overflow-text topic-nomal">Don't have any process.</span>
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
-                            @endforeach
+                            @else
+                                @foreach($nowProcess as $process)
+                                    <div class="card">
+                                        <a href="ProcessDetail?id={{$process['process_Id']}}&InProgress=true" class="list-group-item-action">
+                                            <div class="card-body">
+                                                <div class="row cardDetail">
+                                                    <span class="col-10 overflow-text"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}} </span>
+                                                </div>
+                                                <div class="row cardDetail">
+                                                    <span class="col-10 overflow-text"><span class="topic-nomal">Process owner : </span>{{$process['owner']}}</span>
+                                                </div>
+                                                <div class="row cardDetail">
+                                                    <span class="col-10 overflow-text"><span class="topic-nomal">Flow name : </span>{{$process['flowObject']['flow_Name']}}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
