@@ -75,9 +75,49 @@
                         label: 'Date max.',
                         description: 'Maximum',
                         type: 'date'
+                    },
+                    name: {
+                        label: ' ',
+                        type: 'text',
+                        hidden: true
                     }
                 },
                 'radio-group': {
+                    name: {
+                        label: ' ',
+                        type: 'text',
+                        hidden: true
+                    }
+                },
+                'checkbox-group': {
+                    name: {
+                        label: ' ',
+                        type: 'text',
+                        hidden: true
+                    }
+                },
+                number : {
+                    name: {
+                        label: ' ',
+                        type: 'text',
+                        hidden: true
+                    }
+                },
+                select : {
+                    name: {
+                        label: ' ',
+                        type: 'text',
+                        hidden: true
+                    }
+                },
+                text : {
+                    name: {
+                        label: ' ',
+                        type: 'text',
+                        hidden: true
+                    }
+                },
+                textarea : {
                     name: {
                         label: ' ',
                         type: 'text',
