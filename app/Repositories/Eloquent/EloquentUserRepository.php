@@ -16,7 +16,6 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
 
     public static function getUser($userId){
         $userProfile = User::where('user_Id', '=', $userId)->first();
-        $userProfile = EloquentUserRepository::getPosition($userProfile);
         return  $userProfile;
     }
 
