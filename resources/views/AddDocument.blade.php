@@ -79,6 +79,7 @@
         }
 
         function validateAndSubmit(){
+            $('BODY').attr('onbeforeunload',false);
             if(nameValidate()){
                 document.getElementById('newDocument').submit() ;
             } else {
@@ -86,6 +87,26 @@
             }
         }
         
+        function searchTemplate(){
+            var word = document.getElementById('search').value ;
+            var template = {!! json_encode($template) !!};
+            var templateThatSearch = [] ;
+            for(var i = 0 ; i<template.length ; i++){
+                if(template[i].template_Name.search(word)>=0){
+                    templateThatSearch.push(template[i]);
+                }
+            }
+            while( document.getElementById('tempId').options.length-1 ) {
+                document.getElementById('tempId').remove(1);
+            }
+            document.getElementById('tempId').options[0].selected = true;
+            for(var i =0; i<templateThatSearch.length ; i++){
+                var temp = new Option(templateThatSearch[i].template_Name,templateThatSearch[i].template_Id);
+                document.getElementById('tempId').options.add(temp);
+            }
+            document.getElementById('hide').style.display = 'none';
+        }
+
         function closeRequest(){
             return "You have unsaved changes!";
         }
@@ -122,15 +143,14 @@
                         <span class="topic-nomal">Template name : </span>
                         <select class="form-control" name="tempId" id="tempId" onchange="templateSelect()">
                             <option id="defaultNull" disabled selected value="notSelect">Choose Template</option>
-                                @for($i=0 ; $i<count($template) ; $i++)
-            
-                                    <option value="{{$template[$i]['template_Id']}}">{{$template[$i]['template_Name']}}</option>
-                                @endfor                         
+                            @for($i=0 ; $i<count($template) ; $i++)
+                                <option value="{{$template[$i]['template_Id']}}">{{$template[$i]['template_Name']}}</option>
+                            @endfor                         
                         </select>
                     </div>
                     <div class="col-lg-5 col-12 mb-2">
                         <span class="topic-nomal">Search Template : </span>
-                        <input type="text" name="search" id="search" class="form-control" onkeyup="" placeholder="">
+                        <input type="text" name="search" id="search" class="form-control" oninput="searchTemplate()" placeholder="">
                     </div>
                 </div>
             </div>
@@ -147,7 +167,7 @@
                 </div>
             <div class="row">
                 <div class="block-center">
-                    <a class="btn btn-danger m-2" href="">Cancel</a>
+                    <a class="btn btn-danger m-2" href="/ListDocument">Cancel</a>
                     <button type="button" class="btn btn-success m-2" onclick="validateAndSubmit()">Save</button>
                 </div>
             </div>
