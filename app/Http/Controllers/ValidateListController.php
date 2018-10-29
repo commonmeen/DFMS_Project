@@ -51,7 +51,7 @@ class ValidateListController extends Controller
                 if($process['current_StepId'] == "reject"){
                     array_push($reject,$process);
                 // Cancel process is not nessesery to show 
-                // } else if($process['current_StepId'] == "cancel"){
+                } else if($process['current_StepId'] == "cancel"){
                 //     array_push($reject,$process);
                 } else {
                     $i = 0 ;
