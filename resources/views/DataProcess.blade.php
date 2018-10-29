@@ -230,7 +230,7 @@
             <hr>
             <div class="row">
                 <div class="block-center">
-                    <a class="btn btn-danger m-2" href="">Cancel</a>
+                    <a class="btn btn-danger m-2" href="/ListProcess">Cancel</a>
                     <button type="button" class="btn btn-success m-2" onclick="validateAndSubmit()">Enter</button>
                 </div>
             </div>
