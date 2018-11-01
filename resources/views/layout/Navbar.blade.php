@@ -37,10 +37,10 @@
               <a class="nav-link nav-text" href="ListDocument">Document</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-text" href="ListProcess">Process</a>
+              <a class="nav-link nav-text" href="ListProcess">Document Submission</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-text" href="ListVerify">Approve</a>
+              <a class="nav-link nav-text" href="ListVerify">Approved List</a>
             </li>
             {{-- @if(Session::get('UserLogin')->user_Role=="manager")
             <li class="nav-item">
@@ -48,9 +48,9 @@
             </li>
             @endif --}}
           </ul>
-          <img src="pic/user.png" class="user-pic"> <span class="user-color">@yield('user')</span>
+          <span class="user-color">@yield('user')</span>
           <div class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="color:#FFF" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item disable" href="Logout">Sign out</a>

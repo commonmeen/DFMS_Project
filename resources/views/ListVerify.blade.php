@@ -13,11 +13,11 @@
     <div class="row">
         {{--  Large screen  --}}
         <div class="col-12 d-none d-sm-block">
-            <p class="topic mb-0" >Approve List</p>
+            <p class="topic mb-0" >Your Approve List</p>
         </div>
         {{--  Small screen  --}}
         <div class="col-12 d-sm-none">
-            <p class="topic center mb-0">Approve List</p>
+            <p class="topic center mb-0">Your Approve List</p>
         </div>
     </div><br>
     <ul class="nav nav-tabs" role="tablist">
@@ -25,7 +25,7 @@
             <a class="nav-link active toggle-nav" data-toggle="tab" href="#inProgressProcess">In Progress</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link toggle-nav" data-toggle="tab" href="#comingProcess">Coming</a>
+            <a class="nav-link toggle-nav" data-toggle="tab" href="#comingProcess">In Coming Document</a>
         </li>
         <li class="nav-item">
             <a class="nav-link toggle-nav" data-toggle="tab" href="#approvedProcess">Approved</a>

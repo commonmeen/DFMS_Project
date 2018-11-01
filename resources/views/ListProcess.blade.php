@@ -34,16 +34,16 @@
         <br>
         <ul class="nav nav-tabs " role="tablist">
             <li class="nav-item">
-            <a class="nav-link active toggle-nav" data-toggle="tab" href="#onProcess">On Process</a>
+            <a class="nav-link active toggle-nav" data-toggle="tab" href="#onProcess">In Process</a>
             </li>
             <li class="nav-item">
             <a class="nav-link toggle-nav" data-toggle="tab" href="#successProcess">Success</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link toggle-nav" data-toggle="tab" href="#cancelProcess">Canceled</a>
+            <a class="nav-link toggle-nav" data-toggle="tab" href="#cancelProcess">Cancellation</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link toggle-nav" data-toggle="tab" href="#rejectProcess">Rejected</a>
+                <a class="nav-link toggle-nav" data-toggle="tab" href="#rejectProcess">Rejection</a>
             </li>
         </ul>
 
@@ -72,7 +72,11 @@
                                 <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
                                     <td><div class="text-over">{{$process['process_Name']}}</div></td>
                                     <td class="center">{{$process['created_at']}}</td>
+                                    @if($step==0)
+                                    <td class="center">N/A</td>
+                                    @else
                                     <td class="center">{{$step}}/{{$process['process_Flow']['numberOfStep']}}</td>
+                                    @endif
                                 </tr>
                             @endif
                         @endforeach              

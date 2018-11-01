@@ -38,7 +38,7 @@
             <div class="d-none d-sm-block">
                 <div class="row">
                     <div class="col">
-                        <p class="topic">Create Flow : "{{$Flow['flow_Name']}}"</p>
+                        <p class="topic">Create Process Flow : "{{$Flow['flow_Name']}}"</p>
                     </div>
                     <div class="col">
                         <button onclick="submitForm()" class="btn btn-success  float-right">Next</button>
@@ -63,7 +63,7 @@
             <div class="d-sm-none">
                 <div class="row">
                     <div class="col-12">
-                        <p class="topic center">Create Flow</p>
+                        <p class="topic center">Create Process Flow</p>
                     </div>
                 </div>
                 <div class="row">

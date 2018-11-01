@@ -245,7 +245,7 @@
                 @endif
             @else
                 <div class="col-lg-3">
-                    <p class="topic-cacel">( {{$process['current_StepId']}}ed )</p>
+                    <p class="topic-cacel">( {{ucwords($process['current_StepId'])}}ed )</p>
                 </div>
             @endif
         </div>

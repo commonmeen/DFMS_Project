@@ -101,9 +101,9 @@
         <div class="row">
             <div class="col-lg-12">
                 @if($flow==null)
-                    <p class="topic">Create Flow</p>
+                    <p class="topic">Create Process Flow</p>
                 @else
-                    <p class="topic">Create Flow : "{{$flow['flow_Name']}}"</p>
+                    <p class="topic">Create Process Flow : "{{$flow['flow_Name']}}"</p>
                 @endif
             </div>
         </div>
@@ -123,7 +123,7 @@
     <div class="d-md-none">
         <div class="row">
             <div class="col-12 ">
-                <p class="topic center">Create Flow</p> 
+                <p class="topic center">Create Process Flow</p> 
             </div>
             <div class="col-12 mb-2">
                 <div class="dropbown d-inline">

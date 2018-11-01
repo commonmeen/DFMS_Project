@@ -57,8 +57,12 @@
                                                 @php $step = count($process['process_Step'])@endphp
                                                 <div class="row cardDetail">
                                                     <span class="col-12 overflow-text"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}}</span>
-                                                    <span class="col-12"><span class="topic-nomal">Current step : </span>{{$step}} of {{$process['numberOfStep']}}</span>
-                                                    <span class="col-12"><span class="topic-nomal">Process status : </span>{{number_format((int)$step/(int)$process['numberOfStep']*100,2)}} percent</span>
+                                                    <span class="col-12"><span class="topic-nomal">Stage : 
+                                                            @if($step==0)
+                                                                </span>N/A</span>
+                                                            @else
+                                                                </span>{{$step}} of {{$process['numberOfStep']}}</span>
+                                                            @endif<span class="col-12"><span class="topic-nomal">Process status : </span>{{number_format((int)$step/(int)$process['numberOfStep']*100,2)}} percent</span>
                                                 </div>
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{(int)$step/(int)$process['numberOfStep']*100}}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
@@ -109,18 +113,18 @@
                 <div class="row">
                     {{--  Large screen  --}}
                     <div class="col-12 col-sm-5 col-md-5 col-lg-6 d-none d-md-block">   
-                        <p class="topic">Flow Template</p>
+                        <p class="topic">Process Flow</p>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 d-none d-md-block">
-                        <a role="button" class="btn btn-success float-right" href="AddFlow">Add Flow</a>
+                        <a role="button" class="btn btn-success float-right" href="AddFlow">Create Process Flow</a>
                     </div>
 
                      {{--  Small screen  --}}
                     <div class="col-12 d-md-none center mt-3">   
-                        <p class="topic">Flow</p>
+                        <p class="topic">Process Flow</p>
                     </div>
                     <div class="col-12 d-md-none ">
-                        <a role="button" class="btn btn-block btn-success float-right" href="AddFlow">Add Flow</a>
+                        <a role="button" class="btn btn-block btn-success float-right" href="AddFlow">Create Process Flow</a>
                     </div>
                 </div>
                 <div class="card card-cat">                  
@@ -223,7 +227,12 @@
                                                 @php $step = count($process['process_Step'])@endphp
                                                 <div class="row cardDetail">
                                                     <span class="col-12"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}}</span>
-                                                    <span class="col-12"><span class="topic-nomal">Current step : </span>{{$step}} of {{$process['numberOfStep']}}</span>
+                                                    <span class="col-12"><span class="topic-nomal">Stage : 
+                                                        @if($step==0)
+                                                            </span>N/A</span>
+                                                        @else
+                                                            </span>{{$step}} of {{$process['numberOfStep']}}</span>
+                                                        @endif
                                                     <span class="col-12"><span class="topic-nomal">Process status : </span>{{number_format((int)$step/(int)$process['numberOfStep']*100,2)}} percent</span>
                                                 </div>
                                                 <div class="progress">

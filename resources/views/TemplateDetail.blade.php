@@ -55,13 +55,18 @@
 <div class="container content">
     <div class="row">
         {{--  Large screen  --}}
-        <div class="col-sm-6 col-lg-12 d-none d-sm-block mt-3">
+        <div class="col-sm-6 col-lg-9 d-none d-sm-block mt-3">
             <p class="topic">Template Name : {{$template->template_Name}}</p>
         </div>
         {{--  Small screen  --}}
         <div class="col-12 center d-sm-none mt-3">
             <p class="topic">Template Name : {{$template->template_Name}}</p>
         </div>
+        @if($template->status == 'off')
+            <div class="col-sm-6 col-lg-3 mt-3">
+                <span class="topic-cacel mb-0">( Locked )</span>
+            </div>
+        @endif
     </div>
     <div class="row">
         <div class="col-lg-8 block-center">

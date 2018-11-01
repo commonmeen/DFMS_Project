@@ -239,7 +239,7 @@
         <div class="d-none d-sm-block">
             <div class="row">
                 <div class="col">
-                <p class="topic">Create Flow  : "{{$flow['flow_Name']}}"</p>
+                <p class="topic">Create Process Flow  : "{{$flow['flow_Name']}}"</p>
                 </div>
             </div>
             <div class="row mb-3">
@@ -267,7 +267,7 @@
         <div class="d-sm-none">
             <div class="row">
                 <div class="col">
-                    <p class="topic center">Create Flow : "{{$flow['flow_Name']}}"</p> 
+                    <p class="topic center">Create Process Flow : "{{$flow['flow_Name']}}"</p> 
                     <div class="dropbown d-inline">
                         <button class="btn btn-secondary btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -326,14 +326,14 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-lg-3 justify-content-center align-self-center">
-                            <label class="topic-nomal horizon-center">Verify By</label>
+                            <label class="topic-nomal horizon-center">Verified byy</label>
                         </div>
                         
                         <label class="col-lg-3 radio-inline mb-0 horizon-center">
                             @if($stepData['typeOfVerify']!="allow")
-                                <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow"> Allow
+                                <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow"> Approved Button 
                             @else
-                                <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow" checked> Allow
+                                <input type="radio" onchange="verifyValidate()" name="type" value="allow" id="allow" checked> Approved Button 
                             @endif 
                         </label>
                         <label class="col-lg-3 radio-inline mb-0 horizon-center">
@@ -381,7 +381,7 @@
                     </div> 
 
                     <div class="row mb-2">
-                        <div class="col-lg-3 justify-content-center align-self-center topic-nomal"> Validator Select By</div>
+                        <div class="col-lg-3 justify-content-center align-self-center topic-nomal">Authorization</div>
                         <div class="col-lg-3 justify-content-center align-self-center">
                             @if($stepData['typeOfValidator']!="position")
                                 <input type="radio" name="selectBy" value="position" onclick="validatorValidate()">  Position

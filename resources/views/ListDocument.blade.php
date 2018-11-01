@@ -45,7 +45,7 @@
             <a class="nav-link active toggle-nav" data-toggle="tab" href="#sent">Sent</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link toggle-nav" data-toggle="tab" href="#drafts">Drafts</a>
+            <a class="nav-link toggle-nav" data-toggle="tab" href="#drafts">Draft</a>
             </li>
         </ul>
 
