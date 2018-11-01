@@ -28,7 +28,7 @@ class EloquentDocumentRepository extends AbstractRepository implements DocumentR
         $documentCanUse = array();
         foreach($flow['template_Id'] as $template){
             foreach($documentList as $doc){
-                if($template == $doc['document_TemplateId']){
+                if($template == $doc['document_TemplateId'] && $doc['status']!="used"){
                     array_push($documentCanUse,$doc);
                 }
             }
