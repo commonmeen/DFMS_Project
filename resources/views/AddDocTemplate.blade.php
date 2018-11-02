@@ -11,9 +11,10 @@
     }
     .fb-header{
         background-color:lightgray !important;
+        text-align: center !important;
     }
     .remove{
-        font-size: 40pt !important;
+        font-size: 120% !important;
     }
     .form-control, .tooltip-element, .sortable-options{
         font-size: 16pt !important;
@@ -24,6 +25,10 @@
     .fld-subtype{
         height: 35px !important;
     } 
+    .fb-checkbox-inline, .fb-radio-inline{
+        margin-left: 3% !important;
+        margin-right: 3% !important;
+    }
     input{
         border-radius: 3px !important;
     }
@@ -129,19 +134,25 @@
                 },
                 typeUserAttrs: {
                     date: {
+                        value: {
+                            label: 'Date default',
+                            type: 'date',
+                            value: ''
+                        },
                         min: {
                             label: 'Date min.',
-                            description: 'Minimum',
-                            type: 'date'
+                            type: 'date',
+                            value: ''
                         },
                         max: {
                             label: 'Date max.',
-                            description: 'Maximum',
-                            type: 'date'
+                            type: 'date',
+                            value: ''
                         },
                         name: {
                             label: ' ',
                             type: 'text',
+                            value: '',
                             hidden: true
                         }
                     },
@@ -149,6 +160,7 @@
                         name: {
                             label: ' ',
                             type: 'text',
+                            value: '',
                             hidden: true
                         }
                     },
@@ -156,6 +168,7 @@
                         name: {
                             label: ' ',
                             type: 'text',
+                            value: '',
                             hidden: true
                         }
                     },
@@ -163,6 +176,7 @@
                         name: {
                             label: ' ',
                             type: 'text',
+                            value: '',
                             hidden: true
                         }
                     },
@@ -170,6 +184,7 @@
                         name: {
                             label: ' ',
                             type: 'text',
+                            value: '',
                             hidden: true
                         }
                     },
@@ -177,6 +192,7 @@
                         name: {
                             label: ' ',
                             type: 'text',
+                            value: '',
                             hidden: true
                         }
                     },
@@ -184,6 +200,7 @@
                         name: {
                             label: ' ',
                             type: 'text',
+                            value: '',
                             hidden: true
                         }
                     }
