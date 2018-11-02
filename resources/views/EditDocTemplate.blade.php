@@ -12,7 +12,6 @@
     window.onload = function() {
         document.getElementById('push').click();
     }
-    $data = '<?php echo(json_encode($data->template_Properties)) ?>';
     jQuery(function() {
         var fbEditor = document.getElementById('build-wrap');
         
