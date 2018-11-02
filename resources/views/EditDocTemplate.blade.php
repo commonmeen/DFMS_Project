@@ -66,19 +66,25 @@
             },
             typeUserAttrs: {
                 date: {
+                    value: {
+                        label: 'Date default',
+                        type: 'date',
+                        value: ''
+                    },
                     min: {
                         label: 'Date min.',
-                        description: 'Minimum',
-                        type: 'date'
+                        type: 'date',
+                        value: ''
                     },
                     max: {
                         label: 'Date max.',
-                        description: 'Maximum',
-                        type: 'date'
+                        type: 'date',
+                        value: ''
                     },
                     name: {
                         label: ' ',
                         type: 'text',
+                        value: '',
                         hidden: true
                     }
                 },
@@ -86,6 +92,7 @@
                     name: {
                         label: ' ',
                         type: 'text',
+                        value: '',
                         hidden: true
                     }
                 },
@@ -93,6 +100,7 @@
                     name: {
                         label: ' ',
                         type: 'text',
+                        value: '',
                         hidden: true
                     }
                 },
@@ -100,6 +108,7 @@
                     name: {
                         label: ' ',
                         type: 'text',
+                        value: '',
                         hidden: true
                     }
                 },
@@ -107,6 +116,7 @@
                     name: {
                         label: ' ',
                         type: 'text',
+                        value: '',
                         hidden: true
                     }
                 },
@@ -114,6 +124,7 @@
                     name: {
                         label: ' ',
                         type: 'text',
+                        value: '',
                         hidden: true
                     }
                 },
@@ -121,6 +132,7 @@
                     name: {
                         label: ' ',
                         type: 'text',
+                        value: '',
                         hidden: true
                     }
                 }
