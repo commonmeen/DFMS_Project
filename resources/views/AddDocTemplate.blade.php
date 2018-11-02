@@ -33,6 +33,20 @@
         border-radius: 3px !important;
     }
 </style>
+<script>
+    function nameValidate(){
+        if(document.getElementById("name").value==""){
+            var isNotErr = false ;
+            document.getElementById("name").style.borderColor = "red" ;
+            document.getElementById("errname").innerHTML = "Please enter name of template" ;
+        } else {
+            var isNotErr = true ;
+            document.getElementById("errname").innerHTML = "" ;
+            document.getElementById("name").style.borderColor = "" ;
+        }
+        return isNotErr ;
+    }
+</script>
 @endsection
 @section('content')
     <div class="container " style="font-size:20pt">
@@ -53,8 +67,10 @@
                         </div>
                     </div>
                     <div class="col-lg-9 mb-3">
-                        <input type="text" name="name" id="name" onkeyup="" class="form-control input" placeholder="Example: แบบฟอร์มการขอยืมอุปกรณ์" value="">
+                        <input type="text" name="name" id="name" onkeyup="nameValidate()" class="form-control input" placeholder="Example: แบบฟอร์มการขอยืมอุปกรณ์" value="">
                     </div>
+                    <div class="col-lg-3 err-text"></div>
+                    <div class="col-lg-9 mb-3"><div id="errname" class="err-text"></div></div>
                 </div>
                 <div class="row">
                     <div class="col-lg-3">
@@ -224,21 +240,25 @@
                 formBuilder.actions.clearFields();
             });
             document.getElementById('save').addEventListener('click', function() {
-                fbEditor.toggle();
-                formData = formBuilder.actions.getData('json');
-                data = {_token:document.getElementById('token').value, title : document.getElementById('name').value,desc : document.getElementById('desc').value,formData: formData}
-                $.ajax({
-                    type     : "POST",
-                    url      : 'SaveDocTemplate',
-                    data     : data,
-                    cache    : false,
-                    success  : function(response){
-                        if(response.temp != null){
-                            window.location = "/ListDocTemplate";
-                            {{Session::put('tempStatus','AddTemplate')}}
-                        }    
-                    }
-                });
+                if(nameValidate()){
+                    fbEditor.toggle();
+                    formData = formBuilder.actions.getData('json');
+                    data = {_token:document.getElementById('token').value, title : document.getElementById('name').value,desc : document.getElementById('desc').value,formData: formData}
+                    $.ajax({
+                        type     : "POST",
+                        url      : 'SaveDocTemplate',
+                        data     : data,
+                        cache    : false,
+                        success  : function(response){
+                            if(response.temp != null){
+                                window.location = "/ListDocTemplate";
+                                {{Session::put('tempStatus','AddTemplate')}}
+                            }    
+                        }
+                    });
+                } else {
+                    $('html, body').animate({scrollTop:0}, 'slow');
+                }
                 ////// ตัวอย่างการ render //////
                 // $('.fb-render').formRender({
                 //     dataType: 'json',
