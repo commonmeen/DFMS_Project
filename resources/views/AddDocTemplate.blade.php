@@ -4,35 +4,6 @@
     {{Session::get('UserLogin')->user_Surname}}
 @endsection
 @section('script')
-<style>
-    .add-opt{
-        font-size: 18pt !important;
-        background-color: lightgreen !important;
-    }
-    .fb-header{
-        background-color:lightgray !important;
-        text-align: center !important;
-    }
-    .remove{
-        font-size: 120% !important;
-    }
-    .form-control, .tooltip-element, .sortable-options{
-        font-size: 16pt !important;
-    }
-    .form-group, .input{
-        font-size: 18pt !important;
-    }
-    .fld-subtype{
-        height: 35px !important;
-    } 
-    .fb-checkbox-inline, .fb-radio-inline{
-        margin-left: 3% !important;
-        margin-right: 3% !important;
-    }
-    input{
-        border-radius: 3px !important;
-    }
-</style>
 <script>
     function nameValidate(){
         if(document.getElementById("name").value==""){
