@@ -10,11 +10,11 @@ use App\Repositories\Eloquent\EloquentStepRepository as stepRepo ;
 class ChangeStepController extends Controller
 {
     public function changeStepSave(Request $request){
-        if(Session::has('Login')){
-            if(Session::get('UserLogin')->user_Role=="manager"){
-                $input = $request->all();
-                if(Session::has('FlowEdit') && Session::has('stepChange')){
-                    $flow = Session::get('FlowEdit');
+        if(Session::has('UserLogin') && Session::get('UserLogin')->user_Role=="manager"){
+            $input = $request->all();
+            if(Session::has('FlowEdit')){
+                $flow = Session::get('FlowEdit');
+                if(Session::has('stepChange')){
                     $stepChange = Session::get('stepChange');
                     $numberOfStep = count($stepChange);
                     $newFlowId = flowRepo::newFlowVersion($flow['flow_Id']);
@@ -26,13 +26,13 @@ class ChangeStepController extends Controller
                     Session::forget('stepChange');
                     return ['newFlowId'=>$newFlowId];
                 } else {
-                    dd("Err occur","This page can't load.","Session not found");
+                    return ['newFlowId'=>$flow['flow_Id']];
                 }
             } else {
-                dd("Error occur", "Permission denied. Plz login on manager role.");
+                dd("Err occur","This page can't load.","Session not found");
             }
         } else {
-            return view('Login');
+            dd("Error occur", "Permission denied. Plz login on manager role.");
         }
     }
 
