@@ -188,10 +188,10 @@
          return isNotErr ;
      }
 
-    function validateAndSubmit(){
-        var title = titleValidate();
+    async function validateAndSubmit(){
+        var title = await titleValidate();
         var verify = verifyValidate();
-        var deadline = deadlineValidate();
+        var deadline = await deadlineValidate();
         var validator = validatorValidate();
         var validatorck = validatorCheckValidate();
         if(title&&deadline&&verify&&validator&&validatorck){
