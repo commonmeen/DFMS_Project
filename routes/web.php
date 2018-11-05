@@ -51,6 +51,8 @@ Route::any('EditFlow','EditFlowManageController@editFlow');
 
 Route::any('EditDocTemplate', 'EditDocTemplateController@editDocTemplate');
 
+Route::any('EditDocument','EditDocumentController@editDoc');
+
 Route::any('EditStep','EditStepController@editStep');
 
 Route::any('FileUpload','FileUploadController@upload');
