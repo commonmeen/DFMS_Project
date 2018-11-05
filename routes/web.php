@@ -45,6 +45,8 @@ Route::any('DataProcess','ProcessFormController@newProcessForm');
 
 Route::any('DocumentDetail','DocumentDetailController@docDetail');
 
+Route::any('DeleteDocument','DeleteDocumentController@deleteDocument');
+
 Route::any('EditFlow','EditFlowManageController@editFlow');
 
 Route::any('EditDocTemplate', 'EditDocTemplateController@editDocTemplate');
@@ -96,15 +98,6 @@ Route::any('SentOTP','SentOTPController@sentOTP');
 Route::any('TemplateDetail','TemplateDetailController@templateDetail');
 
 Route::any('clear/session/{key}', 'ClearSessionController@test');
-
-
-Route::any('testmail','MailController@sentEmail');
-
-
-Route::any('check', function() {
-    return view('check');
-});
-
 
 // Validate data
 Route::any('NameValidate','AddFlowController@validateName');
