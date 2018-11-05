@@ -21,12 +21,19 @@ class AddDocumentController extends Controller
                     if($p->type != "header" && $p->name == $name){
                         $data['title'] = $p->label ;
                         $data['detail'] = $input[$p->name] ;
+                        $data['name'] = $p->name ;
                         array_push($datas,$data) ;
                         break ;
                     }
                 }
             }
-            $newDocumentId = docRepo::addNewDocument($input['name'],Session::get('UserLogin')->user_Id,$input['tempId'],$datas);
+            if(strpos($request->server('HTTP_REFERER'),"EditDocument")){
+                $oldDocumentId = substr($request->server('HTTP_REFERER'), -6);
+                $newDocumentId = docRepo::addNewDocument($input['name'],Session::get('UserLogin')->user_Id,$input['tempId'],$datas,$oldDocumentId);
+                docRepo::changeStatus($oldDocumentId,$newDocumentId);
+            } else {
+                $newDocumentId = docRepo::addNewDocument($input['name'],Session::get('UserLogin')->user_Id,$input['tempId'],$datas,"0");
+            }
             return redirect('DocumentDetail?doc_Id='.$newDocumentId);
         } else {
             return view('Login');
