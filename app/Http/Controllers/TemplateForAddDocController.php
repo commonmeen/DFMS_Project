@@ -11,7 +11,7 @@ class TemplateForAddDocController extends Controller
     public function templateAddDoc(){
         if(Session::has('UserLogin')){
             $tempCanUse = tempRepo::listOnTemplate();
-            return view("AddDocument",['template'=>$tempCanUse]);
+            return view("AddDocument",['template'=>$tempCanUse,'documentData'=>null]);
         } else {
             return view('Login');
         }
