@@ -20,7 +20,7 @@ class NewProcessController extends Controller
                 $fileName = [] ;
             else
                 $fileName = Session::get('fileUploaded');
-            $process = processRepo::newProcess($input['name'],$user->user_Id,$input['flowId'],$input['document_Id'],$fileName,$input['textProcess']);
+            $process = processRepo::newProcess($user->user_Id,$input['flowId'],$input['document_Id'],$fileName,$input['textProcess']);
             foreach($input['document_Id'] as $doc_Id){
                 docRepo::changeStatus($doc_Id,"used");
             }

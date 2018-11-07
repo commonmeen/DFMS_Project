@@ -193,11 +193,11 @@
         <div class="row">
             {{--  Large screen  --}}
             <div class="col-12 col-sm-9 col-lg-9 d-none d-sm-block">
-                <p class="topic">Process name : {{$process['process_Name']}}</p>
+                <p class="topic">Process : {{$process['process_FlowName']}}</p>
             </div>
             {{--  Small screen  --}}
             <div class="col-12 col-sm-9 d-sm-none">
-                <p class="topic center ">Process name: {{$process['process_Name']}}</p>
+                <p class="topic center ">Process : {{$process['process_FlowName']}}</p>
             </div>
 
             @if($process['current_StepId']!="cancel"&&$process['current_StepId']!="success"&&$process['current_StepId']!="reject")
@@ -218,7 +218,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                 <p class="modal-title alert-title">
-                                    Do you want to cancel "{{$process['process_Name']}}" process?
+                                    Do you want to cancel "{{$process['process_FlowName']}}" process?
                                 </p>
                                 </div>
                                 <div class="modal-body">
@@ -264,12 +264,12 @@
                     @endif          
                             <div class="text-center bs-wizard-stepnum">Step {{$index++}}</div>
                             @if(count($steps)==1)
-                            <a href="#" class="bs-wizard-dot" style="margin-buttom:5px"></a>
-                            <div class="bs-wizard-info text-center mt-4">{{$step['step_Title']}}</div>
+                                <a href="#" class="bs-wizard-dot" style="margin-buttom:5px"></a>
+                                <div class="bs-wizard-info text-center mt-4">{{$step['step_Title']}}</div>
                             @else
-                            <div class="progress"><div class="progress-bar"></div></div>
-                            <a href="#" class="bs-wizard-dot"></a>
-                            <div class="bs-wizard-info text-center">{{$step['step_Title']}}</div>
+                                <div class="progress"><div class="progress-bar"></div></div>
+                                <a href="#" class="bs-wizard-dot"></a>
+                                <div class="bs-wizard-info text-center">{{$step['step_Title']}}</div>
                             @endif
                         </div>
                 @endforeach
@@ -279,14 +279,6 @@
         <br>
         <div class="row">
             <div class="col-lg-6 block-center" id="block-data">
-                <div class="row">
-                    <div class="col-12 col-lg-5">
-                        <label class="align-self-center mb-0 topic-nomal">Process Flow : </label>
-                    </div>
-                    <div class="col-12 col-lg-7 overflow-text">
-                        {{$process['process_FlowName']}}
-                    </div>
-                </div> 
                 <div class="row">
                     <div class="col-12 col-lg-5">
                         <label class="align-self-center mb-0 topic-nomal">Process owner : </label>
@@ -300,11 +292,8 @@
                         <label class=" align-self-center mb-0 topic-nomal">Document in process : </label>
                     </div>
                     @foreach($process['data']['document_Name'] as $docName)
-                            <button class="btn btn-outline-primary col-lg-7 col-12 overflow-text"  onclick="showDocument('{{$docName}}')">{{$docName}}</button> 
-                            <div class="col-lg-5"></div>
-                        
-                        @if(array_last($process['data']['document_Name'])!=$docName)
-                        @endif
+                        <button class="btn btn-outline-primary col-lg-7 col-12 overflow-text"  onclick="showDocument('{{$docName}}')">{{$docName}}</button> 
+                        <div class="col-lg-5"></div>
                     @endforeach
                 </div> 
                 @if(count($process['data']['file_Name'])!=0)
@@ -319,29 +308,25 @@
                         @endforeach
                     </div> 
                 @endif
-            </div>
-                        
-                <div class="col-lg-8 block-center animated fadeInUp delay-3s" sytle="overflow:hidden" id="block-document" hidden>
-                    <div id="show" class="doc-block" hidden></div>
-                </div>        
-
-
-
+            </div>                        
+            <div class="col-lg-8 block-center animated fadeInUp delay-3s" sytle="overflow:hidden" id="block-document" hidden>
+                <div id="show" class="doc-block" hidden></div>
+            </div>        
         </div>
         <br>
         @if(count($process['process_Step'])!=0)
-        <div class="row">
-            <div class="col-lg-6 block-center mb-3">
-                <p class="topic">Comments :</p>
-                @foreach($process['process_Step'] as $stepApproved)
-                    @if($process['current_StepId']=="reject")
-                    <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Rejected) {{$stepApproved['comment']}}</div>
-                    @else
-                    <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Approved) {{$stepApproved['comment']}}</div>
-                    @endif    
-               @endforeach
+            <div class="row">
+                <div class="col-lg-6 block-center mb-3">
+                    <p class="topic">Comments :</p>
+                    @foreach($process['process_Step'] as $stepApproved)
+                        @if($process['current_StepId']=="reject")
+                            <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Rejected) {{$stepApproved['comment']}}</div>
+                        @else
+                            <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Approved) {{$stepApproved['comment']}}</div>
+                        @endif    
+                @endforeach
+                </div>
             </div>
-        </div>
         @endif
 
         <!-- Approver Zone -->
@@ -368,7 +353,7 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="modal-header">
-                            <p class="modal-title alert-title">Are you sure to <span id="app-re1"></span> "{{$process['process_Name']}}" process? </p> 
+                            <p class="modal-title alert-title">Are you sure to <span id="app-re1"></span> "{{$process['process_FlowName']}}" process? </p> 
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -383,7 +368,7 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="modal-header">
-                            <p class="modal-title alert-title">Enter your password to <span id="app-re2"></span> "{{$process['process_Name']}}" process.</p> 
+                            <p class="modal-title alert-title">Enter your password to <span id="app-re2"></span> "{{$process['process_FlowName']}}" process.</p> 
                         </div>    
                         <div class="row mb-3">
                             <div class="col-lg-3 form-group mb-0">
@@ -415,7 +400,7 @@
                     <div class="modal-body">
                         <div class="modal-header">
                             <p class="modal-title alert-title">
-                                Please check SMS and enter OTP password to <span id="app-re3"></span> "{{$process['process_Name']}}" process.
+                                Please check SMS and enter OTP password to <span id="app-re3"></span> "{{$process['process_FlowName']}}" process.
                             </p>
                         </div>
                         <div class="modal-body">

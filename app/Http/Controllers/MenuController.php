@@ -23,7 +23,9 @@ class MenuController extends Controller
             $validator = validatorRepo::getValidateByUserId($id);
             // Flow process
             for($i=0; $i < count($processes) ; $i++){
-                $processes[$i]['numberOfStep'] = flowRepo::getFlowById($processes[$i]['process_FlowId'])['numberOfStep'];
+                $process_Flow = flowRepo::getFlowById($processes[$i]['process_FlowId']);
+                $processes[$i]['flow_Name'] = $process_Flow['flow_Name'];
+                $processes[$i]['numberOfStep'] = $process_Flow['numberOfStep'];
             }
             // Verify process
             $now = array();
