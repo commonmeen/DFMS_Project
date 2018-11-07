@@ -59,5 +59,26 @@
         </div>
         </nav>      
     @yield('content')
+
+      <style>
+        .footer {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #FFF;
+            color: white;
+            text-align: center;
+            border-top:1px solid #dee2e6;
+            
+        }
+        .footer-img{
+          width: 300px;
+        }
+        </style>
+        
+        <footer class="footer">
+          <img src="../pic/sit.png" alt="" class="footer-img">
+        </footer>
+    
 </body>
 </html>
