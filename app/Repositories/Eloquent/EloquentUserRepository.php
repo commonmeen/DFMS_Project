@@ -6,6 +6,10 @@ use App\Models\User;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Eloquent\EloquentPositionRepository as PositionRepo;
 use Kurt\Repoist\Repositories\Eloquent\AbstractRepository;
+use App\Mail\SentMail;
+use Mail;
+use Debugbar;
+
 
 class EloquentUserRepository extends AbstractRepository implements UserRepository
 {
@@ -17,6 +21,11 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
     public static function getUser($userId){
         $userProfile = User::where('user_Id', '=', $userId)->first();
         return  $userProfile;
+    }
+
+    public static function getUserByPosition($position){
+        $user = User::where('user_Position','=',$position)->get();
+        return $user;
     }
 
     public static function listUser()
@@ -87,5 +96,9 @@ class EloquentUserRepository extends AbstractRepository implements UserRepositor
             return "Incorrect" ;
         }
         return "Fail" ;
+    }
+
+    public static function sentEmail($data,$email){
+        Mail::to($email)->send(new SentMail($data));
     }
 }
