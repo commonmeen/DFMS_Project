@@ -178,14 +178,14 @@
                     <div class="err-text" id="errDocument"></div>
                 </div>
                 <div class="col-12 col-sm-3 col-lg-3 d-none d-sm-block">
-                    <a role="button" class="btn btn-success float-right" href="NewDocument">New Document</a>
+                    <a role="button" class="btn btn-success float-right" href="GetTemplateForDocument">New Document</a>
                 </div>
                 {{--  Small screen  --}}
                 <div class="col-12 d-sm-none">
                     <p class="topic center">Choose Document</p>
                 </div>
                 <div class="col-12 col-sm-3 col-lg-3 d-sm-none">
-                    <a role="button" class="btn btn-block btn-success float-right" href="NewDocument">New Document</a>
+                    <a role="button" class="btn btn-block btn-success float-right" href="GetTemplateForDocument">New Document</a>
                     <div class="err-text center" id="errDocuments"></div>
                 </div>
                 
