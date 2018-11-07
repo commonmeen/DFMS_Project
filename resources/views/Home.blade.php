@@ -56,13 +56,13 @@
                                             <div class="card-body">
                                                 @php $step = count($process['process_Step'])@endphp
                                                 <div class="row cardDetail">
-                                                    <span class="col-12 overflow-text"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}}</span>
+                                                    <span class="col-12 overflow-text"><span class="topic-nomal">Flow name : </span>{{$process['flow_Name']}}</span>
                                                     <span class="col-12"><span class="topic-nomal">Stage : 
                                                             @if($step==0)
                                                                 </span>N/A</span>
                                                             @else
                                                                 </span>{{$step}} of {{$process['numberOfStep']}}</span>
-                                                            @endif<span class="col-12"><span class="topic-nomal">Process status : </span>{{number_format((int)$step/(int)$process['numberOfStep']*100,2)}} percent</span>
+                                                            @endif
                                                 </div>
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{(int)$step/(int)$process['numberOfStep']*100}}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
@@ -90,9 +90,6 @@
                                     <div class="card">
                                         <a href="ProcessDetail?id={{$process['process_Id']}}&InProgress=true" class="list-group-item-action">
                                             <div class="card-body">
-                                                <div class="row cardDetail">
-                                                    <span class="col-10 overflow-text"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}} </span>
-                                                </div>
                                                 <div class="row cardDetail">
                                                     <span class="col-10 overflow-text"><span class="topic-nomal">Process owner : </span>{{$process['owner']}}</span>
                                                 </div>
@@ -226,7 +223,7 @@
                                             <div class="card-body">
                                                 @php $step = count($process['process_Step'])@endphp
                                                 <div class="row cardDetail">
-                                                    <span class="col-12"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}}</span>
+                                                    <span class="col-12"><span class="topic-nomal">Flow name : </span>{{$process['flow_Name']}}</span>
                                                     <span class="col-12"><span class="topic-nomal">Stage : 
                                                         @if($step==0)
                                                             </span>N/A</span>
@@ -261,10 +258,10 @@
                                         <a href="ProcessDetail?id={{$process['process_Id']}}&InProgress=true" class="list-group-item-action">
                                             <div class="card-body">
                                                 <div class="row cardDetail">
-                                                    <span class="col-10"><span class="topic-nomal">Process name : </span>{{$process['process_Name']}} </span>
+                                                    <span class="col-10 overflow-text"><span class="topic-nomal">Process owner : </span>{{$process['owner']}}</span>
                                                 </div>
                                                 <div class="row cardDetail">
-                                                    <span class="col-10"><span class="topic-nomal">Flow name : </span>{{$process['flowObject']['flow_Name']}}</span>
+                                                    <span class="col-10 overflow-text"><span class="topic-nomal">Flow name : </span>{{$process['flowObject']['flow_Name']}}</span>
                                                 </div>
                                             </div>
                                         </a>

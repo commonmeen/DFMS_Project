@@ -51,19 +51,6 @@
             });
         }
         
-        function nameValidate(){
-            if(document.getElementById("name").value==""){
-                var isNotErr = false ;
-                document.getElementById("name").style.borderColor = "red" ;
-                document.getElementById("errname").innerHTML = "Please enter name of process" ;
-            } else {
-                var isNotErr = true ;
-                document.getElementById("errname").innerHTML = "" ;
-                document.getElementById("name").style.borderColor = "" ;
-            }
-            return isNotErr ;
-        }
-        
         function documentValidate(){
             var isNotErr = false ;
             var checkbox = document.getElementsByName("document_Id[]") ;
@@ -82,7 +69,7 @@
         }
 
         function validateAndSubmit(){
-            if(documentValidate()&nameValidate()){
+            if(documentValidate()){
                 $('BODY').attr('onbeforeunload',false);
                 if($('input[type=file]')[0].files.length == 0){
                     document.getElementById('newProcess').submit();
@@ -136,14 +123,7 @@
             <div class="col-12 center d-sm-none">
                 <p class="topic">Choose Flow</p>
             </div>
-            
-            <br>
-            <div class="col-12 col-lg-8 mb-2 block-center">
-                <span class="topic-nomal">Process name : </span>
-                <input type="text" name="name" id="name" class="form-control" onkeyup="nameValidate()" placeholder="Enter Process Name">
-                <div id="errname" class="err-text"></div>
-            </div>
-    
+            <br>   
             <div class="col-12 col-lg-8 block-center">
                 <div class="row">
                     <div class="col-lg-7 col-12 mb-2">
@@ -166,8 +146,6 @@
                     </div>
                 </div>
             </div>
-    
-
         </div>
         <hr>
         <div id="hide" style="display:none">

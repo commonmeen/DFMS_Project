@@ -53,7 +53,7 @@
                 <table class="table table-list-search table-hover" id="onProcess-page">
                     <thead>
                         <tr class="center">
-                            <th>Process name</th>
+                            <th>Process Flow</th>
                             <th>Date/Time</th>
                             <th>Stage</th>
                         </tr>
@@ -70,7 +70,7 @@
                                 @php array_push($rejectProcess,$process) @endphp
                             @else
                                 <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                                    <td><div class="text-over">{{$process['process_Name']}}</div></td>
+                                    <td><div class="text-over">{{$process['process_Flow']['flow_Name']}}</div></td>
                                     <td class="center">{{$process['created_at']}}</td>
                                     @if($step==0)
                                     <td class="center">N/A</td>
@@ -89,7 +89,7 @@
                 <table class="table table-list-search table-hover" id="success-page">   
                     <thead>
                         <tr class="center">
-                            <th>Process name</th>
+                            <th>Process Flow</th>
                             <th>Date/Time</th>
                             <th>Status</th>
                         </tr>
@@ -98,7 +98,7 @@
                         @foreach($successProcess as $process)
                             @php $step = count($process['process_Step'])@endphp
                             <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                                <td><div class="text-over">{{$process['process_Name']}}</div></td>
+                                <td><div class="text-over">{{$process['process_Flow']['flow_Name']}}</div></td>
                                 <td class="center">{{$process['created_at']}}</td>
                                 <td class="center">{{ucfirst($process['current_StepId'])}}</td>
                             </tr>
@@ -112,7 +112,7 @@
                 <table class="table table-list-search table-hover" id="cancel-page">   
                     <thead>
                         <tr class="center">
-                            <th>Process name</th>
+                            <th>Process Flow</th>
                             <th>Date/Time</th>
                             <th>Status</th>
                         </tr>
@@ -121,7 +121,7 @@
                         @foreach($cancelProcess as $process)
                                 @php $step = count($process['process_Step'])@endphp
                                 <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                                    <td><div class="text-over">{{$process['process_Name']}}</div></td>
+                                    <td><div class="text-over">{{$process['process_Flow']['flow_Name']}}</div></td>
                                     <td class="center">{{$process['created_at']}}</td>
                                     <td class="center">{{ucfirst($process['current_StepId'])}}</td>
                                 </tr>
@@ -135,7 +135,7 @@
                 <table class="table table-list-search table-hover" id="reject-page">   
                     <thead>
                         <tr class="center">
-                            <th>Process name</th>
+                            <th>Process Flow</th>
                             <th>Date/Time</th>
                             <th>Status</th>
                         </tr>
@@ -145,7 +145,7 @@
                             
                                 @php $step = count($process['process_Step'])@endphp
                                 <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                                    <td><div class="text-over">{{$process['process_Name']}}</div></td>
+                                    <td><div class="text-over">{{$process['process_Flow']['flow_Name']}}</div></td>
                                     <td class="center">{{$process['created_at']}}</td>
                                     <td class="center">{{ucfirst($process['current_StepId'])}}</td>
                                 </tr>
