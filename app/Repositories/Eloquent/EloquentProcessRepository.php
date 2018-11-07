@@ -61,11 +61,13 @@ class EloquentProcessRepository extends AbstractRepository implements ProcessRep
     public static function approve($process_Id,$step_Id,$approver_Id,$comment,$docCode){
         $data = Process::where('process_Id',$process_Id)->first();
         $steps = EloquentStepRepository::getStepByFlow($data->process_FlowId);
+        $nextStep;
         if($data->current_StepId == $step_Id){
             for($i = 0 ; $i<count($steps) ; $i++){
                 if($steps[$i]['step_Id'] == $step_Id){
                     if(array_last($steps)!=$steps[$i]){
-                        $data->current_StepId = $steps[$i+1]['step_Id'] ;
+                        $nextStep = $steps[$i+1]['step_Id'] ;
+                        $data->current_StepId = $nextStep ;
                     } else {
                         $data->current_StepId = "success" ;
                     }
@@ -85,8 +87,11 @@ class EloquentProcessRepository extends AbstractRepository implements ProcessRep
             array_push($approved,$approveData);
             $data->process_Step = $approved;
             $data->save();
+            if( $data->current_StepId != "success"){
+                return ['nextStep'=>$nextStep,'process'=>json_decode($data)];
+            }
         }
-        return ;
+        return false;
     }
 
     public static function reject($process_Id,$step_Id,$approver_Id,$comment){
