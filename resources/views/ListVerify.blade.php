@@ -40,7 +40,6 @@
             <table class="table table-list-search table-hover" id="inProgress-process">
                 <thead>
                     <tr class="center">
-                        <th>Process name</th>
                         <th>Flow Name</th>
                         <th>Date/Time</th>
                         <th>Process Owner</th>
@@ -49,8 +48,7 @@
                 <tbody>
                     @foreach($nowProcess as $process)
                         <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}&InProgress=true';">
-                            <td><div class="text-over">{{$process['process_Name']}}</div></td>
-                            <td class="center">{{$process['flowObject']['flow_Name']}}</td>
+                            <td>{{$process['flowObject']['flow_Name']}}</td>
                             <td class="center">{{$process['updated_at']}}</td>
                             <td class="center">{{$process['ownerObject']['user_Name']}} {{$process['ownerObject']['user_Surname']}}</td>
                         </tr>
@@ -64,7 +62,6 @@
             <table class="table table-list-search table-hover" id="comming-process">   
                 <thead>
                     <tr class="center">
-                        <th>Process name</th>
                         <th>Flow Name</th>
                         <th>Date/Time</th>
                         <th>Process Owner</th>
@@ -75,8 +72,7 @@
                     @foreach($comingProcess as $process)
                         @php $step = count($process['process_Step'])@endphp
                         <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                            <td><div class="text-over">{{$process['process_Name']}}</div></td>
-                            <td class="center">{{$process['flowObject']['flow_Name']}}</td>
+                            <td>{{$process['flowObject']['flow_Name']}}</td>
                             <td class="center">{{$process['updated_at']}}</td>
                             <td class="center">{{$process['ownerObject']['user_Name']}} {{$process['ownerObject']['user_Surname']}}</td>
                             <td class="center">{{$step}}/{{$process['process_Flow']['numberOfStep']}}</td>
@@ -91,7 +87,6 @@
             <table class="table table-list-search table-hover" id="approved-process">   
                 <thead>
                     <tr class="center">
-                        <th>Process name</th>
                         <th>Flow Name</th>
                         <th>Date/Time</th>
                         <th>Process Owner</th>
@@ -101,8 +96,7 @@
                     @foreach($passMeProcess as $process)
                         @php $step = count($process['process_Step'])@endphp
                         <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                            <td><div class="text-over">{{$process['process_Name']}}</div></td>
-                            <td class="center">{{$process['flowObject']['flow_Name']}}</td>
+                            <td>{{$process['flowObject']['flow_Name']}}</td>
                             <td class="center">{{$process['updated_at']}}</td>
                             <td class="center">{{$process['ownerObject']['user_Name']}} {{$process['ownerObject']['user_Surname']}}</td>
                         </tr>
@@ -116,7 +110,6 @@
             <table class="table table-list-search table-hover" id="reject-process">   
                 <thead>
                     <tr class="center">
-                        <th>Process name</th>
                         <th>Flow Name</th>
                         <th>Date/Time</th>
                         <th>Process Owner</th>
@@ -127,8 +120,7 @@
                     @foreach($rejectProcess as $process)
                         @php $step = count($process['process_Step'])@endphp
                         <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
-                            <td><div class="text-over">{{$process['process_Name']}}</div></td>
-                            <td class="center">{{$process['flowObject']['flow_Name']}}</td>
+                            <td>{{$process['flowObject']['flow_Name']}}</td>
                             <td class="center">{{$process['updated_at']}}</td>
                             <td class="center">{{$process['ownerObject']['user_Name']}} {{$process['ownerObject']['user_Surname']}}</td>
                             <td class="center">{{ucfirst($process['current_StepId'])}}ed</td>
