@@ -2,7 +2,7 @@
 @section('script')
     <!-- Data table -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
 @endsection
 @section('user')
     {{Session::get('UserLogin')->user_Name}}

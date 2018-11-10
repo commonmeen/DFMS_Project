@@ -1,7 +1,7 @@
 @extends('layout.Navbar') 
 @section('script')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+    <link rel="stylesheet" href="css/cloudflare-animate.min.css">
+    <link rel="stylesheet" href="css/jsdelivr-animate.min.css">
 @endsection
 @section('user')
     {{Session::get('UserLogin')->user_Name}}
@@ -304,6 +304,7 @@
                         @foreach($process['data']['file_Name'] as $fileName)
                             <div class="col-12 col-lg-7"><a target="_blank" href="upload/{{$fileName}}"> {{$fileName}} </a></div>
                             @if(array_last($process['data']['file_Name'])!=$fileName)
+                                <div class="col-12 col-lg-5"></div>
                             @endif
                         @endforeach
                     </div> 

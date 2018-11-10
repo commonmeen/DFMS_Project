@@ -20,8 +20,8 @@
             color: 
         }   
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
+    <script src="js/fileinput.js" type="text/javascript"></script>
+    <script src="js/theme.js" type="text/javascript"></script>
     <script type="text/javascript">
         function flowSelect(){
             var formData = {
