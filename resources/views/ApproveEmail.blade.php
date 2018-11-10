@@ -148,7 +148,7 @@
   <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <h1 class="p1" style="text-align: left;"><span style="font-size:20px;"><strong>Dear, {{$data->validator['user_Name']}} {{$data->validator['user_Surname']}}</strong></span></h1>
+          <h1 class="p1" style="text-align: left;"><span style="font-size:20px;"><strong>Dear {{$data->validator['user_Name']}} {{$data->validator['user_Surname']}}</strong></span></h1>
   <div class="p1"><span style="font-size:15px;line-height:150%;">You have Document Submission waiting for your approval. As follow:
 	<br>Process flow: {{$data->flow_Name['flow_Name']}}.
 	<br>Owner: {{$data->owner->user_Name}} {{$data->owner->user_Surname}}.
