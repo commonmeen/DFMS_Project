@@ -14,6 +14,7 @@ class NewProcessController extends Controller
 {
     public function newProcess(Request $request){
         if(Session::has('UserLogin')){
+            $mailApprove = 'approve';
             $input = $request->all();
             $user = Session::get('UserLogin');
             if(!Session::has('fileUploaded'))
@@ -34,6 +35,7 @@ class NewProcessController extends Controller
                 $data->validator = json_decode(userRepo::getUserByPosition($validatorPositionId),true);
                 $data->owner = json_decode(userRepo::getUser($data->process_Owner));
                 $data->flow_Name = flowRepo::getFlowById($data->process_FlowId);
+                $data->email_Type = $mailApprove;
                 $validators = $data->validator;
                 
                 for($i=0;$i<count($validators);$i++){
@@ -47,6 +49,7 @@ class NewProcessController extends Controller
                     $data->validator = json_decode(userRepo::getUser($stepObject['validator'][$i]),true);
                     $data->owner = json_decode(userRepo::getUser($data->process_Owner));
                     $data->flow_Name = flowRepo::getFlowById($data->process_FlowId);
+                    $data->email_Type = $mailApprove;
                     userRepo::sentEmail($data,$data->validator['user_Email']);
                 }
             }
