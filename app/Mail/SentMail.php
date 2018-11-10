@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Debugbar;
 
 
 class SentMail extends Mailable
@@ -35,13 +34,32 @@ class SentMail extends Mailable
         $address = 'dfms.sit@gmail.com';
         $subject = 'Welcome to Document Flow Management System';
         $name = 'Document Flow Management System';
-        Debugbar::info($this->data);
-        return $this->view('ApproveEmail',['data'=>$this->data])
-                    ->from($address, $name)
-                    ->cc($address, $name)
-                    ->bcc($address, $name)
-                    ->replyTo($address, $name)
-                    ->subject($subject);
-                    
+        
+        if($this->data->email_Type == 'approve'){
+            return $this->view('ApproveEmail',['data'=>$this->data])
+                        ->from($address, $name)
+                        ->cc($address, $name)
+                        ->bcc($address, $name)
+                        ->replyTo($address, $name)
+                        ->subject($subject);
+        }
+
+        else if($this->data->email_Type == 'success'){
+            return $this->view('SuccessEmail',['data'=>$this->data])
+                        ->from($address, $name)
+                        ->cc($address, $name)
+                        ->bcc($address, $name)
+                        ->replyTo($address, $name)
+                        ->subject($subject);
+        }
+
+        else if($this->data->email_Type == 'reject'){
+            return $this->view('RejectEmail',['data'=>$this->data])
+                        ->from($address, $name)
+                        ->cc($address, $name)
+                        ->bcc($address, $name)
+                        ->replyTo($address, $name)
+                        ->subject($subject);
+        }
     }
 }
