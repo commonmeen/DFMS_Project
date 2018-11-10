@@ -8,8 +8,6 @@ use App\Repositories\Eloquent\EloquentPositionRepository as PositionRepo;
 use Kurt\Repoist\Repositories\Eloquent\AbstractRepository;
 use App\Mail\SentMail;
 use Mail;
-use Debugbar;
-
 
 class EloquentUserRepository extends AbstractRepository implements UserRepository
 {
