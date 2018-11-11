@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Session ;
 use App\Repositories\Eloquent\EloquentProcessRepository as processRepo;
 use App\Repositories\Eloquent\EloquentPositionRepository as positionRepo;
+use App\Repositories\Eloquent\EloquentNotificationRepository as notiRepo;
 use App\Repositories\Eloquent\EloquentValidatorRepository as validatorRepo;
 use App\Repositories\Eloquent\EloquentStepRepository as stepRepo;
 use App\Repositories\Eloquent\EloquentUserRepository as userRepo;
@@ -29,7 +30,7 @@ class ApproveProcessController extends Controller
             //sent email for approve process
             //$nextStep return false if don't have next step id
             //$stepObject return null if don't have next step id to query process
-            if($nextStep != 'false' && $stepObject != null){             
+            if($nextStep && $stepObject != null){             
                 if($stepObject['typeOfValidator'] == 'position'){
                     $validatorPositionId = $stepObject['validator'][0];
                     $data = $nextStep['process'];
@@ -41,23 +42,22 @@ class ApproveProcessController extends Controller
                     
                     for($i=0;$i<count($validators);$i++){
                         $data->validator = $validators[$i];
+                        notiRepo::addNotification($data->validator['user_Id'],"Waiting for approval",$data->flow_Name['flow_Name']." from ".$data->owner->user_Name." waiting for your approval.","/ProcessDetail?id=".$data->process_Id."&InProgress=true");
                         userRepo::sentEmail($data,$data->validator['user_Email']);
                     }
-                    
-                }
-                else{
+                    return ;
+                } else {
                     for($i=0;$i<count($stepObject['validator']);$i++){
                         $data = $nextStep['process'];
                         $data->validator = json_decode(userRepo::getUser($stepObject['validator'][$i]),true);
                         $data->owner = json_decode(userRepo::getUser($data->process_Owner));
                         $data->flow_Name = flowRepo::getFlowById($data->process_FlowId);
                         $data->email_Type = $mailApprove;
-
+                        notiRepo::addNotification($data->validator['user_Id'],"Waiting for approval",$data->flow_Name['flow_Name']." from ".$data->owner->user_Name." waiting for your approval.","/ProcessDetail?id=".$data->process_Id."&InProgress=true");
                         return userRepo::sentEmail($data,$data->validator['user_Email']);
                     }
                 }
             }
-
             //sent email for success process
             else{
                 $data = processRepo::getProcessById($input['pid']);
@@ -65,7 +65,7 @@ class ApproveProcessController extends Controller
                 $data['flow'] = flowRepo::getFlowById($data['process_FlowId']);
                 $data['email_Type'] = $mailSuccess;
                 $data = (object) $data;
-
+                notiRepo::addNotification($data->process_Owner['user_Id'],"Process Successful",$data->flow['flow_Name']." process has been successfully.","/ProcessDetail?id=".$data->process_Id);
                 return userRepo::sentEmail($data,$data->process_Owner['user_Email']);
             }            
             return ;
