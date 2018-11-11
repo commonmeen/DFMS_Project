@@ -18,4 +18,18 @@ class EloquentNotificationRepository extends AbstractRepository implements Notif
         $noti = Notification::where('user_Id',$user_Id)->get();
         return json_decode($noti,true);
     }
+
+    public static function addNotification($user_Id,$header,$detail,$link){
+        $prev = Notification::orderBy('created_at','desc')->take(1)->get();
+        $newId = 'N'.str_pad(substr($prev[0]->notification_Id,1)+1, 5, '0', STR_PAD_LEFT);
+        $noti = new Notification ;
+        $noti->notification_Id = $newId ;
+        $noti->user_Id = $user_Id ;
+        $noti->header = $header ;
+        $noti->detail = $detail ;
+        $noti->link = $link ;
+        $noti->status = "unread" ;
+        $noti->save() ;
+        return $noti ;
+    }
 }
