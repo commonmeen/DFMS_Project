@@ -85,7 +85,7 @@ class MenuController extends Controller
                 }
             }
         }else {
-            return view('Login');
+            return view('Index');
         }
         return ;
     }
