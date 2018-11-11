@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session ;
 use App\Repositories\Eloquent\EloquentProcessRepository as processRepo;
+use App\Repositories\Eloquent\EloquentNotificationRepository as notiRepo;
 use App\Repositories\Eloquent\EloquentUserRepository as userRepo;
 use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo;
 
@@ -23,7 +24,7 @@ class RejectProcessController extends Controller
             $data['flow'] = flowRepo::getFlowById($data['process_FlowId']);
             $data['email_Type'] = $mailReject;
             $data = (object) $data;
-            
+            notiRepo::addNotification($data->process_Owner['user_Id'],"Process was rejected",$data->flow['flow_Name']." has been rejected.","/ProcessDetail?id=".$data->process_Id);
             return userRepo::sentEmail($data,$data->process_Owner['user_Email']);
         } else {
             dd("Error occur", "Permission denied. Plz login on manager role.");
