@@ -19,40 +19,40 @@
     <div class="container"> 
         <div class="row">
 
-            <div class="col-lg-6 col-12 block-center block-top animated flipInX delay-5s">
-                <form name="loginform" id="loginform" method="post" action="/">
-                    @csrf
-                    <div class="row mb-2">
-                        <div class="col-lg-12 center">
-                            <label class="topic-login animated pulse infinite delay-3s">Sign in</label>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-lg-12">
-                            <input type="text" class="form-control" placeholder="Email" id="email" name="email">
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-2">
-                        <div class="col-lg-12">
-                            <input type="password" class="form-control" placeholder="Password" id="password" name="password">
-                        </div>
-                        <div class="col-lg-12 mt-2">
-                            <div id="err-password" class="err-login mb-0">
-                                @if(isset($Err)) {{$Err}}@endif
+                <div class="col-lg-6 col-12 block-center block-top animated flipInX delay-5s">
+                    <form name="loginform" id="loginform" method="post" action="/">
+                        @csrf
+                        <div class="row mb-2">
+                            <div class="col-lg-12 center">
+                                <label class="topic-login animated pulse infinite delay-3s">Sign in</label>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="row mb-2">
-                        <div class="col-lg-12 block-center">
-                            <button class="btn btn-block btn-success">Login</button>
+                        <div class="row mb-2">
+                            <div class="col-lg-12">
+                                <input type="text" class="form-control" placeholder="Email" id="email" name="email">
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                        
+                        <div class="row mb-2">
+                            <div class="col-lg-12">
+                                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                            </div>
+                            <div class="col-lg-12 mt-2">
+                                <div id="err-password" class="err-login mb-0">
+                                    @if(isset($Err)) {{$Err}}@endif
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-2">
+                            <div class="col-lg-12 block-center">
+                                <button class="btn btn-block btn-success">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
         </div>
-        
     </div>
 
 </body>

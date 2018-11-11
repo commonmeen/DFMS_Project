@@ -13,6 +13,8 @@
 
 Route::any('/', 'MenuController@getMenu');
 
+Route::any('Login', 'IndexController@checkAuth');
+
 Route::any('AddCategory','AddCatController@addCat');
 
 Route::any('AddDocument','AddDocumentController@addDoc');

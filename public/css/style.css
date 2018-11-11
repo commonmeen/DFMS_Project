@@ -128,9 +128,7 @@ a.nav-text:hover{
 .tempImg{
     border-radius: .25rem;
 }
-.img-text{
 
-}
 .topic{
   font-size: 25pt;
   font-weight: bold;
@@ -383,14 +381,36 @@ h1 {
 /* Login */
 .block-top{
   top: 25vh;
-  z-index: 2;
-
 }
-.bg-color{
-  background: linear-gradient(to bottom, #2A9EBF 0%, #2A9EBF 100%);
+/* .bg-color{
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background:
+ linear-gradient( rgba(42,158,191,0.8), rgba(42,158,191,0.8))
+  , url(../pic/login-logo1.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  /* overflow: hidden; */
+  overflow: hidden;
+} */
+
+body, html {
+  height: 100%;
+}
+
+.bg-color{ 
+  /* The image used */
+  background:
+ linear-gradient( rgba(42,158,191,0.8), rgba(42,158,191,0.8))
+  , url(../pic/login-1.jpg);
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .topic-login{
   color: #FFF;
@@ -500,4 +520,49 @@ input{
   right: 14px !important;
   width: 18px !important;
   top:14px !important;
+}
+
+/* Index page */
+.test{
+  height: 65vh;
+}
+.index-title{
+  font-weight: bold;
+  text-align: center;
+}
+.index-img-card{
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+}
+.index-topic{
+  font-size: 60pt;
+  font-weight: bold;
+  color: #2A9EBF;
+}
+.index-des{
+  font-size: 1.6em;
+  line-height:100%;
+}
+.index-des-1{
+  font-size: 1.2em;
+  margin-bottom:0px;
+  line-height:100%;
+}
+.poster-img{
+  width: 600px;
+}
+.footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #FFF;
+  color: white;
+  text-align: center;
+  border-top:1px solid #dee2e6;
+  
+}
+.footer-img{
+width: 300px;
 }
