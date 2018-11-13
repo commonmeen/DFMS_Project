@@ -31,18 +31,38 @@
         z-index: 5;
         opacity: 0;
       }
+      .unread {
+        background-color: #dee2e6 ;
+      }
     </style>
     <script>
+      function changeStatus(notiId){
+        console.log(notiId);
+        data = {noti_Id:notiId};
+        $.ajax({
+          type: "get",
+          data: data,
+          url: "ReadNoti",
+          cache    : false,
+          success:function(data){
+            
+          }
+        });
+      }
       function getNoti(){
         $.ajax({
           type: "get",
           url: "NotiRequest",
           cache    : false,
           success:function(data){
-            console.log(data.noti);
             document.getElementById("notiDetail").innerHTML = "" ;
+            console.log(data.noti);
             for(i=data.noti.length-1; i>=0 ;i--){
-              document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable' href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
+              if(data.noti[i].status == "unread"){
+                document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
+              } else {
+                document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable' href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
+              }
             }
             if(data.count > 0){
               document.getElementById("countNoti").style.opacity = 1;
