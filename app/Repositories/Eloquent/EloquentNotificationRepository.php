@@ -32,4 +32,11 @@ class EloquentNotificationRepository extends AbstractRepository implements Notif
         $noti->save() ;
         return $noti ;
     }
+
+    public static function changeToRead($noti_Id){
+        $noti = Notification::where('notification_Id',$noti_Id)->first();
+        $noti->status = "read";
+        $noti->save();
+        return ;
+    }
 }
