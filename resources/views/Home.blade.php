@@ -64,9 +64,6 @@
                                                                 </span>{{$step}} of {{$process['numberOfStep']}}</span>
                                                             @endif
                                                 </div>
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{(int)$step/(int)$process['numberOfStep']*100}}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>  
                                             </div>
                                         </a>
                                     </div>
