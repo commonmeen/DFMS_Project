@@ -91,6 +91,8 @@ Route::any('NotiRequest','NotificationRequestController@getNoti');
 
 Route::any('ProcessDetail','ProcessDetailController@processDetail');
 
+Route::any('ReadNoti','NotificationRequestController@readNoti');
+
 Route::any('Reject','RejectProcessController@rejectProcess');
 
 Route::any('SaveDocTemplate','SaveDocTemplateController@saveTemplate');
