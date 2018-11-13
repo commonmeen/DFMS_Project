@@ -87,6 +87,8 @@ Route::get('Logout','LogoutController@logout');
 
 Route::any('NewProcess','NewProcessController@newProcess');
 
+Route::any('NotiRequest','NotificationRequestController@getNoti');
+
 Route::any('ProcessDetail','ProcessDetailController@processDetail');
 
 Route::any('Reject','RejectProcessController@rejectProcess');
