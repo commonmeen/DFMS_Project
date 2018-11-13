@@ -45,6 +45,7 @@
         ];
         var options = {
             fields: fields,
+            editOnAdd: true,
             subtypes: {
                 text: ['time']
             },
