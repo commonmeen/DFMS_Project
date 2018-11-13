@@ -130,8 +130,9 @@
     });
 </script>
 <div class="container content">
-    <form id="newDocument" action="AddDocument">
+    <form id="newDocument" action="AddDocument" method="POST">
         <div class="row">
+            @csrf
             {{--  Large screen  --}}
             <div class="col-12 d-none d-sm-block">
                 <p class="topic" id="topic1">New Document</p>
