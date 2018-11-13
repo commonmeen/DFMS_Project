@@ -21,6 +21,11 @@ class NotificationRequestController extends Controller
         } else {
             dd("Error occur", "Plz login.");
         }
-        
+    }
+
+    public function readNoti(Request $request){
+        $input = $request->all();
+        notiRepo::changeToRead($input['noti_Id']);
+        return ;
     }
 }
