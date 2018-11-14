@@ -39,7 +39,7 @@
 
         {{--  Success alert  --}}
 
-        @if(Session::has('approveStatus') == 'Success')
+        @if(Session::get('approveStatus') == 'Success')
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>Success! </strong>
