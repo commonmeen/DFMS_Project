@@ -53,17 +53,17 @@
     <div class="row">
         {{--  Large screen  --}}
         <div class="col-12 col-sm-5 col-md-5 col-lg-6 d-none d-sm-block">   
-            <p class="topic">Template List</p>
+            <p class="topic">Document Template List</p>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 d-none d-sm-block">
-            <a role="button" class="btn btn-success float-right" href="AddDocTemplate">New Template</a>
+            <a role="button" class="btn btn-success float-right" href="AddDocTemplate">New Docuemtn Template</a>
         </div>
         {{--  Small screen  --}}
         <div class="col-12 d-sm-none center">   
-            <p class="topic">Template List</p>
+            <p class="topic">Document Template List</p>
         </div>
         <div class="col-12 d-sm-none ">
-            <a role="button" class="btn btn-block btn-success float-right" href="AddDocTemplate">New Template</a>
+            <a role="button" class="btn btn-block btn-success float-right" href="AddDocTemplate">New Document Template</a>
         </div>
     </div>
 
