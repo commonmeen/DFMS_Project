@@ -89,6 +89,10 @@ Route::any('NewProcess','NewProcessController@newProcess');
 
 Route::any('NotiRequest','NotificationRequestController@getNoti');
 
+Route::any('Notifications',function(){
+    return view('Notifications');
+});
+
 Route::any('ProcessDetail','ProcessDetailController@processDetail');
 
 Route::any('ReadNoti','NotificationRequestController@readNoti');
