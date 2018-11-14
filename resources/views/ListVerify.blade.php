@@ -20,10 +20,8 @@
         </div>
 
         <script>
-        $(document).ready(function(){
-            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+        $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
             $("#success-alert").slideUp(500);
-            });
         });
         </script>
         {{Session::forget("alertStatus")}}
@@ -36,10 +34,8 @@
         </div>
 
         <script>
-        $(document).ready(function(){
-            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+        $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
             $("#success-alert").slideUp(500);
-            });
         });
         </script>
         {{Session::forget("alertStatus")}}
