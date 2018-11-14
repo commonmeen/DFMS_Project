@@ -9,23 +9,40 @@
     {{Session::get('UserLogin')->user_Surname}}
 @endsection
 @section('content')   
-<div class="container"><br>
-
+<div class="container content">
     {{--  Success alert  --}}
 
-    @if(Session::get("approveStatus") == "Success")
-    <div class="alert alert-success" id="success-alert">
-        <button type="button" class="close" data-dismiss="alert">x</button>
-        <strong>Success! </strong>
-        You have successfully approved the document.
-    </div>
+    @if(Session::get("alertStatus") == "ApproveSuccess")
+        <div class="alert alert-success" id="success-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Approve Success! </strong>
+            You have successfully approved the document.
+        </div>
 
-    <script>
-    $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
-        $("#success-alert").slideUp(500);
-    });
-    </script>
-    {{Session::forget("approveStatus")}}
+        <script>
+        $(document).ready(function(){
+            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+            $("#success-alert").slideUp(500);
+            });
+        });
+        </script>
+        {{Session::forget("alertStatus")}}
+
+    @elseif(Session::get("alertStatus") == "RejectSuccess")
+        <div class="alert alert-success" id="success-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Reject Success! </strong>
+            You have successfully reject the document.
+        </div>
+
+        <script>
+        $(document).ready(function(){
+            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+            $("#success-alert").slideUp(500);
+            });
+        });
+        </script>
+        {{Session::forget("alertStatus")}}
     @endif
 
     <div class="row">
