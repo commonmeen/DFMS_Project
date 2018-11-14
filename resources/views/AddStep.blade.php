@@ -365,7 +365,7 @@
                             <label class="topic-nomal ">Deadline</label>
                         </div>
                         <div class="col-lg-7 col-6">
-                            <input type="number" value="{{$stepData['deadline']}}" id="deadline" name="deadline" class="form-control" placeholder="6" onchange="deadlineValidate()"> 
+                            <input type="number" value="{{$stepData['deadline']}}" id="deadline" name="deadline" class="form-control" placeholder="24 hours" onchange="deadlineValidate()"> 
                         </div>
                         <div class="col-lg-2 col-3">
                             <label class="topic-nomal horizon-center">Hour(s)</label> 
