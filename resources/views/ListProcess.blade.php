@@ -11,8 +11,24 @@
 @section('script')
 @endsection
 @section('content')
-    <div class="container">
-        <br>
+    <div class="container content">
+
+        {{--  Success alert  --}}
+        {{--  flash session  --}}
+        @if(session('approveStatus') == 'Success')
+        <div class="alert alert-success" id="success-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Success! </strong>
+            You have successfully submit the document.
+        </div>
+
+        <script>
+        $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+            $("#success-alert").slideUp(500);
+        });
+        </script>
+        @endif
+
         <div class="row">
             {{--  Large screen  --}}
             <div class="col-12 col-sm-5 col-md-5 col-lg-6 d-none d-sm-block">   
