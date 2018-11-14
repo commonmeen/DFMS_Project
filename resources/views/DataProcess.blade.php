@@ -117,11 +117,11 @@
         <div class="row">
             {{--  Large screen  --}}
             <div class="col-12 d-none d-sm-block">
-                <p class="topic">Choose Flow</p>
+                <p class="topic">Choose Process Flow</p>
             </div>
             {{--  Small screen  --}}
             <div class="col-12 center d-sm-none">
-                <p class="topic">Choose Flow</p>
+                <p class="topic">Choose Process Flow</p>
             </div>
             <br>   
             <div class="col-12 col-lg-8 block-center">
