@@ -11,6 +11,7 @@
 @section('content')   
 <div class="container content">
     {{--  Success alert  --}}
+    {{Session::get("alertStatus")}}
 
     @if(Session::get("alertStatus") == "ApproveSuccess")
         <div class="alert alert-success" id="success-alert">
