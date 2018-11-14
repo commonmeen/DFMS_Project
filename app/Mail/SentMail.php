@@ -61,5 +61,14 @@ class SentMail extends Mailable
                         ->replyTo($address, $name)
                         ->subject($subject);
         }
+
+        else if($this->data->email_Type == 'OTP'){
+            return $this->view('OTPEmail',['data'=>$this->data])
+                        ->from($address, $name)
+                        ->cc($address, $name)
+                        ->bcc($address, $name)
+                        ->replyTo($address, $name)
+                        ->subject($subject);
+        }
     }
 }
