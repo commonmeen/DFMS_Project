@@ -101,7 +101,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                         <p class="modal-title alert-title">
-                            Do you want to delete "{{$document['document_Name']}}" template?
+                            This deletion will not restore the document. Are you sure you want to delete "{{$document['document_Name']}}" document?
                         </p>
                         </div>
                         <div class="modal-body">
