@@ -25,6 +25,7 @@ class RejectProcessController extends Controller
             $data['email_Type'] = $mailReject;
             $data = (object) $data;
             notiRepo::addNotification($data->process_Owner['user_Id'],"Process was rejected",$data->flow['flow_Name']." has been rejected.","/ProcessDetail?id=".$data->process_Id);
+            Session::put('alertStatus','RejectSuccess');
             return userRepo::sentEmail($data,$data->process_Owner['user_Email']);
         } else {
             dd("Error occur", "Permission denied. Plz login on manager role.");
