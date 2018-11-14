@@ -225,6 +225,24 @@
 @section('content')
 <div id="overlay" style="display:none"></div>
     <div class="container content">
+
+        {{--  Success alert  --}}
+        @if(Session::get("alertStatus") == "CancelSuccess")
+            <div class="alert alert-success" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>Cancel Success! </strong>
+                You have successfully cancel the process.
+            </div>
+    
+            <script>
+            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+                $("#success-alert").slideUp(500);
+            });
+            </script>
+            {{Session::forget("alertStatus")}}
+        @endif
+        
+
         <div class="row">
             {{--  Large screen  --}}
             <div class="col-12 col-sm-9 col-lg-9 d-none d-sm-block">
