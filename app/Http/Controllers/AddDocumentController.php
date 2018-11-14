@@ -11,6 +11,7 @@ class AddDocumentController extends Controller
 {
     public function addDoc(Request $request){
         if(Session::has('UserLogin')){
+            $alertStatus = "" ;
             $input =   $request->all();
             $prop = json_decode($input['prop']);
             $datas = array();
@@ -31,10 +32,12 @@ class AddDocumentController extends Controller
                 $oldDocumentId = substr($request->server('HTTP_REFERER'), -6);
                 $newDocumentId = docRepo::addNewDocument($input['name'],Session::get('UserLogin')->user_Id,$input['tempId'],$datas,$oldDocumentId);
                 docRepo::changeStatus($oldDocumentId,$newDocumentId);
+                $alertStatus = "EditSuccess";
             } else {
                 $newDocumentId = docRepo::addNewDocument($input['name'],Session::get('UserLogin')->user_Id,$input['tempId'],$datas,"0");
+                $alertStatus = "Success";
             }
-            return redirect('DocumentDetail?doc_Id='.$newDocumentId)->with('approveStatus', 'Success');
+            return redirect('DocumentDetail?doc_Id='.$newDocumentId)->with('alertStatus',$alertStatus);
         } else {
             return view('Login');
         }
