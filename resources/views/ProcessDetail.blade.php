@@ -130,14 +130,6 @@
                         $('#otpModal').modal();
                         $('#otpYes').click(function() {
 
-                            //Start loading
-                            $(document).ajaxStart(function(){
-                                $("#wait").css("display", "block");
-                                $('body').css('position','relative');
-                                $('body').css('min-height','100%');
-                                $('#overlay').css("display","block");
-                            });
-
                             document.getElementById('incorrectOTP').innerHTML = "";
                             var data = {otp:document.getElementById('otp').value} ;
                             var statusAlready = $.Deferred();
@@ -156,13 +148,18 @@
                                 if(status){
                                     sentAction(processId,stepId,action) ;
                                     $('#otpModal').modal('hide');
+
+                                    //Start loading
+                                    $(document).ajaxStart(function(){
+                                        $("#wait").css("display", "block");
+                                        $('body').css('position','relative');
+                                        $('body').css('min-height','100%');
+                                        $('#overlay').css("display","block");
+                                    });
                                 } else {
                                     document.getElementById('incorrectOTP').innerHTML = "Incorrect OTP, Please try again" ;
                                 }
                             });
-                        });
-                        $('#resentOTP').click(function() {
-                            sentSMS();
                         });
                     }
                 }
@@ -190,7 +187,6 @@
         });
     }
     function sentSMS(){
-        document.getElementById('OTPShow').innerHTML = "";
         $.ajax({
             type     : "GET",
             url      : "SentOTP",
@@ -198,7 +194,6 @@
             cache    : false,
             success  : function(response){
                 console.log("OTP is sented");
-                document.getElementById('OTPShow').innerHTML = "  ("+response.otp['otp']+")";
             }
         });
     }
@@ -436,7 +431,7 @@
                         <div class="row">
                             <div class="col-lg-3 form-group mb-0"></div>
                             <div class="col-lg-8">
-                                <p style="color:red" id="incorrectPass"></p>
+                                <p style="color:red" id="incorrectPass" class="err-text"></p>
                             </div>
                             
                         </div>
@@ -459,8 +454,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-3 form-group">
-                                    <label class="col-form-labelr align-self-center">OTP<span id="OTPShow"></span></label>
+                                <div class="col-lg-3">
+                                    <label class="col-form-labelr align-self-center">OTP</label>
                                 </div>
                                 <div class="col-lg-8">
                                     <input type="text" id="otp" name="otp" class="form-control">
@@ -468,15 +463,14 @@
                                 <div class="col-lg-1"></div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-3 form-group"></div>
+                                <div class="col-lg-3"></div>
                                 <div class="col-lg-8">
-                                    <p style="color:red" id="incorrectOTP"></p>
+                                    <p style="color:red" id="incorrectOTP" class="err-text"></p>
                                 </div>
                                 <div class="col-lg-1"></div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-warning mr-auto" id="resentOTP">Resent</button>            
+                        <div class="modal-footer">            
                             <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                             <button type="button" class="btn btn-success" id="otpYes">Yes</button>
                         </div>
