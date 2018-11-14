@@ -12,6 +12,8 @@ class DeleteDocumentController extends Controller
         if(Session::has('UserLogin') && Session::get('UserLogin')->user_Role=="manager"){
             $input = $request->all();
             $data = documentRepo::deleteDocumentById($input['document_Id']);
+            Session::put('alertStatus','DeleteSuccess');
+            return ;
         } else {
             dd("Error occur", "Permission denied. Plz login on manager role.");
         }
