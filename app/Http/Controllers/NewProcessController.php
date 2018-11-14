@@ -59,7 +59,7 @@ class NewProcessController extends Controller
             }
 
             Session::forget('fileUploaded');
-            return redirect('ListProcess');
+            return redirect('ListProcess')->with('alertStatus', 'Success');
         } else {
             return view('Login');
         }
