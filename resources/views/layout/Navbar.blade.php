@@ -36,7 +36,7 @@
       }
     </style>
     <script>
-      function changeStatus(notiId){
+      function changeNotiStatus(notiId){
         console.log(notiId);
         data = {noti_Id:notiId};
         $.ajax({
@@ -44,9 +44,7 @@
           data: data,
           url: "ReadNoti",
           cache    : false,
-          success:function(data){
-            
-          }
+          success:function(data){}
         });
       }
       function getNoti(){
@@ -56,13 +54,15 @@
           cache    : false,
           success:function(data){
             document.getElementById("notiDetail").innerHTML = "" ;
-            console.log(data.noti);
-            for(i=data.noti.length-1; i>=0 ;i--){
+            for(i=data.noti.length-1,j=data.noti.length-1; i>=0 && i>j-10 ;i--){
               if(data.noti[i].status == "unread"){
-                document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
+                document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
               } else {
                 document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable' href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
               }
+            }
+            if(data.noti.length>10){
+              document.getElementById("notiDetail").innerHTML += "<div class=dropdown-divider></div><a class='center dropdown-item disable' id='loadMoreNoti'>Load More ..</a>"
             }
             if(data.count > 0){
               document.getElementById("countNoti").style.opacity = 1;
