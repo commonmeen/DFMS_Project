@@ -34,7 +34,7 @@ class AddDocumentController extends Controller
             } else {
                 $newDocumentId = docRepo::addNewDocument($input['name'],Session::get('UserLogin')->user_Id,$input['tempId'],$datas,"0");
             }
-            return redirect('DocumentDetail?doc_Id='.$newDocumentId);
+            return redirect('DocumentDetail?doc_Id='.$newDocumentId)->with('approveStatus', 'Success');
         } else {
             return view('Login');
         }
