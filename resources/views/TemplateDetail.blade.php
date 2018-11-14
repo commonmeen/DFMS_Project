@@ -51,6 +51,22 @@
 @endsection
 @section('content')
 <div class="container content">
+
+    @if(Session::get('alertStatus') == 'LockTempSuccess')
+        <div class="alert alert-success" id="success-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Lock Template Success! </strong>
+            You have successfully lock the template.
+        </div>
+
+        <script>
+        $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+            $("#success-alert").slideUp(500);
+        });
+        </script>
+        {{Session::forget('alertStatus')}}
+    @endif
+
     <div class="row">
         {{--  Large screen  --}}
         <div class="col-sm-6 col-lg-9 d-none d-sm-block mt-3">
