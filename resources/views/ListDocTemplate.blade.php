@@ -21,7 +21,7 @@
 
     {{--  Success alert  --}}
 
-    @if(Session::get('alertStatus') == 'Success')
+    @if(Session::get('alertStatus') == 'AddTempSuccess')
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>Create Success! </strong>
@@ -34,7 +34,7 @@
         </script>
         {{Session::forget('alertStatus')}}
     
-    @elseif(Session::get('alertStatus') == 'EditSuccess')
+    @elseif(Session::get('alertStatus') == 'EditTempSuccess')
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>Edit Success! </strong>
