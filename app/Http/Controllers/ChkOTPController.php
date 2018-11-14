@@ -10,6 +10,7 @@ class ChkOTPController extends Controller
     public function chkOTP(Request $request){
         if(Session::has("otp")){
             $otp = Session::get("otp");
+            $otp = (array) $otp;
             if (time() < $otp['expire']){
                 if($request->input('otp')==$otp['otp']){
                     Session::forget("otp");
