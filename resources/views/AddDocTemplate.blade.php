@@ -225,7 +225,6 @@
                             if(response.temp != null){
                                 window.location = "/ListDocTemplate";
                                 {{Session::put('tempStatus','AddTemplate')}}
-                                {{Session::put('alertStatus','Success')}}
                             }    
                         }
                     });
