@@ -18,7 +18,7 @@
         @if(session('alertStatus') == 'Success')
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
-            <strong>Success! </strong>
+            <strong>Submit Success! </strong>
             You have successfully submit the document.
         </div>
 
