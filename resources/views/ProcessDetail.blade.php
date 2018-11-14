@@ -449,7 +449,7 @@
                     <div class="modal-body">
                         <div class="modal-header">
                             <p class="modal-title alert-title">
-                                Please check SMS and enter OTP password to <span id="app-re3"></span> "{{$process['process_FlowName']}}" process.
+                                Please check your email and enter OTP code to <span id="app-re3"></span> "{{$process['process_FlowName']}}" process.
                             </p>
                         </div>
                         <div class="modal-body">
