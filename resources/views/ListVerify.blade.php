@@ -10,6 +10,24 @@
 @endsection
 @section('content')   
 <div class="container"><br>
+
+    {{--  Success alert  --}}
+
+    @if(Session::has("approveStatus") == "Success")
+    <div class="alert alert-success" id="success-alert">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>Success! </strong>
+        You have successfully approved the document.
+    </div>
+
+    <script>
+    $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+        $("#success-alert").slideUp(500);
+    });
+    </script>
+    {{Session::forget("approveStatus")}}
+    @endif
+
     <div class="row">
         {{--  Large screen  --}}
         <div class="col-12 d-none d-sm-block">
