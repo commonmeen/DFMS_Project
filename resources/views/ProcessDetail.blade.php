@@ -79,8 +79,8 @@
                     if(response.type=="allow"){
                         $('#allowModal').modal();
                         $('#allowYes').click(function() {
+
                             //Start loading
-                            
                             $(document).ajaxStart(function(){
                                 $("#wait").css("display", "block");
                                 $('body').css('position','relative');
@@ -129,8 +129,8 @@
                         sentSMS();
                         $('#otpModal').modal();
                         $('#otpYes').click(function() {
+
                             //Start loading
-                            
                             $(document).ajaxStart(function(){
                                 $("#wait").css("display", "block");
                                 $('body').css('position','relative');
@@ -186,7 +186,6 @@
                     $('#overlay').css("display","block");
                 });
                 window.location = "ListVerify";
-                {{Session::put('approveStatus','Success')}}
             }
         });
     }
