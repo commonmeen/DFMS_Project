@@ -37,7 +37,6 @@
     </style>
     <script>
       function changeNotiStatus(notiId){
-        console.log(notiId);
         data = {noti_Id:notiId};
         $.ajax({
           type: "get",
@@ -62,7 +61,7 @@
               }
             }
             if(data.noti.length>10){
-              document.getElementById("notiDetail").innerHTML += "<div class=dropdown-divider></div><a class='center dropdown-item disable' id='loadMoreNoti'>Load More ..</a>"
+              document.getElementById("notiDetail").innerHTML += "<div class=dropdown-divider></div><a class='center dropdown-item disable' href='Notifications' id='loadMoreNoti'>See All Notification</a>"
             }
             if(data.count > 0){
               document.getElementById("countNoti").style.opacity = 1;

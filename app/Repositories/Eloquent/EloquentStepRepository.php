@@ -107,6 +107,14 @@ class EloquentStepRepository extends AbstractRepository implements StepRepositor
         $newStep = EloquentStepRepository::addStep($oldStepObject['step_Title'],$oldStepObject['typeOfVerify'],$oldStepObject['typeOfValidator'],$newFlowId,$oldStepObject['validator'],$oldStepObject['deadline']);
         $newStep->time_AVG = $oldStepObject['time_AVG'] ;
         $newStep->save();
+        if($oldStepObject['typeOfValidator']=="name"){
+            foreach($oldStepObject['validator'] as $val){
+                validatorRepo::addStepToValidator($val,$newStep->step_Id);
+            }
+        } else if ($oldStepObject['typeOfValidator']=="position"){
+            
+            positionRepo::addStepToPosition($oldStepObject['validator'][0],$newStep->step_Id);
+        }
         return ;
     }
 
