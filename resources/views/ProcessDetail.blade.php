@@ -12,9 +12,9 @@
     .bs-wizard {margin-top: 40px;}
     .bs-wizard {border-bottom: solid 1px #e0e0e0; padding: 0 0 10px 0;}
     .bs-wizard > .bs-wizard-step {padding: 0; position: relative;}
-    .bs-wizard > .bs-wizard-step + .bs-wizard-step {}
+    .bs-wizard > .bs-wizard-step + .bs-wizard-step { width: 11%}
     .bs-wizard > .bs-wizard-step .bs-wizard-stepnum {color: #595959; font-size: 25px; margin-bottom: 5px; font-weight:bold}
-    .bs-wizard > .bs-wizard-step .bs-wizard-info {color: #595959; font-size: 25px;}
+    .bs-wizard > .bs-wizard-step .bs-wizard-info {color: #595959; font-size: 20px; width:100%}
     .bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 40px; height: 40px; display: block; background: #fbe8aa; top: 45px; left: 50%; margin-top: -2px; margin-left: -19px; border-radius: 50%;} 
     .bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {content: ' '; width: 24px; height: 24px; background: #fbbd19; border-radius: 50px; position: absolute; top: 8px; left: 8px; } 
     .bs-wizard > .bs-wizard-step > .progress {position: relative; border-radius: 0px; height: 8px; box-shadow: none; margin: 20px 0;}
@@ -24,7 +24,7 @@
     .bs-wizard > .bs-wizard-step.active > .progress > .progress-bar {width:50%;}
     .bs-wizard > .bs-wizard-step:first-child.active > .progress > .progress-bar {width:0%;}
     .bs-wizard > .bs-wizard-step:last-child.active > .progress > .progress-bar {width: 100%;}
-    .bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot {background-color: #f5f5f5;}
+    .bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot {background-color: #e9ecef;}
     .bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot:after {opacity: 0;}
     .bs-wizard > .bs-wizard-step:first-child  > .progress {left: 50%; width: 50%;}
     .bs-wizard > .bs-wizard-step:last-child  > .progress {width: 50%;}
@@ -79,12 +79,30 @@
                     if(response.type=="allow"){
                         $('#allowModal').modal();
                         $('#allowYes').click(function() {
+                            //Start loading
+                            
+                            $(document).ajaxStart(function(){
+                                $("#wait").css("display", "block");
+                                $('body').css('position','relative');
+                                $('body').css('min-height','100%');
+                                $('#overlay').css("display","block");
+                            });
+                            
                             sentAction(processId,stepId,action) ;
                             $('#allowModal').modal('hide');
                         });
                     } else if (response.type == "password"){
                         $('#passwordModal').modal();
                         $('#passwordYes').click(function() {
+                            
+                            //Start loading
+                            $(document).ajaxStart(function(){
+                                $("#wait").css("display", "block");
+                                $('body').css('position','relative');
+                                $('body').css('min-height','100%');
+                                $('#overlay').css("display","block");
+                            });
+
                             var data = {password:document.getElementById('password').value} ;
                             var statusAlready = $.Deferred();
                             var status ;
@@ -111,6 +129,15 @@
                         sentSMS();
                         $('#otpModal').modal();
                         $('#otpYes').click(function() {
+                            //Start loading
+                            
+                            $(document).ajaxStart(function(){
+                                $("#wait").css("display", "block");
+                                $('body').css('position','relative');
+                                $('body').css('min-height','100%');
+                                $('#overlay').css("display","block");
+                            });
+
                             document.getElementById('incorrectOTP').innerHTML = "";
                             var data = {otp:document.getElementById('otp').value} ;
                             var statusAlready = $.Deferred();
@@ -151,7 +178,15 @@
             data     : data,
             cache    : false,
             success  : function(response){
+
+                $(document).ajaxComplete(function(){
+                    $("#wait").css("display", "block");
+                    $('body').css('position','relative');
+                    $('body').css('min-height','100%');
+                    $('#overlay').css("display","block");
+                });
                 window.location = "ListVerify";
+                {{Session::put('approveStatus','Success')}}
             }
         });
     }
@@ -189,6 +224,7 @@
     }
 </script>
 @section('content')
+<div id="overlay" style="display:none"></div>
     <div class="container content">
         <div class="row">
             {{--  Large screen  --}}
@@ -371,21 +407,21 @@
                         <div class="modal-header">
                             <p class="modal-title alert-title">Enter your password to <span id="app-re2"></span> "{{$process['process_FlowName']}}" process.</p> 
                         </div>    
-                        <div class="row mb-3">
+                        <div class="row mt-3">
                             <div class="col-lg-3 form-group mb-0">
                                 <label class="col-form-labelr align-self-center">Password</label>
                             </div>
-                            <div class="col-lg-8 mb-3">
+                            <div class="col-lg-8">
                                 <input type="password" id="password" name="password" class="form-control">
                             </div>
-                            <div class="col-lg-1"></div>
+                           
                         </div>
-                        <div class="row mb-3">
+                        <div class="row">
                             <div class="col-lg-3 form-group mb-0"></div>
-                            <div class="col-lg-8 mb-3">
+                            <div class="col-lg-8">
                                 <p style="color:red" id="incorrectPass"></p>
                             </div>
-                            <div class="col-lg-1"></div>
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -432,4 +468,58 @@
             </div>
         </div>  
     </div>
+    
+        <div id="wait" style="display:none">
+            <div class="loader"></div>
+            <p class="center loading">Loading..</p>
+        </div>
+    
+    
+    <style>
+        #wait{
+            position:fixed;
+            top:50%;
+            left:50%;
+            padding:2px;
+            z-index: 20;
+            color: #FFF;
+            transform: translate(-50%, -50%);
+        }
+
+        #overlay{
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            z-index: 10;
+            background-color: rgba(0,0,0,0.5); /*dim the background*/
+            
+          }
+          html{
+              min-height: 100%;
+          }
+          .loading{
+              font-size: 24pt;
+          }
+          .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #2A9EBF;
+            border-bottom: 16px solid #2A9EBF;
+            width: 90px;
+            height: 90px;
+            -webkit-animation: spin 0.7s linear infinite;
+            animation: spin 0.7s linear infinite;
+          }
+          @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+          }
+          
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+    </style>
 @endsection
