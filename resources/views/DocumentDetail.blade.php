@@ -39,18 +39,33 @@
 
         {{--  Success alert  --}}
 
-        @if(Session::get('approveStatus') == 'Success')
-        <div class="alert alert-success" id="success-alert">
-            <button type="button" class="close" data-dismiss="alert">x</button>
-            <strong>Success! </strong>
-            You have successfully create the document.
-        </div>
+        @if(session('alertStatus') == "Success")
+            <div class="alert alert-success" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>Create Success! </strong>
+                You have successfully create the document.
+            </div>
 
-        <script>
-        $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
-            $("#success-alert").slideUp(500);
-        });
-        </script>
+            <script>
+            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+                $("#success-alert").slideUp(500);
+            });
+            </script>
+
+        {{--  Edit Success alert  --}}
+
+        @elseif(session('alertStatus') == "EditSuccess")
+            <div class="alert alert-success" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>Edit Success! </strong>
+                You have successfully edit the document.
+            </div>
+
+            <script>
+            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+                $("#success-alert").slideUp(500);
+            });
+            </script>
         @endif
 
         <div class="row">
