@@ -15,7 +15,7 @@
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>Approve Success! </strong>
-            You have successfully approved the document.
+            You have successfully approved the process.
         </div>
 
         <script>
@@ -29,7 +29,7 @@
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>Reject Success! </strong>
-            You have successfully reject the document.
+            You have successfully reject the process.
         </div>
 
         <script>
