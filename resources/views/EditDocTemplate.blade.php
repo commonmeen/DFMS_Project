@@ -172,6 +172,7 @@
                     if(response.temp != null){
                         window.location = "/ListDocTemplate";
                         {{Session::put('tempStatus',$data->template_Id)}}
+                        {{Session::put('alertStatus','EditSuccess')}}
                     }    
                 }
             });
