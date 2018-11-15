@@ -18,12 +18,12 @@
         @if(session('alertStatus') == 'Success')
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
-            <strong>Success! </strong>
+            <strong>Submit Success! </strong>
             You have successfully submit the document.
         </div>
 
         <script>
-        $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+        $("#success-alert").fadeTo(3000, 500).slideUp(500, function(){
             $("#success-alert").slideUp(500);
         });
         </script>
@@ -32,18 +32,18 @@
         <div class="row">
             {{--  Large screen  --}}
             <div class="col-12 col-sm-5 col-md-5 col-lg-6 d-none d-sm-block">   
-                <p class="topic">Your Process List</p>
+                <p class="topic">Your Document Submission List</p>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-6 d-none d-sm-block">
-                <a role="button" class="btn btn-success float-right" href="DataProcess">New Process</a>
+                <a role="button" class="btn btn-success float-right" href="DataProcess">Submit Document</a>
             </div>
 
             {{--  Small screen  --}}
             <div class="col-12 d-sm-none center">   
-                <p class="topic">Your Process List</p>
+                <p class="topic">Your Document Submission List</p>
             </div>
             <div class="col-12 d-sm-none ">
-                <a role="button" class="btn btn-block btn-success float-right" href="DataProcess">New Process</a>
+                <a role="button" class="btn btn-block btn-success float-right" href="DataProcess">Submit Document</a>
             </div>
             
         </div>

@@ -126,7 +126,7 @@
            style="display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;">
       <tr>
         <td role="module-content">
-          <p>Result of Approval Document (Reject) [No Reply]</p>
+          <p>OTP Message.[No Reply]</p>
         </td>
       </tr>
     </table>
@@ -148,15 +148,12 @@
   <table class="module" role="module" data-type="code" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
       <tr>
         <td height="100%" valign="top">
-          <h1 class="p1" style="text-align: left;"><span style="font-size:20px;"><strong>Dear {{$data->process_Owner['user_Name']}} {{$data->process_Owner['user_Surname']}}</strong></span></h1>
-  <div class="p1"><span style="font-size:15px;line-height:150%;">With reference to your Document Submission as follows: 
-	<br>Process flow: {{$data->flow['flow_Name']}}.
-	<br>Date: {{$data->updated_at}}.
-	<br><br>We wish to inform you that your Document Submission has been rejected. You can check the Document Submission result at click</span>
+          <h1 class="p1" style="text-align: left;"><span style="font-size:20px;"><strong></strong></span></h1>
+  <div class="p1"><span style="font-size:15px;line-height:150%;">Your OTP code is {{$data->otp}}
   </div>
         </td>
       </tr>
-    </table><table border="0" cellPadding="0" cellSpacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed" width="100%"><tbody><tr><td align="center" class="outer-td" style="padding:10px 0px 30px 0px"><table border="0" cellPadding="0" cellSpacing="0" class="button-css__deep-table___2OZyb wrapper-mobile" style="text-align:center"><tbody><tr><td align="center" bgcolor="#2a9ebf" class="inner-td" style="-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;font-size:16px;text-align:center;background-color:inherit"><a style="background-color:#2a9ebf;height:30px;width:200px;font-size:16px;line-height:25px;font-family:Helvetica, Arial, sans-serif;color:#ffffff;padding:12px 18px 12px 18px;text-decoration:none;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;border:1px solid #2a9ebf;display:inline-block" href="http://www.dfms.cf/ProcessDetail?id={{$data->process_Id}}" target="_blank">Click to check result on website</a></td></tr></tbody></table></td></tr></tbody></table>
+    </table>
     <table class="module"
            role="module"
            data-type="spacer"

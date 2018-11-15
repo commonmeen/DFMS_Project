@@ -387,7 +387,7 @@
                                     <th>Deadline(hr)</th>
                                     <th>Verify Type</th>
                                     <th>Veridate By</th>
-                                    <th><input type="image" src="pic/add-button.png" style="width:22px;height:22px;" onclick="stepAddRequest('{{$flow['flow_Id']}}')"/></th>
+                                    <th><input type="image" src="pic/add-button.png" style="width:22px;height:22px;border-style: none" onclick="stepAddRequest('{{$flow['flow_Id']}}')"/></th>
                                 </tr>
                             </thead>                           
                             <tbody>
@@ -396,20 +396,20 @@
                                         <td style="text-align:right">
                                             @if(array_search($s, $step)+1 != 1)
                                                 <div class="row">
-                                                    <input type="image" src="pic/sort-up.png" onclick="changeStep('{{$s['step_Id']}}','minus')" style="width:18px;height:16px;margin-right:-30px;"/>
+                                                    <input type="image" src="pic/sort-up.png" onclick="changeStep('{{$s['step_Id']}}','minus')" style="width:18px;height:16px;margin-right:-30px;border-style: none"/>
                                                 </div>
                                             @else
                                                 <div class="row">
-                                                    <input type="image" src="pic/sort-up.png" style="width:18px;height:16px;margin-right:-30px;filter:grayscale(100%)"/>
+                                                    <input type="image" src="pic/sort-up.png" style="width:18px;height:16px;margin-right:-30px;filter:grayscale(100%);border-style: none"/>
                                                 </div>
                                             @endif
                                             @if(array_search($s, $step)+1 != count($step))
                                                 <div class="row">
-                                                    <input type="image" src="pic/sort-down.png" onclick="changeStep('{{$s['step_Id']}}','plus')" style="width:18px;height:16px;margin-right:-30px;"/>
+                                                    <input type="image" src="pic/sort-down.png" onclick="changeStep('{{$s['step_Id']}}','plus')" style="width:18px;height:16px;margin-right:-30px;border-style: none"/>
                                                 </div>
                                             @else
                                                 <div class="row">
-                                                    <input type="image" src="pic/sort-down.png" style="width:18px;height:16px;margin-right:-30px;filter:opacity(0.2);"/>
+                                                    <input type="image" src="pic/sort-down.png" style="width:18px;height:16px;margin-right:-30px;filter:opacity(0.2);border-style: none"/>
                                                 </div>
                                             @endif
                                         </td>
@@ -418,7 +418,7 @@
                                         <td class="center" onclick="stepEditRequest('{{$s['step_Id']}}')">{{$s['deadline']}}</td>
                                         <td class="center" onclick="stepEditRequest('{{$s['step_Id']}}')">{{$s['typeOfVerify']}}</td>
                                         <td class="center" onclick="stepEditRequest('{{$s['step_Id']}}')">{{$s['typeOfValidator']}}</td>
-                                        <td class='center'><input type="image" src="pic/bin-step.png" onclick="changeStep('{{$s['step_Id']}}','delete')" style="width:24px;height:24px;"/></td>
+                                        <td class='center'><input type="image" src="pic/bin-step.png" onclick="changeStep('{{$s['step_Id']}}','delete')" style="width:24px;height:24px;border-style: none"/></td>
                                     </tr>
                                 @endforeach
                             </tbody>                            

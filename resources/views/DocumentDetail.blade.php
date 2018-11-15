@@ -73,7 +73,7 @@
                 You have successfully create the document.
             </div>
             <script>
-            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+            $("#success-alert").fadeTo(3000, 500).slideUp(500, function(){
                 $("#success-alert").slideUp(500);
             });
             </script>
@@ -86,7 +86,7 @@
                 You have successfully edit the document.
             </div>
             <script>
-            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+            $("#success-alert").fadeTo(3000, 500).slideUp(500, function(){
                 $("#success-alert").slideUp(500);
             });
             </script>
@@ -124,7 +124,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                         <p class="modal-title alert-title">
-                            Do you want to delete "{{$document['document_Name']}}" template?
+                            This deletion will not restore the document. Are you sure you want to delete "{{$document['document_Name']}}" document?
                         </p>
                         </div>
                         <div class="modal-body">

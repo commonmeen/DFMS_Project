@@ -26,7 +26,8 @@ class ApproveProcessController extends Controller
             
             $nextStep = processRepo::approve($input['pid'],$input['sid'],$user->user_Id,$input['comment'],"docCode");
             $stepObject = stepRepo::getStepById($nextStep['nextStep']);
-
+            Session::put('alertStatus','ApproveSuccess'); 
+            
             //sent email for approve process
             //$nextStep return false if don't have next step id
             //$stepObject return null if don't have next step id to query process
@@ -67,7 +68,7 @@ class ApproveProcessController extends Controller
                 $data = (object) $data;
                 notiRepo::addNotification($data->process_Owner['user_Id'],"Process Successful",$data->flow['flow_Name']." process has been successfully.","/ProcessDetail?id=".$data->process_Id);
                 return userRepo::sentEmail($data,$data->process_Owner['user_Email']);
-            }            
+            }           
             return ;
         } else {
             dd("Error occur", "Permission denied. Plz login.");

@@ -11,19 +11,16 @@
 @section('content')   
 <div class="container content">
     {{--  Success alert  --}}
-
     @if(Session::get("alertStatus") == "ApproveSuccess")
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>Approve Success! </strong>
-            You have successfully approved the document.
+            You have successfully approved the process.
         </div>
 
         <script>
-        $(document).ready(function(){
-            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+        $("#success-alert").fadeTo(3000, 500).slideUp(500, function(){
             $("#success-alert").slideUp(500);
-            });
         });
         </script>
         {{Session::forget("alertStatus")}}
@@ -32,14 +29,12 @@
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>Reject Success! </strong>
-            You have successfully reject the document.
+            You have successfully reject the process.
         </div>
 
         <script>
-        $(document).ready(function(){
-            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
+        $("#success-alert").fadeTo(3000, 500).slideUp(500, function(){
             $("#success-alert").slideUp(500);
-            });
         });
         </script>
         {{Session::forget("alertStatus")}}

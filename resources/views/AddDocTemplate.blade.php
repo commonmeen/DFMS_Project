@@ -17,6 +17,19 @@
         }
         return isNotErr ;
     }
+
+    function descriptionValidate(){
+        if(document.getElementById("desc").value==""){
+            var isNotErr = false ;
+            document.getElementById("desc").style.borderColor = "red" ;
+            document.getElementById("errdesc").innerHTML = "Please enter description of template" ;
+        } else {
+            var isNotErr = true ;
+            document.getElementById("errdesc").innerHTML = "" ;
+            document.getElementById("desc").style.borderColor = "" ;
+        }
+        return isNotErr ;
+    }
 </script>
 @endsection
 @section('content')
@@ -50,8 +63,10 @@
                         </div>
                     </div>
                     <div class="col-lg-9 mb-3">
-                        <textarea id="desc" name="desc" class="form-control input" placeholder="Emample: ใช้สำหรับสร้างเอกสารเพื่อขอยืมอุปกรณ์ในคณะเท่านั้น"></textarea>
+                        <textarea id="desc" name="desc" onkeyup="nameValidate()" class="form-control input" placeholder="Emample: ใช้สำหรับสร้างเอกสารเพื่อขอยืมอุปกรณ์ในคณะเท่านั้น"></textarea>
                     </div>
+                    <div class="col-lg-3 err-text"></div>
+                    <div class="col-lg-9 mb-3"><div id="errdesc" class="err-text"></div></div>
                 </div>
             </div>
         </div>
@@ -212,7 +227,7 @@
                 formBuilder.actions.clearFields();
             });
             document.getElementById('save').addEventListener('click', function() {
-                if(nameValidate()){
+                if(nameValidate() && descriptionValidate()){
                     fbEditor.toggle();
                     formData = formBuilder.actions.getData('json');
                     data = {_token:document.getElementById('token').value, title : document.getElementById('name').value,desc : document.getElementById('desc').value,formData: formData}
@@ -225,7 +240,6 @@
                             if(response.temp != null){
                                 window.location = "/ListDocTemplate";
                                 {{Session::put('tempStatus','AddTemplate')}}
-                                {{Session::put('alertStatus','Success')}}
                             }    
                         }
                     });

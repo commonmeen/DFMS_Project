@@ -12,6 +12,7 @@ class SaveDocTemplateController extends Controller
             $session = Session::get('tempStatus');
             if($session == 'AddTemplate'){
                 $temp = templateRepo::addTemplate($request->input('title'),Session::get('UserLogin')->user_Id,$request->input('desc'),$request->input('formData'));
+                Session::put('alertStatus','AddTempSuccess');
                 return ['temp'=>$temp];
             }
             else{
@@ -19,6 +20,7 @@ class SaveDocTemplateController extends Controller
                 $data['template_Id'] = Session::get('tempStatus');
                 $temp = templateRepo::editTemplate($data);
                 Session::forget('tempStatus');
+                Session::put('alertStatus','EditTempSuccess');
                 return ['temp'=>$temp];
             }
         }

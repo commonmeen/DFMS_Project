@@ -117,24 +117,15 @@
         <div class="row">
             {{--  Large screen  --}}
             <div class="col-12 d-none d-sm-block">
-                <p class="topic">Choose Flow</p>
+                <p class="topic">Choose Process Flow</p>
             </div>
             {{--  Small screen  --}}
             <div class="col-12 center d-sm-none">
-                <p class="topic">Choose Flow</p>
+                <p class="topic">Choose Process Flow</p>
             </div>
             <br>   
             <div class="col-12 col-lg-8 block-center">
                 <div class="row">
-                    <div class="col-lg-7 col-12 mb-2">
-                        <span class="topic-nomal">Flow name : </span>
-                        <select class="form-control" name="flowId" id="flowId" onchange="flowSelect()">
-                            <option id="defaultNull" disabled selected value="notSelect">Choose Flow</option>
-                                @foreach($flows as $flow)
-                                    <option value="{{$flow->flow_Id}}">{{$flow->flow_Name}}</option>
-                                @endforeach                            
-                        </select>
-                    </div>
                     <div class="col-lg-5 col-12 mb-2">
                         <span class="topic-nomal">Filter flow by category : </span>
                         <select class="form-control" id="catFlow" name="catFlow" onchange="catSelect()">
@@ -142,6 +133,15 @@
                             @foreach($catFlow as $cat => $flow)
                                 <option value="{{$cat}}">{{$cat}}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-7 col-12 mb-2">
+                        <span class="topic-nomal">Flow name : </span>
+                        <select class="form-control" name="flowId" id="flowId" onchange="flowSelect()">
+                            <option id="defaultNull" disabled selected value="notSelect">Choose Flow</option>
+                                @foreach($flows as $flow)
+                                    <option value="{{$flow->flow_Id}}">{{$flow->flow_Name}}</option>
+                                @endforeach                            
                         </select>
                     </div>
                 </div>
