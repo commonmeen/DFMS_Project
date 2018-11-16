@@ -3,6 +3,21 @@
     {{Session::get('UserLogin')->user_Name}}
     {{Session::get('UserLogin')->user_Surname}}
 @endsection
+@section('head')
+    <style>
+        .count{
+            width: 25px;
+            height: 25px;
+            background-color: #2A9EBF;
+            border-radius: 50%;
+            color: #f5f5f5;
+            text-align: center;
+            display: inline-block;
+            line-height: 1.50;
+            font-size: 14pt
+          }
+    </style>
+@endsection
 @section('content')
     {{-- Manager Role --}}
     @if(Session::get('UserLogin')->user_Role == 'manager')
