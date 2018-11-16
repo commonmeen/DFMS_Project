@@ -31,10 +31,32 @@
                 {{--  Tabs  --}}
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active toggle-nav" id="process-tab" data-toggle="tab" href="#process" role="tab" aria-controls="process" aria-selected="true">Process status</a>
+                        <a class="nav-link active toggle-nav" id="process-tab" data-toggle="tab" href="#process" role="tab" aria-controls="process" aria-selected="true">
+                            Process status 
+                            @if(count($allProcess) >=100)
+                            <span class="count">
+                                99+
+                            </span>
+                            @else 
+                            <span class="count">
+                                {{count($allProcess)}}
+                            </span>
+                            @endif
+                        </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link toggle-nav" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Approve status</a>
+                        <a class="nav-link toggle-nav" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">
+                            Approve status 
+                            @if(count($nowProcess) >=100)
+                                <span class="count">
+                                    99+
+                                </span>
+                                @else 
+                                <span class="count">
+                                    {{count($nowProcess)}}
+                                </span>
+                            @endif
+                        </a>
                     </li>
                 </ul>
                 {{--  Process tab  --}}
@@ -196,10 +218,32 @@
             <div class="col-12 col-md-6 col-lg-8 mt-3">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active toggle-nav" id="process-tab" data-toggle="tab" href="#process" role="tab" aria-controls="process" aria-selected="true">Process status</a>
+                        <a class="nav-link active toggle-nav" id="process-tab" data-toggle="tab" href="#process" role="tab" aria-controls="process" aria-selected="true">
+                            Process status 
+                            @if(count($allProcess) >=100)
+                            <span class="count">
+                                99+
+                            </span>
+                            @else
+                            <span class="count">
+                                {{count($allProcess)}}
+                            </span>
+                            @endif
+                        </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link toggle-nav" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">Approve</a>
+                    <a class="nav-link toggle-nav" id="verify-tab" data-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="false">
+                        Approve
+                            @if(count($nowProcess) >=100)
+                            <span class="count">
+                                99+
+                            </span>
+                            @else
+                            <span class="count">
+                                {{count($nowProcess)}}
+                            </span>
+                            @endif
+                    </a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
