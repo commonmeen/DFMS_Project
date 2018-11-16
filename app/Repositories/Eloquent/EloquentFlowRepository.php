@@ -38,7 +38,7 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
     }
 
     public static function addFlow($name,$author,$desc,$catId,$noStep){
-        $prev = Flow::orderBy('created_at','desc')->take(1)->get();
+        $prev = Flow::orderBy('flow_Id','desc')->take(1)->get();
         $newId = 'F'.str_pad(substr($prev[0]->flow_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $flow = new Flow ;
         $flow->flow_Id = $newId ;
@@ -96,7 +96,7 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
     }
 
     public static function newFlowVersion($oldFlowId){
-        $prev = Flow::orderBy('created_at','desc')->take(1)->get();
+        $prev = Flow::orderBy('flow_Id','desc')->take(1)->get();
         $newId = 'F'.str_pad(substr($prev[0]->flow_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $newFlow = new Flow ;
         $newFlow->flow_Id = $newId ;

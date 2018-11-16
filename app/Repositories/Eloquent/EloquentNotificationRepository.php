@@ -20,7 +20,7 @@ class EloquentNotificationRepository extends AbstractRepository implements Notif
     }
 
     public static function addNotification($user_Id,$header,$detail,$link){
-        $prev = Notification::orderBy('created_at','desc')->take(1)->get();
+        $prev = Notification::orderBy('notification_Id','desc')->take(1)->get();
         $newId = 'N'.str_pad(substr($prev[0]->notification_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $noti = new Notification ;
         $noti->notification_Id = $newId ;

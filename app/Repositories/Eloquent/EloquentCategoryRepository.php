@@ -23,7 +23,7 @@ class EloquentCategoryRepository extends AbstractRepository implements CategoryR
     
     public static function addCat($name)
     {
-        $prev = Category::orderBy('created_at','desc')->take(1)->get();
+        $prev = Category::orderBy('cat_Id','desc')->take(1)->get();
         $newId = 'C'.str_pad(substr($prev[0]->cat_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $category = new Category;
         $category->cat_Id = $newId;
