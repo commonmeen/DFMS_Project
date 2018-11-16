@@ -107,7 +107,7 @@
                             @else
                                 @foreach($nowProcess as $process)
                                     <div class="card">
-                                        <a href="ProcessDetail?id={{$process['process_Id']}}&InProgress=true" class="list-group-item-action">
+                                        <a href="ProcessDetail?id={{$process['process_Id']}}" class="list-group-item-action">
                                             <div class="card-body">
                                                 <div class="row cardDetail">
                                                     <span class="col-10 overflow-text"><span class="topic-nomal">Process owner : </span>{{$process['owner']}}</span>
@@ -292,7 +292,7 @@
                             @else
                                 @foreach($nowProcess as $process)
                                     <div class="card">
-                                        <a href="ProcessDetail?id={{$process['process_Id']}}&InProgress=true" class="list-group-item-action">
+                                        <a href="ProcessDetail?id={{$process['process_Id']}}" class="list-group-item-action">
                                             <div class="card-body">
                                                 <div class="row cardDetail">
                                                     <span class="col-10 overflow-text"><span class="topic-nomal">Process owner : </span>{{$process['owner']}}</span>

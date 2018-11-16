@@ -77,7 +77,7 @@
                 </thead>
                 <tbody>
                     @foreach($nowProcess as $process)
-                        <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}&InProgress=true';">
+                        <tr onclick="window.location='ProcessDetail?id={{$process['process_Id']}}';">
                             <td>{{$process['flowObject']['flow_Name']}}</td>
                             <td class="center">{{$process['updated_at']}}</td>
                             <td class="center">{{$process['ownerObject']['user_Name']}} {{$process['ownerObject']['user_Surname']}}</td>

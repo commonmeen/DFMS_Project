@@ -43,7 +43,7 @@ class ApproveProcessController extends Controller
                     
                     for($i=0;$i<count($validators);$i++){
                         $data->validator = $validators[$i];
-                        notiRepo::addNotification($data->validator['user_Id'],"Waiting for approval",$data->flow_Name['flow_Name']." from ".$data->owner->user_Name." waiting for your approval.","/ProcessDetail?id=".$data->process_Id."&InProgress=true");
+                        notiRepo::addNotification($data->validator['user_Id'],"Waiting for approval",$data->flow_Name['flow_Name']." from ".$data->owner->user_Name." waiting for your approval.","/ProcessDetail?id=".$data->process_Id);
                         userRepo::sentEmail($data,$data->validator['user_Email']);
                     }
                     return ;
@@ -54,7 +54,7 @@ class ApproveProcessController extends Controller
                         $data->owner = json_decode(userRepo::getUser($data->process_Owner));
                         $data->flow_Name = flowRepo::getFlowById($data->process_FlowId);
                         $data->email_Type = $mailApprove;
-                        notiRepo::addNotification($data->validator['user_Id'],"Waiting for approval",$data->flow_Name['flow_Name']." from ".$data->owner->user_Name." waiting for your approval.","/ProcessDetail?id=".$data->process_Id."&InProgress=true");
+                        notiRepo::addNotification($data->validator['user_Id'],"Waiting for approval",$data->flow_Name['flow_Name']." from ".$data->owner->user_Name." waiting for your approval.","/ProcessDetail?id=".$data->process_Id);
                         return userRepo::sentEmail($data,$data->validator['user_Email']);
                     }
                 }
