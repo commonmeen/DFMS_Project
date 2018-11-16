@@ -172,6 +172,73 @@
     function closeRequest(){
         return "You have unsaved changes!" ;
     }
+
+    function searchTemplate(){
+        var tempOnPage = document.getElementsByName('template_Id[]');
+        var tempChecked = [];
+        
+        for(var i=0; i<tempOnPage.length; i++){
+            if(tempOnPage[i].checked){
+                tempChecked.push(tempOnPage[i].value);
+            }
+        }
+
+        var word = document.getElementById('search').value ;
+        if(word == ""){
+            word = document.getElementById('searchMobile').value;
+        }
+        var template = {!! json_encode($template) !!};
+        var templateThatSearch = [] ;
+        var templateThatChecked = [] ;
+        var allTemplate = template;
+        for(var i=0; i<allTemplate.length ; i++){
+            for(var j=0; j<tempChecked.length; j++){
+                if(allTemplate[i].template_Id == tempChecked[j]){
+                    templateThatChecked.push(allTemplate[i]);
+                    template.splice(i,1);
+                }
+            }
+        }
+        for(var i=0; i<template.length ; i++){
+            if(template[i].template_Name.search(word)>=0){
+                templateThatSearch.push(template[i]);
+            }
+        }
+        document.getElementById('template').innerHTML = "";
+        for(var i =0; i<templateThatChecked.length ; i++){
+            document.getElementById('template').innerHTML += 
+        
+            "<div class='col-xs-12 col-sm-6 col-md-4 col-lg-3 content'>"+
+                "<input class='c-card' type='checkbox' id='"+templateThatChecked[i].template_Id+"' value='"+templateThatChecked[i].template_Id+"' name='template_Id[]' checked>"+
+                "<div class='card-content'>"+
+                    "<div class='card-state-icon'></div>"+
+                    "<label for='"+templateThatChecked[i].template_Id+"'>"+
+                        "<img src='pic/contract.png' alt='"+templateThatChecked[i].template_Name+"' class='card-img-top tempImg mt-1'>"+
+                        "<div class='card-body '>"+
+                            "<p class='img-font center'>"+templateThatChecked[i].template_Name+"</p>"+
+                        "</div>"+
+                    "</label>"+
+                "</div>"+
+            "</div>";
+        }
+        for(var i=0; i<templateThatSearch.length ; i++){
+            document.getElementById('template').innerHTML += 
+        
+            "<div class='col-xs-12 col-sm-6 col-md-4 col-lg-3 content'>"+
+                "<input class='c-card' type='checkbox' id='"+templateThatSearch[i].template_Id+"' value='"+templateThatSearch[i].template_Id+"' name='template_Id[]'>"+
+                "<div class='card-content'>"+
+                    "<div class='card-state-icon'></div>"+
+                    "<label for='"+templateThatSearch[i].template_Id+"'>"+
+                        "<img src='pic/contract.png' alt='"+templateThatSearch[i].template_Name+"' class='card-img-top tempImg mt-1'>"+
+                        "<div class='card-body '>"+
+                            "<p class='img-font center'>"+templateThatSearch[i].template_Name+"</p>"+
+                        "</div>"+
+                    "</label>"+
+                "</div>"+
+            "</div>";
+        }
+    }
+
     $(window).on("unload",function () {
         $.ajax({
             type: 'GET',
@@ -296,7 +363,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-7 col-sm-9 col-9">
-                                <input type="number" name="numberOfStep" id="numberOfStep" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}" disabled></input>
+                                <input type="number" name="numberOfStep" id="numberOfStepShow" class="form-control" placeholder="Example: 3" value="{{$flow['numberOfStep']}}" disabled></input>
                                 <input type="hidden" name="numberOfStep" id="numberOfStep" value="{{$flow['numberOfStep']}}"></input>
                             </div>
                             <div class="col-lg-2 col-sm-3 col-3 horizon-center topic-nomal">Step(s)</div>
@@ -319,10 +386,13 @@
                 {{-- Large screen --}}
                 <div class="d-none d-sm-block">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12 col-lg-4">
                             <p>Select Template</p>
                         </div>
-                        <div class="col">
+                        <div class="col-12 col-lg-4">
+                            <input type="text" name="search" id="search" class="form-control" onkeyup="searchTemplate()" placeholder="Search template">
+                        </div>  
+                        <div class="col-12 col-lg-4 right">
                             <button type="button" class="btn btn-success  float-right" onClick="submitTemplate()">Save</button>
                             <a role="button" class="btn btn-primary float-right mr-2" href="AddTemplate">Create</a>
                         </div>
@@ -334,6 +404,9 @@
                         <div class="col-12 center">
                             <p class="mb-0">Select Template</p>
                         </div>
+                        <div class="col-12 col-lg-4 mb-2">
+                            <input type="text" name="search" id="searchMobile" class="form-control" onkeyup="searchTemplate()" placeholder="Search template">
+                        </div>
                         <div class="col-12">
                             <button type="button" class="btn btn-success btn-block  float-right" onClick="submitTemplate()">Save</button>
                             <a role="button" class="btn btn-primary btn-block float-right center" href="AddTemplate">Create</a>
@@ -341,7 +414,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" id="template">
                     @foreach($template as $t)
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 content">
                             @if($flow['template_Id']!=null)
