@@ -92,18 +92,18 @@
                   
               if(data.noti[i].status == "unread"){
                 if(data.noti[i].header == "Process Successful"){
-                  document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/success.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
-                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/success.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='"+data.noti[i].link+"'><img class='img-noti' src='../pic/success.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='"+data.noti[i].link+"'><img class='img-noti' src='../pic/success.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
                 
                 }
                 else if(data.noti[i].header == "Waiting for approval"){
-                  document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
-                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
                 
                 }
                 else if(data.noti[i].header == "Process was rejected"){
-                  document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/reject.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
-                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='"+data.noti[i].link+"'><img class='img-noti' src='../pic/reject.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
                 
                 }
               } 

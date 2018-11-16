@@ -23,9 +23,9 @@
                     nowDate = stringDate ;
                 }
                 if(data.noti[i].status == "unread"){
-                    document.getElementById("allNoti").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
+                    document.getElementById("allNoti").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://test.dfms.cf"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
                 } else {
-                    document.getElementById("allNoti").innerHTML += "<a class='dropdown-item disable' href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
+                    document.getElementById("allNoti").innerHTML += "<a class='dropdown-item disable' href='http://test.dfms.cf"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
                 }
             }
         }

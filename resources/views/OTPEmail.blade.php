@@ -139,7 +139,7 @@
             bgcolor="">
             <div style="text-align: right;">
   <span style="font-size:12px;">Ours website 
-    <a href="www.dfms.cf"> www.dfms.cf </a>
+    <a href="https://www.dfms.cf"> www.dfms.cf </a>
   </span>
 </div>
         </td>
