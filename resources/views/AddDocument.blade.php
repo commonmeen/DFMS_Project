@@ -41,6 +41,10 @@
         border-radius: 5px !important;
         margin-bottom: 20px !important;
     }
+    textarea{
+        width:100%;
+        height: 120px !important;
+    }
 </style>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery-ui.min.js"></script>
@@ -174,7 +178,7 @@
         <div id="hide" style="display:none">
             <div class="row">
                     <div class="col-2"></div>
-                    <div class="col-8">
+                    <div class="col-8" style="padding:2%">
                         <input type='hidden' name="prop" id="properties" value=""/>
                         <div class="forFormRender"></div> 
                     </div>

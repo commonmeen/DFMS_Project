@@ -15,6 +15,22 @@
     @yield('head')
     <title>@yield('title')</title>
     <style>
+        .noti-num-small {
+          width:17px;
+          height:17px;
+          line-height:1;
+          margin-bottom : 14px;
+          margin-left : -90px;
+          background-color: red;
+          border-radius: 50%;
+          color:#f5f5f5;
+          text-align:center;
+          box-shadow: 0 0 3px gray;
+          font-weight:bold;
+          background-position: left top;
+          z-index: 5;
+          opacity: 0;
+        }
       .noti-num {
         width:17px;
         height:17px;
@@ -32,7 +48,20 @@
         opacity: 0;
       }
       .unread {
-        background-color: #dee2e6 ;
+        font-size: 15pt;
+        border-bottom : solid 1px #ccc;
+        white-space: initial;
+        text-overflow: ellipsis;
+        height: fit-content;
+      }
+      .img-noti{
+        width: 15%;
+        margin-right: 2%
+      }
+      .dropdown-menu.notiDetail{
+        width: 350px !important;
+        height: 500px;
+        overflow-y: scroll;
       }
     </style>
     <script>
@@ -53,28 +82,50 @@
           cache    : false,
           success:function(data){
             document.getElementById("notiDetail").innerHTML = "" ;
-            for(i=data.noti.length-1,j=data.noti.length-1; i>=0 && i>j-10 ;i--){
+            document.getElementById("notiDetailMobile").innerHTML = "" ;
+            for(i=data.noti.length-1,j=data.noti.length-1; i>=0 ;i--){
+
+              d = new Date(data.noti[i].created_at);
+                var months = ["January", "February", "March", "April", "May", "June", "July","August","September","October","November","December"];
+                var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                var stringDate = days[d.getDay()]+", "+d.getDate()+" "+months[d.getMonth()];
+                  
               if(data.noti[i].status == "unread"){
-                document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
-              } else {
-                document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable' href='http://127.0.0.1:8000"+data.noti[i].link+"'>"+data.noti[i].detail+"</a>"
-              }
-            }
-            if(data.noti.length>10){
-              document.getElementById("notiDetail").innerHTML += "<div class=dropdown-divider></div><a class='center dropdown-item disable' href='Notifications' id='loadMoreNoti'>See All Notification</a>"
+                if(data.noti[i].header == "Process Successful"){
+                  document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/success.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/success.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                
+                }
+                else if(data.noti[i].header == "Waiting for approval"){
+                  document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                
+                }
+                else if(data.noti[i].header == "Process was rejected"){
+                  document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/reject.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='http://127.0.0.1:8000"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                
+                }
+              } 
             }
             if(data.count > 0){
               document.getElementById("countNoti").style.opacity = 1;
               document.getElementById("countNoti").innerHTML = data.count ;
+              document.getElementById("countNotiMobile").innerHTML = data.count ;
+              document.getElementById("countNotiMobile").style.opacity = 1;
+              document.getElementById("countNotiMobile").style.fontSize = '18px' ;
               document.getElementById("countNoti").style.fontSize = '18px' ;
               if(data.count >= 10){
                 document.getElementById("countNoti").style.fontSize = '16px' ;
+                document.getElementById("countNotiMobile").style.fontSize = '16px' ;
               }
               if(data.count > 99){
                 document.getElementById("countNoti").innerHTML = '99+' ;
+                document.getElementById("countNotiMobile").innerHTML = '99+' ;
               }
             } else {
               document.getElementById("countNoti").style.opacity = 0;
+              document.getElementById("countNotiMobile").style.opacity = 0;
             }
           }
         });
@@ -91,8 +142,10 @@
     <nav class="navbar navbar-expand-lg navbar-light nav-color sticky-top">
       <div class="container">
         <a class="navbar-brand" href="/">DFMS</a>
-        <img class="d-sm-none" src="pic/notification.png">
-        <span class="d-sm-none noti-num-small" id=""></span>
+        {{-- Small screen --}}
+        <a class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" id="bellMobile"><img class="d-md-block d-lg-none" src="pic/notification.png"></a>
+        <span class="d-md-block d-lg-none noti-num-small" id="countNotiMobile"></span>
+        <div class="dropdown-menu notiDetail" id="notiDetailMobile"></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -117,10 +170,11 @@
               <a class="nav-link nav-text" href="ListVerify">Approved List</a>
             </li>
           </ul>
+          {{-- Large screen --}}
         <span class="d-none d-sm-block noti-num" id="countNoti"></span>
         <div class="nav-item dropdown">
           <a class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" id="bell"><img class="d-none d-sm-block" src="pic/notification.png"></a>
-          <div class="dropdown-menu" id="notiDetail"></div>
+          <div class="dropdown-menu notiDetail" id="notiDetail"></div>
         </div>
         <span class="ml-2 user-color">@yield('user')</span>
         <div class="nav-item dropdown">

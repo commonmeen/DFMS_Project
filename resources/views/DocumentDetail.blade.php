@@ -73,7 +73,7 @@
                 You have successfully create the document.
             </div>
             <script>
-            $("#success-alert").fadeTo(3000, 500).slideUp(500, function(){
+            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
                 $("#success-alert").slideUp(500);
             });
             </script>
@@ -86,7 +86,7 @@
                 You have successfully edit the document.
             </div>
             <script>
-            $("#success-alert").fadeTo(3000, 500).slideUp(500, function(){
+            $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
                 $("#success-alert").slideUp(500);
             });
             </script>
