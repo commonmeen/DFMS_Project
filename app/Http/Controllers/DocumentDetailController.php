@@ -13,19 +13,23 @@ class DocumentDetailController extends Controller
             $input = $request->all();
             $previous = array();
             $thisDocument = docRepo::getDocumentById($input['doc_Id']);
-            if($thisDocument['previous_version'] != "0"){
-                $preDocument = docRepo::getDocumentById($thisDocument['previous_version']);
-                array_push($previous,$preDocument);
-                for( ; true ; ){
-                    if($preDocument['previous_version']!="0"){
-                        $preDocument = docRepo::getDocumentById($preDocument['previous_version']);
-                        array_push($previous,$preDocument);
-                    } else {
-                        break ;
+            if($thisDocument['document_Author']==Session::get('UserLogin')->user_Id){
+                if($thisDocument['previous_version'] != "0"){
+                    $preDocument = docRepo::getDocumentById($thisDocument['previous_version']);
+                    array_push($previous,$preDocument);
+                    for( ; true ; ){
+                        if($preDocument['previous_version']!="0"){
+                            $preDocument = docRepo::getDocumentById($preDocument['previous_version']);
+                            array_push($previous,$preDocument);
+                        } else {
+                            break ;
+                        }
                     }
                 }
+                return view("DocumentDetail",['document'=>$thisDocument,'previous_ver'=>$previous]);
+            } else {
+                dd("Error Occur","Permission denide, You can't access this page.");
             }
-            return view("DocumentDetail",['document'=>$thisDocument,'previous_ver'=>$previous]);
         } else {
             return view('Login');
         }
