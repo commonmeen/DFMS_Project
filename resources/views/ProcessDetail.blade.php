@@ -207,7 +207,18 @@
                 document.getElementById('show').innerHTML += "<h5 class=center style='margin-bottom:0px'>"+documentName+"</h5><br>";
                 @foreach($doc['data'] as $detail)
                     var title = '<?= $detail['title'] ?>';
-                    var detail = '<?= $detail['detail'] ?>';
+                    var detail = "";
+                    @if(is_array($detail['detail']))
+                        @foreach($detail['detail'] as $det)
+                            @if($det != array_last($detail['detail']))
+                                detail += ' <?= $det ?> , ';
+                            @else
+                                detail += ' <?= $det ?>';
+                            @endif
+                        @endforeach
+                    @else
+                        detail = '<?= $detail['detail'] ?>';
+                    @endif
                     document.getElementById('block-document').hidden = false;
                     document.getElementById('show').hidden = false;
                     document.getElementById('show').innerHTML += "<span class='topic-nomal'>"+title+"</span> : "; 
