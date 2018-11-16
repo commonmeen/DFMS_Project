@@ -77,7 +77,6 @@ a.nav-text:hover{
 .dropdown-btn{
   float: right;
 }
-
 .card-body{
   padding: 0.8em !important;
 }
@@ -85,11 +84,20 @@ a.nav-text:hover{
   height: 500px;
   overflow-y: hidden;
 }
-
 .process-height:hover{
   overflow-y: scroll;
 }
-
+.count{
+  width: 25px;
+  height: 25px;
+  background-color: #2A9EBF;
+  border-radius: 50%;
+  color: #f5f5f5;
+  text-align: center;
+  display: inline-block;
+  line-height: 1;
+  font-size: 18pt
+}
 
 
 
