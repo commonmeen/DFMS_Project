@@ -23,7 +23,7 @@ class AddFlowTemplateController extends Controller
                     }
                     Session::forget('FlowEdit');
                     return redirect()->route('FlowDetail',['id'=>$input["flow_Id"]]);
-                }else{
+                }else if(Session::has('FlowCreate')){
                     $flow = Session::get('FlowCreate');
                     if ($request->has('template_Id')){
                         flowRepo::addFlowTemplate($flow["flow_Id"],$input['template_Id']);
@@ -39,6 +39,8 @@ class AddFlowTemplateController extends Controller
                     $allUser = userRepo::listUser();
                     $position = positionRepo::getAllPosition();
                     return view('AddStep',['allStep'=>$allStepId, 'step'=>$next,'userList'=>$allUser, 'userPosition'=>$position, 'flow'=>$flow, 'stepData'=>null]) ;
+                } else {
+                    dd("Error occur","Page can't load, Session not found.");
                 }
             } else {
                 dd("Error occur", "Permission denied. Plz login on manager role.");
