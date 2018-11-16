@@ -16,7 +16,7 @@ class ProcessDetailController extends Controller
         if(Session::has("UserLogin")){
             $input = $request->all();
             $thisProcess = processRepo::getProcessById($input['id']);
-            if($thisProcess==null){
+            if($thisProcess!=null){
                 $stepFlow = stepRepo::getStepByFlow($thisProcess['process_FlowId']);
                 $flow = flowRepo::getFlowById($thisProcess['process_FlowId']);
                 $thisProcess['process_FlowName'] = $flow['flow_Name'] ;
