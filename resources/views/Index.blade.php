@@ -14,6 +14,11 @@
     @yield('script')
     @yield('head')
     <title>@yield('title')</title>
+    <style>
+        .card{
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
     {{-- nav --}}
@@ -26,68 +31,72 @@
     {{-- body --}}
     <div class="container mb-5">
         <div class="row mt-5">
-            <div class="col-lg-6 col-12 horizon-center test">
+            <div class="col-lg-6 col-12 horizon-center test ">
                 <h2 class="index-topic">DFMS</h2>
                 <p class="index-des">Document Flow Management System is made for the personal in organization to easily submit document and easily track about document in the process.</p>
-                <p class="index-des-1">In addition, Our application can made approver comfortable for approving the documents. It’s resolve the problem that they use long time for processing document to approve</p>
+                <p class="index-des-1 mb-4">In addition, Our application can made approver comfortable for approving the documents. It’s resolve the problem that they use long time for processing document to approve</p>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-12 d-none d-md-block">
                 <img src="../pic/poster.png" alt="" class="poster-img">
             </div>
+            <div class="col-lg-6 col-12 d-sm-none">
+                <br><br><br>
+            </div>
         </div>
-
         
-        <div class="row mb-4">
-            <div class="col-lg-4">
+        
+        
+        <div class="row mt-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card">
                     <img src="../pic/document.png" class="card-img-top index-img-card">
                     <div class="card-body">
-                        <h5 class="index-title">Document</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5 class="index-title">Document List</h5>
+                        <p class="card-text">Document arrangement in the order of different document types for approval. You can create and edit the information in your document, but the format has to follow the document template that you use.</p>
                     </div>
                 </div>  
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card">
                     <img src="../pic/template.png" class="card-img-top index-img-card">
                     <div class="card-body">
                         <h5 class="index-title">Document Template</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">The management of document form. You can create the template to provide the user an accurate document form.</p>
                     </div>
                 </div>
             </div>
             
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card">
                     <img src="../pic/submit.png" class="card-img-top index-img-card">
                     <div class="card-body">
                         <h5 class="index-title">Document Submission</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">The management of document submission. Attach and send the document in the provided Process flow.</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-4">
+            <div class="col-lg-2 mb-4"></div>
+            <div class="col-lg-4 mb-4">
                 <div class="card">
                     <img src="../pic/process.png" class="card-img-top index-img-card">
                     <div class="card-body">
                         <h5 class="index-title">Process Flow</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">Determining the steps of process document to be the document sending format which you can adapt to your own work effectively.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card">
                     <img src="../pic/approved.png" class="card-img-top index-img-card">
                     <div class="card-body">
                         <h5 class="index-title">Approve / Reject</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">Approving the document which is sent to you by the user. You can approve the document when it is correct or reject the document when it is incorrect.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2 mb-4"></div>
         </div>
     </div>
         
