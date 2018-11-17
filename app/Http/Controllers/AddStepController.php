@@ -102,10 +102,10 @@ class AddStepController extends Controller
                 $position = positionRepo::getAllPosition();
                 return view('AddStep',['step'=>null, 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>null]) ;
             } else {
-                dd("Err occur","This page can't load.","Session not found");
+                return view('ErrorHandel',['errorHeader'=>"Page can't load.",'errorContent'=>'Session not found.']);
             }
         } else {
-            dd("Error occur", "Permission denied. Plz login on manager role.");
+            return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
         }
     }
 

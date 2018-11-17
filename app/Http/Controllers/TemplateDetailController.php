@@ -18,7 +18,7 @@ class TemplateDetailController extends Controller
                 $thisTemplate->template_AuthorName = $authorObject['user_Name'].' '.$authorObject['user_Surname'];
                 return view('TemplateDetail',['template'=>$thisTemplate]);
             } else {
-                dd("Error occur", "Permission denied. Plz login on manager role.");
+                return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
             }
         } else {
             return view('Login');

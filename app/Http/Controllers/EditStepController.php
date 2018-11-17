@@ -32,7 +32,7 @@ class EditStepController extends Controller
                     return view('AddStep',['step'=>null, 'userList'=>$allUser, 'userPosition'=>$position , 'flow'=>$flow, 'stepData'=>$thisStep , 'stepNumber'=>$number]) ;
                 }
             } else 
-            dd("Error occur", "Permission denied. Plz login on manager role.");
+            return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
         } else 
         return view('Login');
     }

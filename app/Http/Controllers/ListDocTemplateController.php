@@ -18,7 +18,7 @@ class ListDocTemplateController extends Controller
                 }
                 return view('ListDocTemplate',['allTemplate'=>$allTemplate]);
             } else {
-                dd("Error occur", "Permission denied. Plz login on manager role.");
+                return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
             }
         } else {
             return view('Login');

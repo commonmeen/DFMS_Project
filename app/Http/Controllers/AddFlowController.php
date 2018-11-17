@@ -43,7 +43,7 @@ class AddFlowController extends Controller
                 $allTemplate = templateRepo::listTemplate();
                 return view('ListTemplate',['Flow'=>$thisFlow,'template'=>$allTemplate, 'allStepId'=>$allStepId]);       
             } else {
-                dd("Error occur", "Permission denied. Plz login on manager role.");
+                return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
             }
         } else {
             return view('Login');

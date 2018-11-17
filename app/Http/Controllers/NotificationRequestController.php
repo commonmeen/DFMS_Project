@@ -20,6 +20,7 @@ class NotificationRequestController extends Controller
             return ["noti"=>$notiThisUser, "count"=>$countUnread];
         } else {
             dd("Error occur", "Plz login.");
+            return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login.']);
         }
     }
 

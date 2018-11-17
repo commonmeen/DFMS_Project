@@ -26,7 +26,7 @@ class FlowDetailController extends Controller
                 $stepFlow = stepRepo::getStepByFlow($input['id']);
                 return view('FlowDetail',['flow'=>$thisFlow,'step'=>$stepFlow]);
             } else {
-                dd("Error occur", "Permission denied. Plz login on manager role.");
+                return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
             }
         } else {
             return view('Login');

@@ -28,7 +28,7 @@ class RejectProcessController extends Controller
             Session::put('alertStatus','RejectSuccess');
             return userRepo::sentEmail($data,$data->process_Owner['user_Email']);
         } else {
-            dd("Error occur", "Permission denied. Plz login on manager role.");
+            return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
         }
     }
 }

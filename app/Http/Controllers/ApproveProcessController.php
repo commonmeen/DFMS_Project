@@ -71,7 +71,7 @@ class ApproveProcessController extends Controller
             }           
             return ;
         } else {
-            dd("Error occur", "Permission denied. Plz login.");
+            return view('ErrorHandel',['errorHeader'=>"Permission denied.",'errorContent'=>'Please login.']);
         }
     }
 }

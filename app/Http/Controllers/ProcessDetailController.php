@@ -51,7 +51,7 @@ class ProcessDetailController extends Controller
                 }
                 return view('ProcessDetail',['process'=>$thisProcess,'steps'=>$stepFlow,'canApprove'=>$canApprove, 'owner'=>$processOwner, 'document'=>$documentObject]);
             } else {
-                dd("Error Occur","404! Page not found.");
+                return view('ErrorHandel',['errorHeader'=>'Error 404','errorContent'=>'Page not found.']);
             }
         } else {
             return view('Login');

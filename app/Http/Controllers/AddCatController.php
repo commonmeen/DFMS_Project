@@ -22,7 +22,7 @@ class AddCatController extends Controller
             $data = catRepo::getAllCategory();
             return ['listCat'=>$data];
         } else {
-            dd("Error occur", "Permission denied. Plz login on manager role.");
+            return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
         }
     }
 }

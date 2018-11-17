@@ -21,7 +21,7 @@ class ListCatController extends Controller
                 }
                 return view('AddFlow',['listCat'=>$data,'flow'=>$flow]);
             } else {
-                dd("Error occur", "Permission denied. Plz login on manager role.");
+                return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
             }
         } else {
             return view('Login');

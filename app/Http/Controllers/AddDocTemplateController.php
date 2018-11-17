@@ -11,7 +11,7 @@ class AddDocTemplateController extends Controller
             return view('AddDocTemplate');
         }
         else {
-            dd("Error occur", "Permission denied. Plz login on manager role.");
+            return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
         }
     }
 }

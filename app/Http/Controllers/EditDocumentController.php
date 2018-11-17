@@ -43,7 +43,7 @@ class EditDocumentController extends Controller
                 array_push($tempCanUse,(array)$template);
                 return view("AddDocument",['template'=>$tempCanUse,'documentData'=>$document]);
             } else {
-                dd("Error Occur","Permission denide. You can't edit this document");
+                return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'You can not edit this document.']);
             }
         } else {
             return view('Login');

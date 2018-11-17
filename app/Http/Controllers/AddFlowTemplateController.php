@@ -40,10 +40,11 @@ class AddFlowTemplateController extends Controller
                     $position = positionRepo::getAllPosition();
                     return view('AddStep',['allStep'=>$allStepId, 'step'=>$next,'userList'=>$allUser, 'userPosition'=>$position, 'flow'=>$flow, 'stepData'=>null]) ;
                 } else {
-                    dd("Error occur","Page can't load, Session not found.");
+                    return view('ErrorHandel',['errorHeader'=>"Page can't load.",'errorContent'=>'Session not found.']);
                 }
             } else {
-                dd("Error occur", "Permission denied. Plz login on manager role.");
+                return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
+                
             }
         } else {
             return view('Login');

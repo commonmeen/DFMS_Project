@@ -28,7 +28,7 @@ class DocumentDetailController extends Controller
                 }
                 return view("DocumentDetail",['document'=>$thisDocument,'previous_ver'=>$previous]);
             } else {
-                dd("Error Occur","Permission denide, You can't access this page.");
+                return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'You can not access this page.']);
             }
         } else {
             return view('Login');
