@@ -56,7 +56,7 @@
             <p class="topic">Document Template List</p>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 d-none d-sm-block">
-            <a role="button" class="btn btn-success float-right" href="AddDocTemplate">New Docuemtn Template</a>
+            <a role="button" class="btn btn-success float-right" href="AddDocTemplate">New Document Template</a>
         </div>
         {{--  Small screen  --}}
         <div class="col-12 d-sm-none center">   
