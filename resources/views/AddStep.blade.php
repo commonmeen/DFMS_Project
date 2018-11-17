@@ -6,8 +6,15 @@
 @section('script')
 <script type="text/javascript">
     function find(){
+        var userOnPage = document.getElementsByName('validator[]');
+        var userChecked = [];
+        for(var i=0 ; i<userOnPage.length ; i++){
+            if(userOnPage[i].checked){
+                userChecked.push(userOnPage[i].value);
+            }
+        }
         var formData = {
-            search : document.getElementById("search").value
+            search : document.getElementById("search").value, checked : userChecked
         };
         document.getElementById("defaultNull").selected = true  ;
         $.ajax({
@@ -18,18 +25,32 @@
             success  : function(response){
                 document.getElementById('userTable').innerHTML = "" ;
                 document.getElementById('notFoundErr').innerHTML = "";
-                if(response.searchAll.length>0){
-                    for(var i=0; i<response.searchAll.length ; i++){
+                if(response.checked.length>0){
+                    for(var i=0; i<response.checked.length ; i++){
                         document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
                         "<input type='checkbox' name='validator[]' onchange='validatorCheckValidate()'"+
-                        "value='"+response.searchAll[i].user_Id+
-                        "' id='"+response.searchAll[i].user_Id+
-                        "'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
-                        "</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+
-                        "</td><td id='user_Email'>"+response.searchAll[i].user_Email+
-                        "</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                        "value='"+response.checked[i].user_Id+
+                        "' id='"+response.checked[i].user_Id+
+                        "' checked></div> </td><td id='user_Name'>"+response.checked[i].user_Name+
+                        "</td><td id='user_Surname'>"+response.checked[i].user_Surname+
+                        "</td><td id='user_Email'>"+response.checked[i].user_Email+
+                        "</td><td id='user_Position'>"+response.checked[i].user_Position+"</td></tr>"
                     }
-                } else {
+                }
+                if(response.searchAll.length>0){
+                    for(var i=0; i<response.searchAll.length ; i++){
+                        if(response.searchAll[i] != 1){
+                            document.getElementById('userTable').innerHTML += "<tr><td><div class='ckbox'>"+
+                            "<input type='checkbox' name='validator[]' onchange='validatorCheckValidate()'"+
+                            "value='"+response.searchAll[i].user_Id+
+                            "' id='"+response.searchAll[i].user_Id+
+                            "'></div> </td><td id='user_Name'>"+response.searchAll[i].user_Name+
+                            "</td><td id='user_Surname'>"+response.searchAll[i].user_Surname+
+                            "</td><td id='user_Email'>"+response.searchAll[i].user_Email+
+                            "</td><td id='user_Position'>"+response.searchAll[i].user_Position+"</td></tr>"
+                        }
+                    }
+                } else if(response.checked.length==0) {
                     document.getElementById('notFoundErr').innerHTML = "Sorry, We couldn’t find any name/surname matching <b>'"+document.getElementById("search").value+"'</b>";
                 }
             }
@@ -326,7 +347,7 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-lg-3 justify-content-center align-self-center">
-                            <label class="topic-nomal horizon-center">Verified byy</label>
+                            <label class="topic-nomal horizon-center">Verified by</label>
                         </div>
                         
                         <label class="col-lg-3 radio-inline mb-0 horizon-center">
