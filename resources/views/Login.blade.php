@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link type="text/css" href="css/style.css" rel="stylesheet">
     <link rel="stylesheet/scss" type="text/scss" href="css/login.scss">
+    <link rel='shortcut icon' type='image/x-icon' href='../pic/header_logo.png' />
     <title>Document</title>
 
 </head>
