@@ -5,7 +5,7 @@
 @endsection
 @section('script')
     <!-- Data table -->
-    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <script src="js/jquery.dataTables.min.js"></script>
     
     <script>
