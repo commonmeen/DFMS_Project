@@ -18,7 +18,7 @@ class AddFlowController extends Controller
                 $allStepId = array() ;
                 if($request->has('flow')){
                     if($request->has('name')){
-                        $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['numberOfStep']);
+                        $flow = flowRepo::editFlow($input['flow'],$input['name'],$input['desc'],$input['catId'],$input['numberOfStep'],$input['attachRequire']);
                         if(Session::has('FlowEdit')){
                             Session::forget('FlowEdit');
                             return redirect('FlowDetail?id='.$input['flow']);
@@ -36,7 +36,7 @@ class AddFlowController extends Controller
                     }
                 } else {
                     $user = Session::get('UserLogin');
-                    $newFlowId = flowRepo::addFlow($input['name'],$user->user_Id,$input['desc'],$input['catId'],$input['numberOfStep']);
+                    $newFlowId = flowRepo::addFlow($input['name'],$user->user_Id,$input['desc'],$input['catId'],$input['numberOfStep'],$input['attachRequire']);
                     $thisFlow = flowRepo::getFlowById($newFlowId);
                     Session::put('FlowCreate',$thisFlow);
                 }

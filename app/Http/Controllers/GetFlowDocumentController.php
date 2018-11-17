@@ -16,7 +16,7 @@ class GetFlowDocumentController extends Controller
             $user = Session::get('UserLogin');
             $document = docRepo::listDocumentByUserId($user->user_Id);
             $document = docRepo::filterDocumentByFlow($flow,$document);
-            return ['documentList'=>$document] ;
+            return ['documentList'=>$document,'flowSelect'=>$flow] ;
         }
     }
 }
