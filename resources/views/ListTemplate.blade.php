@@ -107,7 +107,7 @@
                     </div>
                     <div class="col">
                         <button onclick="submitForm()" class="btn btn-success  float-right">Next</button>
-                        <a role="button" onclick="notDelSession()" class="btn btn-primary float-right mr-2" href="AddTemplate">Create</a>
+                        <a role="button" onclick="notDelSession()" class="btn btn-primary float-right mr-2" href="AddDocTemplate">Create</a>
                     </div>
                 </div>
                 <div class="row">
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <a role="button" onclick="notDelSession()" class="btn btn-primary btn-block" href="AddTemplate">Create</a>
+                        <a role="button" onclick="notDelSession()" class="btn btn-primary btn-block" href="AddDocTemplate">Create</a>
                     </div>
                     <div class="col-6">
                         <button onclick="submitForm()" class="btn btn-success btn-block float-right">Next</button>
