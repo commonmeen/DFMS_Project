@@ -12,7 +12,7 @@ use App\Repositories\Eloquent\EloquentFlowRepository as flowRepo;
 class RejectProcessController extends Controller
 {
     public function rejectProcess(Request $request){
-        if(Session::has('UserLogin') && Session::get('UserLogin')->user_Role=="manager"){
+        if(Session::has('UserLogin')){
             $mailReject = 'reject'; 
             $input = $request->all();
             $user = Session::get('UserLogin');
@@ -26,9 +26,13 @@ class RejectProcessController extends Controller
             $data = (object) $data;
             notiRepo::addNotification($data->process_Owner['user_Id'],"Process was rejected",$data->flow['flow_Name']." has been rejected.","/ProcessDetail?id=".$data->process_Id);
             Session::put('alertStatus','RejectSuccess');
-            return userRepo::sentEmail($data,$data->process_Owner['user_Email']);
+            if($request->has('ErrorDocCode')){
+                return redirect("/ListVerify");
+            } else {
+                return userRepo::sentEmail($data,$data->process_Owner['user_Email']);
+            }
         } else {
-            return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login on manager role.']);
+            return view('ErrorHandel',['errorHeader'=>'Permission denied.','errorContent'=>'Please login.']);
         }
     }
 }
