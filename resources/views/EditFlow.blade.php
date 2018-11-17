@@ -367,10 +367,32 @@
                                 <input type="hidden" name="numberOfStep" id="numberOfStep" value="{{$flow['numberOfStep']}}"></input>
                             </div>
                             <div class="col-lg-2 col-sm-3 col-3 horizon-center topic-nomal">Step(s)</div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-lg-5 col-5 col-md-5">
+                                <div class="form-group mb-0">
+                                    <label class="topic-nomal">Required Attachment</label>
+                                </div>
+                            </div>
+                            @if($flow['fileRequired']=="false")
+                                <div class="col-lg-3 col-3 mb-3 col-md-3">
+                                    <input class="mr-2" type="radio" name="attachRequire" value=true> Yes
+                                </div>
+                                <div class="col-lg-4 col-4 col-md-4 ">
+                                    <input class="mr-2" type="radio" name="attachRequire" value=false checked> No 
+                                </div>
+                            @elseif($flow['fileRequired']=="true")
+                                <div class="col-lg-3 col-3 mb-3 col-md-3">
+                                    <input class="mr-2" type="radio" name="attachRequire" value=true checked> Yes
+                                </div>
+                                <div class="col-lg-4 col-4 col-md-4 ">
+                                    <input class="mr-2" type="radio" name="attachRequire" value=false> No 
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div><br>
-                <div class="row">
+                <div class="row"> 
                     <div class="col-lg-8 col-xs-12 text-center block-center">
                         <button type="button" class="btn btn-danger m-2" onclick="stepCancelRequest('{{$flow['flow_Id']}}')">Cancel</button>
                         <button type="button" class="btn btn-success mb-0" onclick="submitDetail()">Save</button>

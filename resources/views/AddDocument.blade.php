@@ -89,7 +89,7 @@
                 if(document.getElementById('newDocument').checkValidity()){
                     document.getElementById('newDocument').submit() ;
                 } else {
-                    document.getElementById('errDocRequire').innerHTML = "** Please check your document, some field is require. **" ;
+                    document.getElementById('errDocRequire').innerHTML = "** Please check your document, some fields are wrong. **" ;
                 }
             } else {
                 $('html, body').animate({scrollTop:0}, 'slow');
