@@ -175,14 +175,18 @@
             data     : data,
             cache    : false,
             success  : function(response){
-
-                $(document).ajaxComplete(function(){
-                    $("#wait").css("display", "block");
-                    $('body').css('position','relative');
-                    $('body').css('min-height','100%');
-                    $('#overlay').css("display","block");
-                });
-                window.location = "ListVerify";
+                if(response.ErrorDocCode){
+                    console.log("DocCodeError");
+                    window.location = "Reject?pid="+processId+"&sid="+stepId+"&comment=docCode%20Change%20Please%20Check%20Your%20Document.&ErrorDocCode=true";
+                } else {
+                    $(document).ajaxComplete(function(){
+                        $("#wait").css("display", "block");
+                        $('body').css('position','relative');
+                        $('body').css('min-height','100%');
+                        $('#overlay').css("display","block");
+                    });
+                    window.location = "ListVerify";
+                }
             }
         });
     }
