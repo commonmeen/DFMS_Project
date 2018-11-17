@@ -46,6 +46,15 @@
                         document.getElementById('ckDoc').innerHTML = "<div style='text-align:center'>No document about this flow.</div>";
                         document.getElementById("errDocument").innerHTML = "** Please choose at least 1 document. **" ;
                     }
+                    if(response.flowSelect.fileRequired == "true"){
+                        document.getElementById("file-1").required = true ;
+                        document.getElementById("textRequired").innerHTML = "(Required*)";
+                        document.getElementById("textRequiredMobile").innerHTML = "(Required*)";
+                    } else {
+                        document.getElementById("file-1").required = false ;
+                        document.getElementById("textRequired").innerHTML = "(Optional)";
+                        document.getElementById("textRequiredMobile").innerHTML = "(Optional)";
+                    }
                     document.getElementById('hide').style.display = "";
                 }
             });
@@ -69,7 +78,7 @@
         }
 
         function validateAndSubmit(){
-            if(documentValidate()){
+            if(documentValidate()&&document.getElementById('newProcess').checkValidity()){
                 $('BODY').attr('onbeforeunload',false);
                 if($('input[type=file]')[0].files.length == 0){
                     document.getElementById('newProcess').submit();
@@ -175,11 +184,11 @@
             <div class="row">
                 {{--  Large screen  --}}
                 <div class="col-12 d-none d-sm-block">
-                    <p class="topic">Upload pic or file (Optional)</p>
+                    <p class="topic">Upload pic or file <span id="textRequired">(Optional)</span></p>
                 </div>
                 {{--  Small screen  --}}
                 <div class="col-12 d-sm-none">
-                    <p class="topic center">Upload pic or file (Optional)</p>
+                    <p class="topic center">Upload pic or file <span id="textRequiredMobile">(Optional)</span></p>
                 </div>
 
                 <div class="col-lg-12 col-sm-12 col-11 main-section">
