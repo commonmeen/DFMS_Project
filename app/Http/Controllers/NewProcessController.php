@@ -22,10 +22,22 @@ class NewProcessController extends Controller
                 $fileName = [] ;
             else
                 $fileName = Session::get('fileUploaded');
-            $process = processRepo::newProcess($user->user_Id,$input['flowId'],$input['document_Id'],$fileName,$input['textProcess']);
+            $str = "";
             foreach($input['document_Id'] as $doc_Id){
                 docRepo::changeStatus($doc_Id,"used");
+                foreach (docRepo::getDocumentById($doc_Id)['data'] as $data){
+                    if(is_array($data['detail'])){
+                        foreach($data['detail'] as $d){
+                            $str = $str.$d ;
+                        }
+                    } else {
+                        $str = $str.$data['detail'] ;
+                    }
+                    $str = $str.$data['name'] ;
+                }
             }
+            $docCode = hash("md5",$str."DFMS");
+            $process = processRepo::newProcess($user->user_Id,$input['flowId'],$input['document_Id'],$fileName,$input['textProcess'],$docCode);
             $processObject = json_decode($process);
             $stepObject = stepRepo::getStepById($processObject->current_StepId);
             if($stepObject['typeOfValidator'] == 'position'){
