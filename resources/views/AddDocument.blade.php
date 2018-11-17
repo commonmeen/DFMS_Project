@@ -83,14 +83,19 @@
         }
 
         function validateAndSubmit(){
+            document.getElementById('errDocRequire').innerHTML = "" ;
             $('BODY').attr('onbeforeunload',false);
             if(nameValidate()){
-                document.getElementById('newDocument').submit() ;
+                if(document.getElementById('newDocument').checkValidity()){
+                    document.getElementById('newDocument').submit() ;
+                } else {
+                    document.getElementById('errDocRequire').innerHTML = "** Please check your document, some field is require. **" ;
+                }
             } else {
                 $('html, body').animate({scrollTop:0}, 'slow');
             }
         }
-        
+
         function searchTemplate(){
             var word = document.getElementById('search').value ;
             var template = {!! json_encode($template) !!};
@@ -177,13 +182,14 @@
         <hr>
         <div id="hide" style="display:none">
             <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-8" style="padding:2%">
-                        <input type='hidden' name="prop" id="properties" value=""/>
-                        <div class="forFormRender"></div> 
-                    </div>
-                    <div class="col-2"></div>
+                <div class="col-2"></div>
+                <div class="col-8" style="padding:2%">
+                    <input type='hidden' name="prop" id="properties" value=""/>
+                    <div class="forFormRender"></div>
+                    <p class="center err-text" id="errDocRequire"></p> 
                 </div>
+                <div class="col-2"></div>
+            </div>
             <div class="row">
                 <div class="block-center">
                     <a class="btn btn-danger m-2" href="/ListDocument">Cancel</a>
