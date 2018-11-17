@@ -114,39 +114,47 @@
         <div class="row">
             <div class="col-lg-10 block-center mt-3 mb-3">
                 <div class="row" style="white-space:pre-line;">
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <label class="col-form-labelr align-self-center topic-nomal mb-0">Description : </label>
                     </div>
-                    <div class="col-lg-10" >
+                    <div class="col-lg-9" >
                         {{$flow['flow_Description']}}
                     </div>
                 </div>   
                 <div class="row">
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <label class="col-form-labelr align-self-center topic-nomal mb-0">Deadline : </label>
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-9">
                         {{$flow['flow_Deadline']}} Day(s)
                     </div>
                 </div> 
                 <div class="row">
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <label class="col-form-labelr align-self-center topic-nomal mb-0">Category : </label>
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-9">
                         {{$flow['flow_CatId']}} 
                     </div>
                 </div> 
                 <div class="row">
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
+                        <label class="col-form-labelr align-self-center topic-nomal mb-0">Required Attachment : </label>
+                    </div>
+                    <div class="col-lg-9">
+                        {{$flow['fileRequired']}} 
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-lg-3">
                         <label class="col-form-labelr align-self-center topic-nomal mb-0">Template : </label>
                     </div>
                     @foreach($flow['template_Id'] as $template_Name)
-                        <div class="col-lg-10">
+                        <div class="col-lg-9">
                             {{array_search($template_Name, $flow['template_Id'])+1}}. {{$template_Name}}
                         </div>
                         @if(array_last($flow['template_Id'])!=$template_Name)
-                        <div class="col-lg-2"></div>
+                        <div class="col-lg-3"></div>
                         @endif
                     @endforeach
                 </div>
