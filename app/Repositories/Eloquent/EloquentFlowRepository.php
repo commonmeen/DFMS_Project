@@ -37,7 +37,7 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         return $flowGroupCat;
     }
 
-    public static function addFlow($name,$author,$desc,$catId,$noStep){
+    public static function addFlow($name,$author,$desc,$catId,$noStep,$fileRequired){
         $prev = Flow::orderBy('flow_Id','desc')->take(1)->get();
         $newId = 'F'.str_pad(substr($prev[0]->flow_Id,1)+1, 5, '0', STR_PAD_LEFT);
         $flow = new Flow ;
@@ -50,6 +50,7 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $flow->numberOfStep = $noStep ;
         $flow->time_AVG = 0 ;
         $flow->numberOfUse = 0 ;
+        $flow->fileRequired = $fileRequired ;
         $flow->template_Id = [];
         $flow->status = "creating";
         $flow->save();   
@@ -77,13 +78,14 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         return ;
     }
 
-    public static function editFlow($id,$name,$desc,$catId,$noStep)
+    public static function editFlow($id,$name,$desc,$catId,$noStep,$required)
     {
         $flow = Flow::where('flow_Id',$id)->first();
         $flow->flow_Name = $name;
         $flow->flow_Description = $desc;
         $flow->flow_CatId = $catId;
         $flow->numberOfStep = $noStep ;
+        $flow->fileRequired = $required ;
         $flow->save(); 
         return $flow;
     }
@@ -112,6 +114,7 @@ class EloquentFlowRepository extends AbstractRepository implements FlowRepositor
         $newFlow->numberOfStep = $oldFlow->numberOfStep ;
         $newFlow->time_AVG = $oldFlow->time_AVG ;
         $newFlow->numberOfUse = $oldFlow->numberOfUse ;
+        $newFlow->fileRequired = $oldFlow->fileRequired ;
         $newFlow->template_Id = $oldFlow->template_Id ;
         $newFlow->status = "on";
         $newFlow->save();
