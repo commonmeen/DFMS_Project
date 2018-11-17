@@ -9,6 +9,7 @@
     <script src="js/jquery-3.3.1.js"  crossorigin="anonymous"></script>
     <script src="js/popper.min.js"  crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"  crossorigin="anonymous"></script>
+    <link rel='shortcut icon' type='image/x-icon' href='../pic/header_logo.png' />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link type="text/css" href="css/style.css" rel="stylesheet">
     @yield('script')
@@ -141,7 +142,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light nav-color sticky-top">
       <div class="container">
-        <a class="navbar-brand" href="/">DFMS</a>
+        <a class="navbar-brand" href="/"><img src="../pic/logo.png" alt="" width="100"></a>
         {{-- Small screen --}}
         <a class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" id="bellMobile"><img class="d-md-block d-lg-none" src="pic/notification.png"></a>
         <span class="d-md-block d-lg-none noti-num-small" id="countNotiMobile"></span>
