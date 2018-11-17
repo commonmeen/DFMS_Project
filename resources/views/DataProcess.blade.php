@@ -78,15 +78,19 @@
         }
 
         function validateAndSubmit(){
-            if(documentValidate()&&document.getElementById('newProcess').checkValidity()){
-                $('BODY').attr('onbeforeunload',false);
-                if($('input[type=file]')[0].files.length == 0){
-                    document.getElementById('newProcess').submit();
-                } else {
-                    $("#file-1").fileinput("upload");
-                    $('#file-1').on('filebatchuploadsuccess', function(event, data) {
+            if(documentValidate()){
+                if(document.getElementById('newProcess').checkValidity()){
+                    $('BODY').attr('onbeforeunload',false);
+                    if($('input[type=file]')[0].files.length == 0){
                         document.getElementById('newProcess').submit();
-                    }); 
+                    } else {
+                        $("#file-1").fileinput("upload");
+                        $('#file-1').on('filebatchuploadsuccess', function(event, data) {
+                            document.getElementById('newProcess').submit();
+                        }); 
+                    }
+                } else {
+                    document.getElementById('fileErr').innerHTML = "File is required." ;
                 }
             } else {
                 $('html, body').animate({scrollTop:0}, 'slow');
@@ -199,6 +203,7 @@
                         </div>
                     </div>
                 </div>
+                <p class="err-text ml-5" id="fileErr"></p>
             </div>
             <hr>
             <div class="row">
