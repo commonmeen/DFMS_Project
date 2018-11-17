@@ -8,7 +8,9 @@
 <script src="js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#allTemp').DataTable();
+        $('#allTemp').DataTable({
+            "order": [[2,"desc"]]
+        });
     } );
 
     

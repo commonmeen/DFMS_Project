@@ -163,19 +163,27 @@
 </div>
     <script>
         $(document).ready( function () {
-            $('#inProgress-process').DataTable();
+            $('#inProgress-process').DataTable({
+                "order": [[1,"desc"]]
+            });
         } );
 
         $(document).ready( function () {
-            $('#approved-process').DataTable();
+            $('#approved-process').DataTable({
+                "order": [[1,"desc"]]
+            });
         } );
 
         $(document).ready( function () {
-            $('#comming-process').DataTable();
+            $('#comming-process').DataTable({
+                "order": [[1,"desc"]]
+            });
         } );
 
         $(document).ready( function () {
-            $('#reject-process').DataTable();
+            $('#reject-process').DataTable({
+                "order": [[1,"desc"]]
+            });
         } );
 
 

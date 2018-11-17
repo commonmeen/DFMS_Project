@@ -10,11 +10,15 @@
     
     <script>
         $(document).ready( function () {
-            $('#sent-page').DataTable();
+            $('#sent-page').DataTable({
+                "order": [[1,"desc"]]
+            });
         } );
 
         $(document).ready( function () {
-            $('#drafts-page').DataTable();
+            $('#drafts-page').DataTable({
+                "order": [[1,"desc"]]
+            });
         });
 
     </script>

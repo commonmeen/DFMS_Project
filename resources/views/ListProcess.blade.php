@@ -175,19 +175,27 @@
 
     <script>
         $(document).ready( function () {
-            $('#onProcess-page').DataTable();
+            $('#onProcess-page').DataTable({
+                "order": [[1,"desc"]]
+            });
         } );
 
         $(document).ready( function () {
-            $('#success-page').DataTable();
+            $('#success-page').DataTable({
+                "order": [[1,"desc"]]
+            });
         } );
 
         $(document).ready( function () {
-            $('#cancel-page').DataTable();
+            $('#cancel-page').DataTable({
+                "order": [[1,"desc"]]
+            });
         } );
 
         $(document).ready( function () {
-            $('#reject-page').DataTable();
+            $('#reject-page').DataTable({
+                "order": [[1,"desc"]]
+            });
         } );
     </script>
 @endsection   
