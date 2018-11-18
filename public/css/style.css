@@ -103,6 +103,8 @@ a.nav-text:hover{
     margin-right: auto;
     margin-left: auto;
     border-radius: 50%;
+    background-color: #2A9EBF;
+    padding: 15px;
     display: block;
 }
 .center{
