@@ -27,7 +27,7 @@
                 <div class="mb-4">
                     <div class="row">
                         <div class="col-lg-4">
-                            <img src="../pic/user.png" class="profilePic" > 
+                            <img src="../pic/profile.png" class="profilePic" > 
                         </div>
                         <div class="col-lg-8">
                             <span><span class="topic-nomal">Name : </span>{{$data->user_Name}} {{$data->user_Surname}}</span><br>
@@ -214,7 +214,7 @@
             <div class="col-12 col-lg-4 col-md-6 mt-3">
                 <div class="row">
                     <div class="col-lg-12 center mb-3">
-                        <img src="../pic/user.png" class="profilePic" style="width:30%"> 
+                        <img src="../pic/profile.png" class="profilePic" style="width:30%"> 
                     </div>
                     <div class="col-lg-12">
                         <span>Name : {{$data->user_Name}} {{$data->user_Surname}}</span><br>
