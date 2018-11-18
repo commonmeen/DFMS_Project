@@ -383,7 +383,7 @@
                 <div class="col-lg-6 block-center mb-3">
                     <p class="topic">Comments :</p>
                     @foreach($process['process_Step'] as $stepApproved)
-                        @if($process['current_StepId']=="reject")
+                        @if($process['current_StepId']=="reject" && array_last($process['process_Step'])==$stepApproved)
                             <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Rejected) {{$stepApproved['comment']}}</div>
                         @else
                             <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Approved) {{$stepApproved['comment']}}</div>
