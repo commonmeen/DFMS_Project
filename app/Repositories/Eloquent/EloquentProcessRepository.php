@@ -79,7 +79,7 @@ class EloquentProcessRepository extends AbstractRepository implements ProcessRep
             $approveData->validator_Id = $approver_Id ;
             $approveData->comment = $comment ;
             $approveData->doc_Code = $docCode ;
-            $approveData->approve_Time = date("Y-m-d h:i:s");
+            $approveData->approve_Time = date("Y-m-d H:i:s");
             $timeDiff = date_diff(now(),$data->updated_at) ;
             $stepTimeInMinute = $timeDiff->format('%d')*1440+$timeDiff->format('%h')*60+$timeDiff->format('%i') ;
             $approveData->step_Time = $stepTimeInMinute ;
@@ -104,7 +104,7 @@ class EloquentProcessRepository extends AbstractRepository implements ProcessRep
             $rejectData->validator_Id = $approver_Id ;
             $rejectData->comment = $comment ;
             $rejectData->docCode = $docCode ;
-            $rejectData->approve_Time = date("Y-m-d h:i:s");
+            $rejectData->approve_Time = date("Y-m-d H:i:s");
             $timeDiff = date_diff(now(),$data->updated_at) ;
             $stepTimeInMinute = $timeDiff->format('%d')*1440+$timeDiff->format('%h')*60+$timeDiff->format('%i') ;
             $rejectData->step_Time = $stepTimeInMinute ;
