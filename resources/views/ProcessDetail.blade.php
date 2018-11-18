@@ -177,7 +177,7 @@
             success  : function(response){
                 if(response.ErrorDocCode){
                     console.log("DocCodeError");
-                    window.location = "Reject?pid="+processId+"&sid="+stepId+"&comment=docCode%20Change%20Please%20Check%20Your%20Document.&ErrorDocCode=true";
+                    window.location = "Reject?pid="+processId+"&sid="+stepId+"&comment=Document%20was%20changed%20during%20submission,%20Please%20check%20your%20document.&ErrorDocCode=true";
                 } else {
                     $(document).ajaxComplete(function(){
                         $("#wait").css("display", "block");
