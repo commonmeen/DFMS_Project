@@ -238,8 +238,16 @@
                         cache    : false,
                         success  : function(response){
                             if(response.temp != null){
-                                window.location = "/ListDocTemplate";
-                                {{Session::put('tempStatus','AddTemplate')}}
+                                var fromEditFlow = "<?= Session::has('FlowEdit')?>";
+                                var fromAddFlow = "<?= Session::has('FlowCreate')?>";
+                                if(fromEditFlow==""&&fromAddFlow==""){
+                                    window.location = "/ListDocTemplate";
+                                    {{Session::put('tempStatus','AddTemplate')}}
+                                } else if(fromEditFlow == "1") {
+                                    window.location = "/EditFlow?flow_Id="+"<?= Session::get('FlowEdit')['flow_Id'] ?>#flowTemplate";
+                                } else if(fromAddFlow == "1"){
+                                    window.location = "/ListTemplate?flow="+"<?= Session::get('FlowCreate')['flow_Id'] ?>" ;
+                                }
                             }    
                         }
                     });
