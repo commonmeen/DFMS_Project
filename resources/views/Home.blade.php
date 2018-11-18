@@ -273,24 +273,22 @@
                             </div>
                         @else
                             @foreach($allProcess as $process)
-                                @if($process['current_StepId']!="success" && $process['current_StepId']!="cancel" && $process['current_StepId']!="reject")
-                                    <div class="card">
-                                        <a href="ProcessDetail?id={{$process['process_Id']}}" class="list-group-item-action">
-                                            <div class="card-body">
-                                                @php $step = count($process['process_Step'])@endphp
-                                                <div class="row cardDetail">
-                                                    <span class="col-12"><span class="topic-nomal">Flow name : </span>{{$process['flow_Name']}}</span>
-                                                    <span class="col-12"><span class="topic-nomal">Stage : 
-                                                        @if($step==0)
-                                                            </span>N/A</span>
-                                                        @else
-                                                            </span>{{$step}} of {{$process['numberOfStep']}}</span>
-                                                        @endif
-                                                </div>   
-                                            </div>
-                                        </a>
-                                    </div>
-                                @endif
+                                <div class="card">
+                                    <a href="ProcessDetail?id={{$process['process_Id']}}" class="list-group-item-action">
+                                        <div class="card-body">
+                                            @php $step = count($process['process_Step'])@endphp
+                                            <div class="row cardDetail">
+                                                <span class="col-12"><span class="topic-nomal">Flow name : </span>{{$process['flow_Name']}}</span>
+                                                <span class="col-12"><span class="topic-nomal">Stage : 
+                                                    @if($step==0)
+                                                        </span>N/A</span>
+                                                    @else
+                                                        </span>{{$step}} of {{$process['numberOfStep']}}</span>
+                                                    @endif
+                                            </div>   
+                                        </div>
+                                    </a>
+                                </div>
                             @endforeach
                         @endif
                     </div>
