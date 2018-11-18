@@ -38,6 +38,20 @@
         });
         </script>
         {{Session::forget("alertStatus")}}
+
+    @elseif(Session::get("alertStatus") == "ErrorDocCode")
+        <div class="alert alert-danger" id="error-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Warning! </strong>
+            The document was modified during submission.
+        </div>
+
+        <script>
+        $("#error-alert").fadeTo(5000, 500).slideUp(500, function(){
+            $("#error-alert").slideUp(500);
+        });
+        </script>
+        {{Session::forget("alertStatus")}}
     @endif
 
     <div class="row">
