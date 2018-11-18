@@ -16,6 +16,17 @@
             line-height: 1.50;
             font-size: 14pt
           }
+        .profilePic{
+            width: 80%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            margin-right: auto;
+            margin-left: auto;
+            border-radius: 50%;
+            background-color: #2A9EBF;
+            padding: 15px;
+            display: block;
+        }
     </style>
 @endsection
 @section('content')

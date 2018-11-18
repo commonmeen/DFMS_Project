@@ -96,17 +96,6 @@ a.nav-text:hover{
 
 /* Menu */
 
-.profilePic{
-    width: 80%;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    margin-right: auto;
-    margin-left: auto;
-    border-radius: 50%;
-    background-color: #2A9EBF;
-    padding: 15px;
-    display: block;
-}
 .center{
     text-align: center;
 }
