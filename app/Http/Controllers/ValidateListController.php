@@ -63,6 +63,7 @@ class ValidateListController extends Controller
                         } else {
                             foreach($process['process_Step'] as $passStep){
                                 if($passStep['step_Id'] == $step['step_Id']){
+                                    $process['updated_at'] = $passStep['approve_Time'];
                                     array_push($passMe,$process);
                                     $i = 1 ;
                                     break;
