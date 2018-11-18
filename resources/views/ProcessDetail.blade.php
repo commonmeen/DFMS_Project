@@ -94,15 +94,6 @@
                     } else if (response.type == "password"){
                         $('#passwordModal').modal();
                         $('#passwordYes').click(function() {
-                            
-                            //Start loading
-                            $(document).ajaxStart(function(){
-                                $("#wait").css("display", "block");
-                                $('body').css('position','relative');
-                                $('body').css('min-height','100%');
-                                $('#overlay').css("display","block");
-                            });
-
                             var data = {password:document.getElementById('password').value} ;
                             var statusAlready = $.Deferred();
                             var status ;
@@ -112,6 +103,13 @@
                                 data     : data,
                                 cache    : false,
                                 success  : function(response){
+                                    //Start loading
+                                    $(document).ajaxStart(function(){
+                                        $("#wait").css("display", "block");
+                                        $('body').css('position','relative');
+                                        $('body').css('min-height','100%');
+                                        $('#overlay').css("display","block");
+                                    });
                                     status = response.status;
                                     statusAlready.resolve(status) ;
                                 }
@@ -317,6 +315,9 @@
         <div class="container">
             <div class="row bs-wizard " style="border-bottom:0;">
                 @php $index = 1; $complete = count($process['process_Step'])  @endphp
+                @if($process['current_StepId']=="reject")
+                    @php $complete-- @endphp
+                @endif
                 @foreach($steps as $step)
                     @if($index < $complete+1)
                         <div class="col-{{12/count($steps)}} col-md-{{12/count($steps)}} col-lg-{{12/count($steps)}} bs-wizard-step complete">                          
@@ -383,7 +384,7 @@
                 <div class="col-lg-6 block-center mb-3">
                     <p class="topic">Comments :</p>
                     @foreach($process['process_Step'] as $stepApproved)
-                        @if($process['current_StepId']=="reject")
+                        @if($process['current_StepId']=="reject" && array_last($process['process_Step'])==$stepApproved)
                             <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Rejected) {{$stepApproved['comment']}}</div>
                         @else
                             <div class="col-lg-12 bg-comment"><span class="usr-comment">{{$stepApproved['approver_Detail']['user_Name']}}  {{$stepApproved['approver_Detail']['user_Surname']}}</span>  : (Approved) {{$stepApproved['comment']}}</div>
