@@ -121,12 +121,15 @@
         }
         
         $(document).ready(function() {
+            var fromProcess = "<?=Session::has('NewProcess')?>";
             if(document.getElementById('tempId').value != 'notSelect'){
                 templateSelect();
-                document.getElementById('hide').style.display = '';
-                document.getElementById('search').disabled = true ;
-                document.getElementById('topic1').innerHTML = "Edit Document" ;
-                document.getElementById('topic2').innerHTML = "Edit Document" ;
+                if(fromProcess == "false"){
+                    document.getElementById('hide').style.display = '';
+                    document.getElementById('search').disabled = true ;
+                    document.getElementById('topic1').innerHTML = "Edit Document" ;
+                    document.getElementById('topic2').innerHTML = "Edit Document" ;
+                }
             }
         });
     </script>
@@ -171,6 +174,15 @@
                                 @endif
                             @endfor                         
                         </select>
+                        @if(Session::has('NewProcess'))
+                            @if(count(Session::get('NewProcess')['template_Id'])>0)
+                                <script>
+                                    var i = '<?= Session::get('NewProcess')['template_Id'][0] ?>';
+                                    console.log(i);
+                                    document.getElementById('tempId').value = "<?= Session::get('NewProcess')['template_Id'][0] ?>";
+                                </script>
+                            @endif
+                        @endif
                     </div>
                     <div class="col-lg-5 col-12 mb-2">
                         <span class="topic-nomal">Search Template : </span>
