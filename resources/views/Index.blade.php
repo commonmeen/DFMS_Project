@@ -25,7 +25,7 @@
     {{-- nav --}}
     <nav class="navbar navbar-expand-lg navbar-light nav-color sticky-top">
         <div class="container">
-        <a class="navbar-brand" href="/">DFMS</a>
+        <a class="navbar-brand" href="/"><img src="../pic/logo.png" alt="" width="100"></a>
         <a href="Login" class="btn btn-light mb-0">Login</a>
     </nav>      
 
