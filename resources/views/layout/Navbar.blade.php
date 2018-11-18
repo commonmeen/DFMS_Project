@@ -104,7 +104,7 @@
                 }
                 else if(data.noti[i].header == "Process was rejected"){
                   document.getElementById("notiDetail").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='"+data.noti[i].link+"'><img class='img-noti' src='../pic/reject.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
-                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='"+data.noti[i].link+"'><img class='img-noti' src='../pic/approve.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
+                  document.getElementById("notiDetailMobile").innerHTML += "<a class='dropdown-item disable unread' onclick=changeNotiStatus('"+data.noti[i].notification_Id+"') href='"+data.noti[i].link+"'><img class='img-noti' src='../pic/reject.png'><strong>"+data.noti[i].detail+"</strong><br>"+stringDate+"</a>"
                 
                 }
               } 
