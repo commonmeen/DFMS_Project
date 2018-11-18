@@ -37,7 +37,11 @@ class AddDocumentController extends Controller
                 $newDocumentId = docRepo::addNewDocument($input['name'],Session::get('UserLogin')->user_Id,$input['tempId'],$datas,"0");
                 $alertStatus = "Success";
             }
-            return redirect('DocumentDetail?doc_Id='.$newDocumentId)->with('alertStatus',$alertStatus);
+            if(Session::has("NewProcess")){
+                return redirect('DataProcess');
+            } else {
+                return redirect('DocumentDetail?doc_Id='.$newDocumentId)->with('alertStatus',$alertStatus);
+            }
         } else {
             return view('Login');
         }

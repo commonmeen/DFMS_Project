@@ -64,6 +64,7 @@ class NewProcessController extends Controller
                     userRepo::sentEmail($data,$data->validator['user_Email']);
                 }
             }
+            Session::forget('NewProcess');
             Session::forget('fileUploaded');
             return redirect('ListProcess')->with('alertStatus', 'Success');
         } else {
