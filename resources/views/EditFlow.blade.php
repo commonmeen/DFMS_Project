@@ -108,6 +108,10 @@
             }
         });
     }
+    function createTempRequest(){
+        $('BODY').attr('onbeforeunload',false);
+        $(window).off("unload");
+    }
     function stepAddRequest(flow_Id){
         $('BODY').attr('onbeforeunload',false);
         $(window).off("unload");
@@ -416,7 +420,7 @@
                         </div>  
                         <div class="col-12 col-lg-4 right">
                             <button type="button" class="btn btn-success  float-right" onClick="submitTemplate()">Save</button>
-                            <a role="button" class="btn btn-primary float-right mr-2" href="AddTemplate">Create</a>
+                            <a role="button" class="btn btn-primary float-right mr-2" onclick="createTempRequest()" href="AddDocTemplate">Create</a>
                         </div>
                     </div>
                 </div>

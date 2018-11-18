@@ -80,7 +80,7 @@
         function validateAndSubmit(){
             if(documentValidate()){
                 if(document.getElementById('newProcess').checkValidity()){
-                    $('BODY').attr('onbeforeunload',false);
+                    notDelSession();
                     if($('input[type=file]')[0].files.length == 0){
                         document.getElementById('newProcess').submit();
                     } else {
@@ -97,6 +97,19 @@
             }
         }
         
+        function notDelSession(){
+            $('BODY').attr('onbeforeunload',false);
+            $(window).off("unload");
+        }
+
+        $(window).on("unload",function () {
+            $.ajax({
+                type: 'GET',
+                async: false,
+                url: 'clear/session/NewProcess'
+            });
+        });
+
         function closeRequest(){
             return "You have unsaved changes!";
         }
@@ -156,6 +169,12 @@
                                     <option value="{{$flow->flow_Id}}">{{$flow->flow_Name}}</option>
                                 @endforeach                            
                         </select>
+                        @if(Session::has('NewProcess'))
+                            <script> 
+                                document.getElementById('flowId').value = '<?= Session::get('NewProcess')['flow_Id'] ?>';
+                                flowSelect(); 
+                            </script>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -169,14 +188,14 @@
                     <div class="err-text" id="errDocument"></div>
                 </div>
                 <div class="col-12 col-sm-3 col-lg-3 d-none d-sm-block">
-                    <a role="button" class="btn btn-success float-right" href="GetTemplateForDocument">New Document</a>
+                    <a role="button" onclick="notDelSession()" class="btn btn-success float-right" href="GetTemplateForDocument">New Document</a>
                 </div>
                 {{--  Small screen  --}}
                 <div class="col-12 d-sm-none">
                     <p class="topic center">Choose Document</p>
                 </div>
                 <div class="col-12 col-sm-3 col-lg-3 d-sm-none">
-                    <a role="button" class="btn btn-block btn-success float-right" href="GetTemplateForDocument">New Document</a>
+                    <a role="button" class="btn btn-block btn-success float-right" onclick="notDelSession()" href="GetTemplateForDocument">New Document</a>
                     <div class="err-text center" id="errDocuments"></div>
                 </div>
                 
