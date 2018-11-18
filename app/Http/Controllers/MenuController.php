@@ -22,10 +22,16 @@ class MenuController extends Controller
             $processes = processRepo::getProcessByOwner($id);
             $validator = validatorRepo::getValidateByUserId($id);
             // Flow process
-            for($i=0; $i < count($processes) ; $i++){
-                $process_Flow = flowRepo::getFlowById($processes[$i]['process_FlowId']);
-                $processes[$i]['flow_Name'] = $process_Flow['flow_Name'];
-                $processes[$i]['numberOfStep'] = $process_Flow['numberOfStep'];
+            $processShow = array();
+            foreach($processes as $process){
+                if($process['current_StepId']!="success" && $process['current_StepId']!="cancel" && $process['current_StepId']!="reject"){
+                    array_push($processShow,$process);
+                }
+            }
+            for($i=0; $i < count($processShow) ; $i++){
+                $process_Flow = flowRepo::getFlowById($processShow[$i]['process_FlowId']);
+                $processShow[$i]['flow_Name'] = $process_Flow['flow_Name'];
+                $processShow[$i]['numberOfStep'] = $process_Flow['numberOfStep'];
             }
             // Verify process
             $now = array();
@@ -64,7 +70,7 @@ class MenuController extends Controller
             }
             $data = userRepo::getPosition($data);
             if($data!=null){
-                return view('Home',['data'=>$data,'catFlow'=>$catFlow, 'allProcess'=>$processes ,'nowProcess'=>$now]);
+                return view('Home',['data'=>$data,'catFlow'=>$catFlow, 'allProcess'=>$processShow ,'nowProcess'=>$now]);
             }
         } else if($request->has('email')) {
             $passStatus = userRepo::checkPassword($request->input('email'),$request->input('password'));
