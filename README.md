@@ -9,6 +9,7 @@ Getting Start
 - [PHP Extensions]
     - MongoDB (http://php.net/manual/en/mongodb.installation.php)
 - [Composer](https://getcomposer.org/) 1.6.0 *or newer.*
+- [NodeJs](https://nodejs.org/en/) 11.3.0 *or newer.*
 
 Installation
 ------------
@@ -18,6 +19,12 @@ Install [jenssegers/mongodb](https://github.com/jenssegers/laravel-mongodb/blob/
 
 ```
 composer require jenssegers/mongodb
+```
+
+Install [jQuery Form Builder](https://formbuilder.online) package for using plugin that gives users to create forms with drag and drop component (You need to install 'NodeJs' first):
+
+``
+npm i --save formBuilder
 ```
 
 And setup project:
