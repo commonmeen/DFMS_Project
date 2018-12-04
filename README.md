@@ -21,9 +21,9 @@ Install [jenssegers/mongodb](https://github.com/jenssegers/laravel-mongodb/blob/
 composer require jenssegers/mongodb
 ```
 
-Install [jQuery Form Builder](https://formbuilder.online) package for using plugin that gives users to create forms with drag and drop component (You need to install 'NodeJs' first):
+Install [jQuery Form Builder](https://formbuilder.online) package for using plugin that gives users to create forms with drag and drop component (You need to install 'NodeJs' first)
 
-``
+```
 npm i --save formBuilder
 ```
 
