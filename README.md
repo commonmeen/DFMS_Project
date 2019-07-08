@@ -33,7 +33,7 @@ And setup project:
 composer update
 ```
 
-### Environment Configulation
+### Environment Configuration
 
 Copy the `.env.example` to `.env`
 
